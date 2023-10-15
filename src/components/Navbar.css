@@ -2,5 +2,44 @@
 nav {
   background-color: var(--color-light-3);
   width: 15vw;
-  height: 100%;
+  height: 100vh;
+}
+
+.hideNav{
+  height: 80vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  margin-left: 20px;
+  border-radius: 20px;
+  transform: translateX(-16vw);
+  transition: height ease 0.3s, margin ease 0.3s, border-radius ease 0.3s, transform 0.3s ease 0.2s;
+}
+
+.showNav{
+  transition: height 0.3s ease 0.2s, margin 0.3s ease 0.2s, border-radius 0.3s ease 0.2s, transform 0.3s ease;
+}
+
+#backbutton{
+  position: absolute;
+}
+
+.navUl{
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.navUl li{
+  margin: 0px;
+  padding: 15px;
+  display: flex;
+  transition: background-color ease 0.15s;
+}
+
+.navUl li:hover{
+  background-color: var(--color-light-2);
+}
+
+.navUl li:active{
+  background-color: var(--color-light-1);
 }
