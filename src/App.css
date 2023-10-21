@@ -6,7 +6,10 @@
   --color-light-4: #ddd;
   --color-dark-1: #000; 
   --color-dark-2: #222; 
-  --color-dark-3: #444; 
+  --color-dark-3: #444;
+
+  --white: #ffffff;
+  --black: #000000;
 }
 
 body, html {
@@ -22,4 +25,38 @@ body, html {
   flex-direction: row;
   width: 100%;
   height: 100vh;
+}
+
+.main{
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
 }

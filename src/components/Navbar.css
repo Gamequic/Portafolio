@@ -1,22 +1,33 @@
 
 nav {
+  z-index: 1;
   background-color: var(--color-light-3);
   width: 15vw;
   height: 100vh;
 }
 
+@keyframes marginAnimation{
+  0%{
+    margin-left: 0;
+  }
+  100%{
+    margin-left: 40px;
+  }
+}
+
 .hideNav{
+  width: 0;
   height: 80vh;
   margin-top: 10vh;
   margin-bottom: 10vh;
-  margin-left: 20px;
   border-radius: 20px;
   transform: translateX(-16vw);
-  transition: height ease 0.3s, margin ease 0.3s, border-radius ease 0.3s, transform 0.3s ease 0.2s;
+  transition: width 0.4s ease 0.4s, height ease 0.3s, margin ease 0.3s, border-radius ease 0.3s, transform 0.3s ease 0.2s;
+  animation: marginAnimation 0.4s ease;
 }
 
 .showNav{
-  transition: height 0.3s ease 0.2s, margin 0.3s ease 0.2s, border-radius 0.3s ease 0.2s, transform 0.3s ease;
+  transition: width ease 0.3s, height 0.3s ease 0.2s, margin 0.3s ease 0.2s, border-radius 0.3s ease 0.2s, transform 0.3s ease;
 }
 
 #backbutton{

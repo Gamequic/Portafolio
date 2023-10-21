@@ -1,12 +1,14 @@
 import React from 'react';
-// import './Header.css'
+import './Header.css'
 
-const Header = () => {
+const Header = ({ children }) => {
     return (
-      <header>
-        <h1>Demian Calleros</h1>
-        <img src={process.env.PUBLIC_URL + '/Me.jpg'} />
-      </header>
+      <>
+        <header className='Mainheader'>
+          {children}
+          <img className='imgme' src={process.env.PUBLIC_URL + '/Me.jpg'} alt='Me' />
+        </header>
+      </>
     );
 };
 
