@@ -1,7 +1,7 @@
 
 nav {
   z-index: 1;
-  background-color: var(--color-light-3);
+  background-color: var(--primary);
   width: 15vw;
   height: 100vh;
 }
@@ -45,12 +45,13 @@ nav {
   padding: 15px;
   display: flex;
   transition: background-color ease 0.15s;
+  color: var(--white);
 }
 
 .navUl li:hover{
-  background-color: var(--color-light-2);
+  background-color: var(--inverse);
 }
 
 .navUl li:active{
-  background-color: var(--color-light-1);
+  background-color: var(--inverse-darker);
 }

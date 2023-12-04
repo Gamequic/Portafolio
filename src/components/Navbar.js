@@ -8,7 +8,6 @@ const Navbar = ({ children }) => {
 
   const hide = () => {
     setIsHidden(!isHidden)
-    console.log('cambio')
   }
 
   return (

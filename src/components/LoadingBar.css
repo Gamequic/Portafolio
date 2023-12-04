@@ -1,0 +1,39 @@
+.loadingContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.loadingMargin {
+  width: 100%;
+  height: 25px;
+  border: 3px solid var(--black);
+  border-radius: 25px;
+}
+
+.loadingLogo {
+  width: 25px;
+  margin-left: 10px;
+}
+
+.loadingContent {
+  height: 100%;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+
+  width: var(--width);
+  animation: expandWidth 1s ease;
+}
+
+@keyframes expandWidth {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--width);
+  }
+}

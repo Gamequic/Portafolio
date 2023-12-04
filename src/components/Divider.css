@@ -1,0 +1,12 @@
+.divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: #ccc;
+}

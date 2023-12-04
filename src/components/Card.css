@@ -1,11 +1,13 @@
 .cardContainer {
   display: flex;
+  flex-direction: column;
   margin: auto;
   justify-content: center;
 }
 
 .sectionCard{
-  background-color: var(--color-light-3);
+  background-color: var(--primary);
+  border: 1px solid var(--inverse);
   margin: 20px;
   width: 100%;
   border-radius: 20px;
