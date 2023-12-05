@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 import Navbar from './components/Navbar';
@@ -7,21 +8,60 @@ import LoadingBar from './components/LoadingBar';
 import Footer from './components/Footer';
 
 function App() {
+  const [ deviceScreen, setDeviceScreen ] = useState(window.innerWidth < 600 ? 'phone' : window.innerWidth < 1024 ? 'tablet' : 'desktop');
+  const [ isHidden, setIsHidden ] = useState(deviceScreen === "desktop" ? false : true);
+
+  useEffect(() => {
+    const handleResize = async () => {
+      setDeviceScreen(window.innerWidth < 600 ? 'phone' : window.innerWidth < 1024 ? 'tablet' : 'desktop')
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const mainRef = useRef(null);
+  const aboutMeRef = useRef(null);
+  const ProyectsRef = useRef(null);
+  const footerRef = useRef(null);
+
+  const scrollToElement = (elementRef) => {
+    const targetPosition = elementRef.current.offsetTop;
+
+    console.log(mainRef.current);
+
+    mainRef.current.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth',
+    });
+  };  
+  
   const AboutMe = "I started coding when I was 12, and ever since I was a child, I've had a passion for learning how things work on computers. I assembled my first computer at the age of 14, and I've always helped my friends with their computers. My father was the one who planted the seed of curiosity about this topic in me. He didn't work in a related job, but he always supported me and taught me how to get started."
 
   return (
     <div className="App">
-      <Navbar>
-        <li>About me</li>
-        <li>Proyects</li>
-        <li>Contact</li>
+      <Navbar
+        deviceScreen={deviceScreen}
+        isHidden={isHidden}
+        setIsHidden={setIsHidden}
+      >
+        <li onClick={() => {scrollToElement(aboutMeRef)}}>About me</li>
+        <li onClick={() => {scrollToElement(ProyectsRef)}}>Proyects</li>
+        <li onClick={() => {scrollToElement(footerRef)}}>Contact</li>
       </Navbar>
 
-      <article className='main'>
-        <Header><h1>Demian<br />Calleros</h1></Header>
+      <article ref={mainRef} className='main'>
+        <Header
+          deviceScreen={deviceScreen}
+        >
+          <h1 ref={aboutMeRef} >Demian<br />Calleros</h1><br/><p>Fullstack developer</p>
+        </Header>
         <main className='cardContainer'>
           <h1 className='title'>About me</h1>
-          <div style={{display: 'flex', flexDirection: 'row'}}>
+          <div style={{display: 'flex', flexDirection: 'row', flexWrap: deviceScreen==='phone'? 'wrap' : 'nowrap'}}>
             <Card title={'About me'}>{AboutMe}</Card>
             <Card title={'Skills'}>
               <LoadingBar
@@ -56,12 +96,12 @@ function App() {
               ></LoadingBar>
             </Card>
           </div>
-          <h1 className='title'>Proyects</h1>
+          <h1 ref={ProyectsRef} className='title'>Proyects</h1>
           <div style={{display: 'flex', flexDirection: 'row'}}>
             <Card title={'About me'}>{AboutMe}</Card>
           </div>
         </main>
-        <Footer />
+        <Footer targetElementRef={footerRef} />
       </article>
     </div>
   );

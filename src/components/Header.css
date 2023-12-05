@@ -8,13 +8,12 @@
   align-items: center;
 }
 
-.imgme {
-  height: 60vh;
-  margin-right: auto;
-  margin-left: auto;
+.headerContainer{
+  display: 'flex';
+  flex-direction:'column';
+  margin: auto;
 }
 
 .Mainheader h1{
   font-size: 64px;
-  margin-left: 16vw;
 }

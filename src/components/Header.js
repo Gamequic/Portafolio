@@ -5,8 +5,9 @@ const Header = ({ children }) => {
     return (
       <>
         <header className='Mainheader'>
-          {children}
-          <img className='imgme' src={process.env.PUBLIC_URL + '/Me.jpg'} alt='Me' />
+          <div className='headerContainer'>
+            {children}
+          </div>
         </header>
       </>
     );

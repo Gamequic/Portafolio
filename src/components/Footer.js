@@ -3,9 +3,9 @@ import './Footer.css'
 
 import Divider from "./Divider";
 
-const Footer = () => {
+const Footer = ({ targetElementRef }) => {
   return (
-    <footer id="footer">
+    <footer ref={targetElementRef} id="footer">
       <div className="horizontalFooter">
         <p>Build in with React.js</p>
         <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="React.js logo" />
