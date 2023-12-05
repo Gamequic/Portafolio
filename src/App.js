@@ -31,8 +31,6 @@ function App() {
   const scrollToElement = (elementRef) => {
     const targetPosition = elementRef.current.offsetTop;
 
-    console.log(mainRef.current);
-
     mainRef.current.scrollTo({
       top: targetPosition,
       behavior: 'smooth',
