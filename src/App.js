@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Card from './components/Card';
 import LoadingBar from './components/LoadingBar';
 import Footer from './components/Footer';
+import ProyectCard from './components/ProyectCard';
 
 function App() {
   const [ deviceScreen, setDeviceScreen ] = useState(window.innerWidth < 600 ? 'phone' : window.innerWidth < 1024 ? 'tablet' : 'desktop');
@@ -95,8 +96,17 @@ function App() {
             </Card>
           </div>
           <h1 ref={ProyectsRef} className='title'>Proyects</h1>
-          <div style={{display: 'flex', flexDirection: 'row'}}>
-            <Card title={'About me'}>{AboutMe}</Card>
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+            <div style={{display: 'flex', flexDirection: 'row', flexWrap: deviceScreen==='phone'? 'wrap' : 'nowrap'}} >
+              <ProyectCard></ProyectCard>
+              <ProyectCard></ProyectCard>
+              <ProyectCard></ProyectCard>
+            </div>
+            <div style={{display: 'flex', flexDirection: 'row', flexWrap: deviceScreen==='phone'? 'wrap' : 'nowrap'}} >
+              <ProyectCard></ProyectCard>
+              <ProyectCard></ProyectCard>
+              <ProyectCard></ProyectCard>
+            </div>
           </div>
         </main>
         <Footer targetElementRef={footerRef} />
