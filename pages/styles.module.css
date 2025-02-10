@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    flex-direction: row;
+    width: 100%;
+    background: linear-gradient(90deg, rgb(255, 255, 255, 0.1) 0%, rgba(10,10,10,0) 100%);
+    padding-bottom: 5rem;
+}
+
+.responsiveHeader {
+    flex-direction: column;
+    text-align: center;
+}
+
+.titleContainer {
+    margin-bottom: 20px;
+}
+
+.header div {
+    margin: auto;
+    justify-content: center;
+    justify-items: center;
+}
+
+.Typewriter__wrapper {
+    font-size: 24px;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.ilustration {
+    height: auto;
+    height: 80vh;
+    width: 100%;
+    margin: auto;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+}
+
+.habilitiesContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.habilitiesContainer div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: 'center';
+    align-items: 'center';
+}
+
+.h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-style: normal;
+}
+
+@keyframes slideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hidden {
+    opacity: 0;
+  }
+  
+  .animate-slide-down {
+    animation: slideDown 0.5s ease-in-out forwards;
+  }
+  
+
+.skillsContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.skillsContainer div {
+    margin: auto;
+}
+
+.skillsContainer div h3 {
+    text-align: center;
+    font-size: 48px;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-style: normal;
+}
+
+.skillsContainer div ul li {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-style: normal;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .responsiveHeader {
+      flex-direction: row;
+      text-align: left;
+    }
+  
+    .titleContainer {
+      margin-bottom: 0;
+    }
+  
+    .main {
+      padding: 40px;
+    }
+  
+    .h2 {
+      font-size: 2.5em;
+    }
+  }
+
+@media (max-width: 767px) {
+    .ilustration {
+        margin: 0;
+    }
+}

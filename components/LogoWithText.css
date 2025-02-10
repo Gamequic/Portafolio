@@ -1,0 +1,18 @@
+.LogoWithTextContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+  
+.LogoWithTextContainer img {
+    display: flex;
+    align-items: center;
+}
+  
+.LogoWithTextContainer span {
+    font-size: 24px;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-style: normal;
+}
+  

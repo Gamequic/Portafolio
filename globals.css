@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+      background-position: 0% 0%;
+  }
+  50% {
+      background-position: 100% 100%;
+  }
+  100% {
+      background-position: 0% 0%;
+  }
+}
+
+.background {
+  position: relative;
+  /* background: linear-gradient(128deg, rgba(10,10,10,1) 0%, rgb(6, 28, 32) 25%, rgb(50, 6, 27) 62%, rgba(10,10,10,1) 100%);
+  background-color: #171718; */
+  background: linear-gradient(
+      128deg,
+      rgba(23, 23, 24, 1) 0%,        /* Gris oscuro similar */
+      rgba(15, 30, 35, 1) 25%,       /* Azul verdoso más oscuro */
+      rgb(15, 15, 33) 62%,           /* Azul oscuro más equilibrado */
+      rgba(23, 23, 24, 1) 100%       /* Gris oscuro similar al inicio */
+      );
+  background-size: 200% 200%;
+  animation: gradientAnimation 15s ease-in-out infinite;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
