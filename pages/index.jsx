@@ -6,9 +6,9 @@ import Title from './../components/Title';
 import ProjectCard from './../components/ProjectCard';
 const SubtitleClient = dynamic(() => import('./../components/subtitle'), { ssr: false });
 
-import styles from './styles.module.css'; // Para estilos generales de la página
-import aboutMeStyles from './aboutme.module.css'; // Estilos locales de About Me
-import projectStyles from './project.module.css'; // Estilos para los proyectos
+import styles from './styles.module.css';
+import aboutMeStyles from './aboutme.module.css';
+import projectStyles from './project.module.css';
 
 export default function HomePage() {
   return (
@@ -25,7 +25,7 @@ export default function HomePage() {
       <main className={styles.main}>
         <h2 className={styles.h2}>About me</h2>
         <div className={`${aboutMeStyles.aboutMe} ${aboutMeStyles.responsiveAboutMe}`}>
-          <Image src="/Me.jpg" alt="Me" height={250} width={250} />
+          <Image src={`/Me.jpg`} alt="Me" height={250} width={250} />
           <p>
             I’ve been coding since 12, drawn in by the thrill of building things from scratch. As a
             full-stack developer, I’ve explored the entire web stack, but the backend is where I
@@ -36,9 +36,11 @@ export default function HomePage() {
         <h2 className={styles.h2}>Projects</h2>
         <div className={projectStyles.projectGrid}>
           <ProjectCard
-            image="/Proyects/IMSS.svg"
+            image={`/Proyects/IMSS.svg`}
             url="subrogates"
             description="Subrogates System for IMSS"
+            width={200}
+            height={300}
           />
         </div>
       </main>

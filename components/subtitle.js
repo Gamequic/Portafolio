@@ -41,7 +41,7 @@ export default function Subtitle() {
             }}
             onInit={(typewriter) => {
                 const addPhrases = () => {
-                    Phrases.forEach((phrase, index) => {
+                    Phrases.forEach((phrase) => {
                         typewriter
                             .typeString(phrase)
                             .pauseFor(2000)

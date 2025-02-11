@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
   images: {
-    unoptimized: true, // GitHub Pages no soporta optimización de imágenes de Next.js
+    unoptimized: true,
   },
-  basePath: "/Portafolio", // Reemplaza con el nombre de tu repositorio
+  output: 'export',
+  distDir: 'dist',
 };
 
 export default nextConfig;

@@ -2,8 +2,9 @@
 
 import styles from './ProjectCard.module.css';
 import { useState } from 'react';
+import Image from 'next/image';
 
-const ProjectCard = ({ image, description, url }) => {
+const ProjectCard = ({ image, description, url, width, height }) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
@@ -21,7 +22,7 @@ const ProjectCard = ({ image, description, url }) => {
       }`}
       onClick={handleClick}
     >
-      <img src={image} alt="Project Image" className={styles.image} />
+      <Image src={image} alt="Project Image" className={styles.image} width={width} height={height} />
       <p className={styles.description}>{description}</p>
     </div>
   );
