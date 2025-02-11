@@ -7,6 +7,5 @@ const nextConfig = {
   },
   basePath: "/Portafolio", // Reemplaza con el nombre de tu repositorio
 };
-};
 
 export default nextConfig;
