@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './subrogates.module.css';
 
+import config from './../../next.config.mjs';
+
 export default function Subrogates() {
     return (
         <div className={styles.container}>
@@ -9,7 +11,7 @@ export default function Subrogates() {
                 <Link href="/" className={styles.backButton}>
                     <div className={styles.backButtonCircle}>
                         <Image 
-                            src="/back-arrow.svg" 
+                            src={`${config.basePath}/back-arrow.svg`}
                             alt="Go back" 
                             width={24} 
                             height={24}
@@ -25,10 +27,10 @@ export default function Subrogates() {
                         <strong>Secure Authentication:</strong> 
                         <p>The application uses a secure token-based authentication system, ensuring that only authorized users can access certain areas of the application.</p>
                     </div>
-                    <Image src="/Subrogates/SecureAuthentication.png" alt="Secure Authentication" width={500} height={300} />
+                    <Image src={`${config.basePath}/Subrogates/SecureAuthentication.png`} alt="Secure Authentication" width={500} height={300} />
                 </li>
                 <li className={styles.listItem}>
-                    <Image src="/Subrogates/EasyNavigation.png" alt="Easy Navigation" width={500} height={300} />
+                    <Image src={`${config.basePath}/Subrogates/EasyNavigation.png`} alt="Easy Navigation" width={500} height={300} />
                     <div className={styles.textContainer}>
                         <strong>Easy Navigation:</strong> 
                         <p>The application is designed with clear and simple navigation, allowing users to easily move between different sections.</p>
@@ -39,10 +41,10 @@ export default function Subrogates() {
                         <strong>Attractive User Interface:</strong> 
                         <p>It uses modern and attractive visual components, based on Material-UI, to offer a pleasant and professional user experience.</p>
                     </div>
-                    <Image src="/Subrogates/AtractiveUserInterface.png" alt="Attractive User Interface" width={500} height={300} />
+                    <Image src={`${config.basePath}/Subrogates/AtractiveUserInterface.png`} alt="Attractive User Interface" width={500} height={300} />
                 </li>
                 <li className={styles.listItem}>
-                    <Image src="/Subrogates/CustomizableSettings.png" alt="Customizable Settings" width={500} height={300} />
+                    <Image src={`${config.basePath}/Subrogates/CustomizableSettings.png`} alt="Customizable Settings" width={500} height={300} />
                     <div className={styles.textContainer}>
                         <strong>Customizable Settings:</strong> 
                         <p>Users can customize the application settings according to their preferences, such as changing the color theme or menu orientation.</p>
@@ -53,10 +55,10 @@ export default function Subrogates() {
                         <strong>Notifications and Alerts:</strong> 
                         <p>The application efficiently handles notifications and alerts, ensuring that users are always informed about important events or errors.</p>
                     </div>
-                    <Image src="/Subrogates/NotificationsAlerts.png" alt="Notifications and Alerts" width={500} height={300} />
+                    <Image src={`${config.basePath}/Subrogates/NotificationsAlerts.png`} alt="Notifications and Alerts" width={500} height={300} />
                 </li>
                 <li className={styles.listItem}>
-                    <Image src="/Subrogates/ServerPerformance.png" alt="Server Performance" width={500} height={300} />
+                    <Image src={`${config.basePath}/Subrogates/ServerPerformance.png`} alt="Server Performance" width={500} height={300} />
                     <div className={styles.textContainer}>
                         <strong>Server Performance:</strong> 
                         <p>It includes a dedicated section for monitoring server performance, providing crucial information to keep the infrastructure running optimally.</p>
@@ -67,7 +69,7 @@ export default function Subrogates() {
                         <strong>Responsive Designs:</strong> 
                         <p>The application features several responsive designs that enhance functionality and user experience, ensuring a seamless experience across different devices.</p>
                     </div>
-                    <Image src="/Subrogates/ResponsiveDesing.png" alt="Responsive Designs" width={500} height={300} layout="intrinsic" />
+                    <Image src={`${config.basePath}/Subrogates/ResponsiveDesing.png`} alt="Responsive Designs" width={500} height={300} layout="intrinsic" />
                 </li>
             </ul>
         </div>

@@ -13,8 +13,6 @@ import projectStyles from './project.module.css';
 import config from './../next.config.mjs';
 
 export default function HomePage() {
-  console.log(`${config.basePath}/Me.jpg`)
-
   return (
     <>
       <header className={`${styles.header} ${styles.responsiveHeader}`}>
