@@ -13,7 +13,7 @@ const ProjectCard = ({ image, description, url, width, height }) => {
     setIsClicked(true);
     setTimeout(() => setIsClicked(false), 300);
     if (url) {
-      router.replace('/subrogates');
+      router.push(`${window.location.origin}/Portafolio/subrogates`);
     }
   };
 
