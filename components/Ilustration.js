@@ -4,6 +4,8 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { useRef } from 'react';
 
+import config from './../next.config.mjs';
+
 function Model({ url }) {
     const { scene } = useGLTF(url);
     const modelRef = useRef();
@@ -29,7 +31,7 @@ export default function Ilustration() {
                 <ambientLight />
                 <pointLight position={[10, 10, 10]} />
                 <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
-                <Model url="/lost_programmer/scene.gltf" />
+                <Model url={`${config.basePath}/lost_programmer/scene.gltf`} />
             </Canvas>
         </div>
     );
