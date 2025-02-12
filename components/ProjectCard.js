@@ -4,7 +4,6 @@ import styles from './ProjectCard.module.css';
 import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import config from './../next.config.mjs';
 
 const ProjectCard = ({ image, description, url, width, height }) => {
   const [isClicked, setIsClicked] = useState(false);
