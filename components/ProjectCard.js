@@ -3,15 +3,19 @@
 import styles from './ProjectCard.module.css';
 import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import config from './../next.config.mjs';
 
 const ProjectCard = ({ image, description, url, width, height }) => {
   const [isClicked, setIsClicked] = useState(false);
+  const router = useRouter();
 
   const handleClick = () => {
-    setIsClicked(true); // Activa la animación
-    setTimeout(() => setIsClicked(false), 300); // Restaura el estado después de la animación
+    setIsClicked(true);
+    setTimeout(() => setIsClicked(false), 300);
     if (url) {
-      window.location.href = url;
+      const basePath = process.env.NODE_ENV === 'production' ? config.basePath : '';
+      router.push(`${basePath}/${url}`);
     }
   };
 
