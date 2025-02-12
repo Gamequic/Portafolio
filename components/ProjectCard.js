@@ -14,10 +14,17 @@ const ProjectCard = ({ image, description, url, width, height }) => {
     setIsClicked(true);
     setTimeout(() => setIsClicked(false), 300);
     if (url) {
+      // Get base path from config
       const basePath = process.env.NODE_ENV === 'production' ? config.basePath : '';
-      // Remove any leading slash from url to prevent double slashes
-      const cleanUrl = url.replace(/^\//, '');
-      router.push(`${basePath}/${cleanUrl}`);
+      
+      // Clean both the basePath and url from leading/trailing slashes
+      const cleanBasePath = basePath.replace(/^\/|\/$/g, '');
+      const cleanUrl = url.replace(/^\/|\/$/g, '');
+      
+      // Construct the final URL with proper slash handling
+      const finalUrl = cleanBasePath ? `/${cleanBasePath}/${cleanUrl}` : `/${cleanUrl}`;
+      
+      router.push(finalUrl);
     }
   };
 

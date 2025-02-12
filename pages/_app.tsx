@@ -2,6 +2,8 @@ import '../globals.css';
 import type { AppProps } from 'next/app';
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Head from 'next/head';
+import config from './../next.config.mjs';
 
 // project imports
 import Border from './../components/border';
@@ -24,14 +26,35 @@ export const metadata: Metadata = {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const faviconPath = process.env.NODE_ENV === 'production' 
+    ? `${config.basePath}/favicon.ico`
+    : '/favicon.ico';
+
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} antialiased background flex flex-col min-h-screen p-8 gap-16 sm:p-16 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <Border>
-        <Component {...pageProps} />
-      </Border>
-    </div>
+    <>
+      <Head>
+        <title>Demian Calleros - Portfolio</title>
+        <link
+          rel="icon"
+          href={faviconPath + "?<generated>"}
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+        <link
+          rel="apple-touch-icon"
+          href={faviconPath + "?<generated>"}
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+      </Head>
+      <div
+        className={`${geistSans.variable} ${geistMono.variable} antialiased background flex flex-col min-h-screen p-8 gap-16 sm:p-16 font-[family-name:var(--font-geist-sans)]`}
+      >
+        <Border>
+          <Component {...pageProps} />
+        </Border>
+      </div>
+    </>
   );
 }
 
