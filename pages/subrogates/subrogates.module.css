@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;400;500;600;700&display=swap');
 
 .container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: "Montserrat Alternates", sans-serif;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: "Montserrat Alternates", sans-serif;
 }
 
 .title {
@@ -22,21 +22,35 @@
 }
 
 .list {
-  list-style-type: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .listItem {
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentWrapper {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 .textContainer {
-  display: flex;
-  flex-direction: column;
-  margin-right: 20px;
-  margin-left: 20px;
+    order: unset;
+    z-index: 2;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.imageContainer {
+    order: unset;
+    position: relative;
+    z-index: 1;
 }
 
 .listItem strong {
@@ -61,6 +75,7 @@
 .headerContainer {
     display: flex;
     align-items: center;
+    margin-bottom: 2rem;
     gap: 1rem;
     position: relative;
     z-index: 10;
@@ -132,4 +147,43 @@
     width: 500px;
     height: 300px;
   }
+
+  .contentWrapper {
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .listItem:nth-child(even) .contentWrapper {
+    flex-direction: row-reverse;
+  }
+
+  .textContainer {
+    flex: 1;
+    order: unset;
+  }
+
+  .imageContainer {
+    flex: 1;
+    order: unset;
+  }
+}
+
+/* Media queries for mobile */
+@media (max-width: 767px) {
+    .contentWrapper {
+        flex-direction: column;
+    }
+
+    .listItem:nth-child(even) .contentWrapper {
+        flex-direction: column;
+    }
+
+    .textContainer {
+        margin: 1rem 0;
+    }
+
+    .imageContainer {
+        width: 100%;
+    }
 }

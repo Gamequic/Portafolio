@@ -15,7 +15,9 @@ const ProjectCard = ({ image, description, url, width, height }) => {
     setTimeout(() => setIsClicked(false), 300);
     if (url) {
       const basePath = process.env.NODE_ENV === 'production' ? config.basePath : '';
-      router.push(`${basePath}/${url}`);
+      // Remove any leading slash from url to prevent double slashes
+      const cleanUrl = url.replace(/^\//, '');
+      router.push(`${basePath}/${cleanUrl}`);
     }
   };
 
