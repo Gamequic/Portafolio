@@ -12,8 +12,14 @@ const ProjectCard = ({ image, description, url, width, height }) => {
   const handleClick = () => {
     setIsClicked(true);
     setTimeout(() => setIsClicked(false), 300);
-    if (url) {
-      router.push(`${window.location.origin}/Portafolio/subrogates`);
+
+    if (!url) return;
+
+    // Verifica si la URL es externa o interna
+    if (url.startsWith('http')) {
+      window.open(url, '_blank');
+    } else {
+      router.push(`${window.location.origin}/${url}`);
     }
   };
 

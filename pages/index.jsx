@@ -44,6 +44,13 @@ export default function HomePage() {
             width={200}
             height={300}
           />
+          <ProjectCard
+            image={`${config.basePath}/Proyects/LideresDelCambio.png`}
+            url="https://gamequic.github.io/LideresDelCambio/"
+            description="Lideres del cambio"
+            width={250}
+            height={250}
+          />
         </div>
       </main>
     </>
