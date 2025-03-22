@@ -1,0 +1,53 @@
+/* Fondo azul que se desliza primero */
+.slide-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: oklch(0.398 0.195 277.366); /* Azul */
+  z-index: 60; /* Detrás del loader */
+}
+
+/* Fondo negro que se desliza después */
+.slide-black {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #1a202c; /* Negro */
+  z-index: 50; /* Detrás del azul */
+}
+
+/* Loader que se mantiene visible */
+.loader-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: transparent; /* No debe bloquear nada */
+  z-index: 70; /* Encima de todo */
+}
+
+@keyframes l14 {
+  40%, 60% { clip-path: inset(0); }
+  to { clip-path: inset(0 0 0 100%); }
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  --s: 50px;
+  
+  --_d: calc(0.353*var(--s));
+  width: calc(var(--s) + var(--_d));
+  aspect-ratio: 1;
+  display: grid;
+  filter: drop-shadow(0 0 0 #fff);
+  animation: l2 0.8s infinite;
+}
+.loader:before {
+  content: "";
+  clip-path: polygon(var(--_d) 0,100% 0,100% calc(100% - var(--_d)),calc(100% - var(--_d)) 100%,0 100%,0 var(--_d));
+  background:
+    conic-gradient(from -90deg at var(--s) var(--_d),
+     #fff 135deg,#666 0 270deg,#aaa 0);
+}
+@keyframes l2{
+  50% {filter:drop-shadow(0 0 5px #fff)}
+}
