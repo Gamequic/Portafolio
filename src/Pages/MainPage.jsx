@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "@studio-freight/lenis";
 
 // proyect imports
 import Sidebar from "./../components/Sidebar";
@@ -12,6 +11,8 @@ import Subtitle from "./../components/Subtitle";
 import Ilustration from "./../components/Ilustration";
 import ProfileCard from "./../components/ProfileCard";
 import SocialNetworksCard from './../components/SocialNetworkCard'
+import CenteredZoomingTitle from "../components/CenteredZoomingTitle";
+import AboutScrollSection from "../components/AboutScrollSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,65 +26,10 @@ export default function MainPage() {
 
   const isMobile = useMediaQuery({ maxWidth: 1020 });
 
-  const h1Ref = useRef(null);
   const h1SectionRef = useRef(null);
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1500); // Simula carga
-  }, []);
-
-  useEffect(() => {
-    const lenis = new Lenis({ smooth: true });
-
-    function raf(time) {
-      lenis.raf(time);
-      ScrollTrigger.update();
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    // 🔥 Animación del h1 que escala y pinnea
-    gsap.fromTo(
-      h1Ref.current,
-      { scale: 1, x: 0, y: 0, opacity: 1 },
-      {
-        x: 4800,
-        scale: 200,
-        opacity: 1,
-        scrollTrigger: {
-          trigger: h1SectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-          pin: true,
-          pinSpacing: false,
-          markers: false,
-        },
-      }
-    );
-
-    gsap.to(h1Ref.current, {
-      opacity: 0,
-      scrollTrigger: {
-        trigger: h1SectionRef.current,
-        start: "+=750vh",  // 👈 Inicia donde la otra termina
-        end: "+=10vh",    // Ajusta cuánto dura el fadeOut
-        scrub: true,
-        markers: false,
-      },
-    });
-
-    // 🔄 Refresca para que se sincronice desde el principio
-    ScrollTrigger.refresh();
-
-    // 🧼 Limpieza al desmontar
-    return () => {
-      ScrollTrigger.killAll();
-      lenis.destroy();
-    };
   }, []);
 
   const sections = {
@@ -98,7 +44,7 @@ export default function MainPage() {
   };
 
   return (
-    <div className="app-container" style={{minHeight: '400vh'}}>
+    <div className="app-container" style={{minHeight: '600vh'}}>
 
     <Sidebar
       scrollToSection={scrollToSection}
@@ -116,13 +62,7 @@ export default function MainPage() {
       </div>
 
       <div className="absolute inset-0 z-10 flex flex-col justify-center items-center bg-black/85">
-        <h1
-          ref={h1Ref}
-          className="text-4xl font-bold lg:text-8xl text-neutral-200"
-          style={{ fontFamily: "'Doto'", fontWeight: 700 }}
-        >
-          Demian Calleros
-        </h1>
+        <CenteredZoomingTitle h1SectionRef={h1SectionRef} />
 
         <motion.div
           className="text-[18px] font-bold lg:text-lg mt-4"
@@ -145,41 +85,7 @@ export default function MainPage() {
       ref={sections.section1}
       className="content-section z-20 flex flex-col lg:flex-row items-center justify-center h-[125vh] bg-neutral-200"
     >
-      <div className="w-full lg:w-1/2 z-20 text-slate-200 flex flex-col items-center justify-center p-6 space-y-4">
-        <motion.h1
-          className="text-center text-3xl md:text-5xl lg:text-6xl font-bold text-neutral-800"
-          style={{ fontFamily: "'Montserrat Alternates', sans-serif" }}
-          variants={fadeInAnimation}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 1 }}
-        >
-          About me
-        </motion.h1>
-        <motion.img
-          src="/public/Me.png"
-          className="rounded-lg"
-          variants={fadeInAnimation}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 1 }}
-        />
-      </div>
-
-      <div className="w-full lg:w-1/2 text-slate-200 flex items-center justify-center p-6 space-y-4">
-        <motion.p 
-          className="text-center text-[18px] font-bold text-neutral-800"
-          variants={fadeInAnimation}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 1 }}
-        >
-          I’ve been coding since 12, drawn in by the thrill of building things from scratch. As a
-          full-stack developer, I’ve explored the entire web stack, but the backend is where I
-          find my spark. Now, I’m focused on mastering it, optimizing systems, and solving
-          real-world problems. Ready to dive deep and create what powers the future.
-        </motion.p>
-      </div>
+      <AboutScrollSection />
     </section>
 
     <section
