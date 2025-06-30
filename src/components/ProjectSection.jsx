@@ -23,7 +23,7 @@ export default function ProjectsSection({ sectionRef }) {
           scrub: true,
           pin: true,
           anticipatePin: 1,
-          markers: true, // Desactiva en producción
+          markers: false, // Desactiva en producción
         },
       });
 

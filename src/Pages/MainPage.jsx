@@ -45,7 +45,7 @@ export default function MainPage() {
   };
 
   return (
-    <div className="app-container" style={{minHeight: '1200vh'}}>
+    <div className="app-container" style={{minHeight: '885vh', maxWidth:'100vw'}}>
 
     <Sidebar
       scrollToSection={scrollToSection}
@@ -92,62 +92,20 @@ export default function MainPage() {
     <ProjectsSection />
 
     <section
-      ref={sections.section1}
-      className="content-section flex flex-col lg:flex-row items-center justify-center h-screen bg-slate-900"
-    >
-      <div className="w-full lg:w-1/2 text-slate-200 flex flex-col items-center justify-center p-6 space-y-4">
-        <motion.h1
-          className="text-center text-3xl md:text-5xl lg:text-6xl font-bold"
-          style={{ fontFamily: "'Montserrat Alternates', sans-serif" }}
-          variants={fadeInAnimation}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 1 }}
-        >
-          My Vision for the Future
-        </motion.h1>
-        <motion.img
-          src="/public/assets/Future.jpg"
-          className="rounded-lg aspect-[16/9] object-cover"
-          variants={fadeInAnimation}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 1 }}
-        />
-      </div>
-
-      <div className="w-full lg:w-1/2 text-slate-200 flex items-center justify-center p-6 space-y-4">
-        <motion.p 
-          className="text-center text-[18px] font-bold"
-          variants={fadeInAnimation}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 1 }}
-        >
-          <ul>
-            <li>  🔹 Keep growing as a Fullstack Developer.</li>
-            <li>  🔹 Build impactful and meaningful projects.</li>
-            <li>  🔹 Learn and adapt to new technologies.</li>
-          </ul>
-        Shaping the future, one line of code at a time.
-        </motion.p>
-      </div>
-    </section>
-
-    <section
       ref={sections.aboutUs}
-      className="content-section items-center justify-center flex flex-col h-screen bg-slate-800"
+      className="items-center justify-center flex flex-col w-screen bg-slate-800"
+      style={{ height: '33vh' }}
     >
 
       <motion.h1
         className="text-center text-3xl md:text-5xl lg:text-6xl font-bold text-slate-200"
-        style={{ fontFamily: "'Montserrat Alternates', sans-serif" }}
+        style={{ fontFamily: "'Libertinus Math', system-ui" }}
         variants={fadeInAnimation}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 1 }}
       >
-        Let's stay in touch
+        Optimize your business
       </motion.h1>
 
       <div className="relative w-full flex sm:justify-start lg:justify-center">
