@@ -19,7 +19,7 @@ export default function StickyRail() {
         scrub: true,
         pin: railRef.current,
         pinSpacing: false,
-        markers: true,
+        markers: false,
       });
     }, containerRef);
 

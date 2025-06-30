@@ -15,7 +15,7 @@ export default function ProfileCard({ image, classimage, name, url, external }) 
   return (
     <motion.div
       className={
-        "bg-violet-900 relative bg-white shadow-lg rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 group min-h-84 min-w-72 flex flex-col items-center justify-center text-center transform scale-100 transition duration-300 hover:scale-105"
+        "border-2 border-zinc-600 rounded-sm relative shadow-lg overflow-hidden cursor-pointer transition-all duration-300 group min-h-84 min-w-72 flex flex-col items-center justify-center text-center transform scale-100 transition duration-300 hover:scale-105"
       }
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

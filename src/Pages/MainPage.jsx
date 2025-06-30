@@ -13,6 +13,7 @@ import ProfileCard from "./../components/ProfileCard";
 import SocialNetworksCard from './../components/SocialNetworkCard'
 import CenteredZoomingTitle from "../components/CenteredZoomingTitle";
 import AboutScrollSection from "../components/AboutScrollSection";
+import ProjectsSection from "../components/ProjectSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,7 +45,7 @@ export default function MainPage() {
   };
 
   return (
-    <div className="app-container" style={{minHeight: '600vh'}}>
+    <div className="app-container" style={{minHeight: '1200vh'}}>
 
     <Sidebar
       scrollToSection={scrollToSection}
@@ -88,59 +89,7 @@ export default function MainPage() {
       <AboutScrollSection />
     </section>
 
-    <section
-      ref={sections.aboutUs}
-      className="content-section items-center justify-center flex flex-col h-screen bg-slate-800"
-    >
-
-      <motion.h1
-        className="text-center text-3xl md:text-5xl lg:text-6xl font-bold text-slate-200"
-        style={{ fontFamily: "'Montserrat Alternates', sans-serif" }}
-        variants={fadeInAnimation}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 1 }}
-      >
-        Projects
-      </motion.h1>
-
-      <div className="relative w-full flex sm:justify-start lg:justify-center">
-          <div 
-            className="overflow-x-auto p-4 scrollbar-hide w-full flex sm:justify-start lg:justify-center"
-            ref={(el) => {
-              if (el) el.scrollLeft = 0; // 📌 Asegura que el scroll empiece desde la izquierda
-            }}
-          >
-            <div className="flex space-x-6 w-max sm:mx-0 lg:mx-auto">
-              <ProfileCard
-                image="/public/Proyects/IMSS.svg"
-                name="Subrogates"
-                classimage="w-48 h-48"
-                // url='/subrogates'
-                external
-                url="https://frontend.subrogados.com/" // CHANGE LATER - TODO - !IMPORTANT
-              />
-              {/* <ProfileCard
-                image="/public/Proyects/IMSS.svg"
-                name="LivePreview"
-                classimage="w-48 h-48"
-              /> */}
-              <ProfileCard
-                image="/public/Proyects/LideresDelCambio.png"
-                name="Líderes del cambio"
-                classimage="w-48 h-48"
-                external
-                url='https://LideresDelCambio.org'
-              />
-              {/* <ProfileCard
-                image="/public/Proyects/IMSS.svg"
-                name="StoreGest App"
-                classimage="w-48 h-48"
-              /> */}
-            </div>
-          </div>
-        </div>
-    </section>
+    <ProjectsSection />
 
     <section
       ref={sections.section1}
