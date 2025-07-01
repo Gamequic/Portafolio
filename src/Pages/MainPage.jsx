@@ -5,11 +5,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // proyect imports
-import Sidebar from "./../components/Sidebar";
 import LoadingScreen from "./../components/LoadingScreen";
 import Subtitle from "./../components/Subtitle";
 import Ilustration from "./../components/Ilustration";
-import ProfileCard from "./../components/ProfileCard";
 import SocialNetworksCard from './../components/SocialNetworkCard'
 import CenteredZoomingTitle from "../components/CenteredZoomingTitle";
 import AboutScrollSection from "../components/AboutScrollSection";
@@ -33,24 +31,8 @@ export default function MainPage() {
     setTimeout(() => setLoading(false), 1500); // Simula carga
   }, []);
 
-  const sections = {
-    video: useRef(null),
-    section1: useRef(null),
-    section2: useRef(null),
-    aboutUs: useRef(null),
-  };
-
-  const scrollToSection = (ref) => {
-    ref.current.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <div className="app-container" style={{minHeight: '885vh', maxWidth:'100vw'}}>
-
-    <Sidebar
-      scrollToSection={scrollToSection}
-      sections={sections}
-    />
 
     <LoadingScreen isLoading={loading} />
 
@@ -78,12 +60,10 @@ export default function MainPage() {
     </section>
 
     <section
-      ref={sections.section1}
       className="content-section flex flex-col lg:flex-row items-center justify-center h-screen"
     ></section>
 
     <section
-      ref={sections.section1}
       className="content-section z-20 flex flex-col lg:flex-row items-center justify-center h-[125vh] bg-neutral-200"
     >
       <AboutScrollSection />
@@ -92,7 +72,6 @@ export default function MainPage() {
     <ProjectsSection />
 
     <section
-      ref={sections.aboutUs}
       className="items-center justify-center flex flex-col w-screen bg-slate-800"
       style={{ height: '33vh' }}
     >

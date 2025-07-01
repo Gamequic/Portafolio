@@ -68,7 +68,7 @@ export default function ProjectsSection({ sectionRef }) {
             {
                 image: "/public/Proyects/IMSS.svg",
                 name: "Subrogates",
-                url: "https://frontend.subrogados.com/",
+                url: "https://github.com/Gamequic/LivePreview",
             },
             {
                 image: "/public/Proyects/LideresDelCambio.png",
@@ -76,9 +76,9 @@ export default function ProjectsSection({ sectionRef }) {
                 url: "https://LideresDelCambio.org",
             },
             {
-                image: "/public/Proyects/LideresDelCambio.png",
-                name: "Tercer proyecto",
-                url: "https://LideresDelCambio.org/other",
+                image: "/public/Proyects/ArenasCRM.png",
+                name: "ArenasCRM",
+                url: "https://github.com/Gamequic/ArenasCRM_Front",
             },
             ].map((card, i) => (
             <div
