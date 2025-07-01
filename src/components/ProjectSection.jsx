@@ -62,6 +62,10 @@ export default function ProjectsSection({ sectionRef }) {
         Projects
       </h1>
 
+      <p className="text-neutral-600 text-center max-w-xl mx-auto mt-4">
+        Some project documentation is still in progress and will be available soon on GitHub.
+      </p>
+
       <div className="relative w-full overflow-hidden flex justify-center p-12">
         <div className="flex w-max mx-auto gap-6">
             {[
