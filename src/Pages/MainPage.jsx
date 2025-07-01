@@ -45,7 +45,7 @@ export default function MainPage() {
       </div>
 
       <div className="absolute inset-0 z-10 flex flex-col justify-center items-center bg-black/85">
-        <CenteredZoomingTitle h1SectionRef={h1SectionRef} />
+        <CenteredZoomingTitle h1SectionRef={h1SectionRef} isMobile={isMobile} />
 
         <motion.div
           className="text-[18px] font-bold lg:text-lg mt-4"
@@ -69,7 +69,9 @@ export default function MainPage() {
       <AboutScrollSection />
     </section>
 
-    <ProjectsSection />
+    <ProjectsSection
+      isMobile={isMobile}
+    />
 
     <section
       className="items-center justify-center flex flex-col w-screen bg-slate-800"

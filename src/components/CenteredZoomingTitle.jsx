@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 
-export default function CenteredZoomingTitle ({ h1SectionRef }) {
+export default function CenteredZoomingTitle ({ h1SectionRef, isMobile }) {
 
     const cRef = useRef(null);
     const h1Ref = useRef(null);
@@ -44,7 +44,7 @@ export default function CenteredZoomingTitle ({ h1SectionRef }) {
         { scale: 1, x: 0, y: 0, opacity: 1 },
         {
             x: 0,
-            scale: 100,
+            scale: isMobile ? 150 : 100,
             opacity: 1,
             scrollTrigger: {
                 trigger: h1SectionRef.current,
@@ -62,8 +62,8 @@ export default function CenteredZoomingTitle ({ h1SectionRef }) {
             opacity: 0,
             scrollTrigger: {
                 trigger: h1SectionRef.current,
-                start: "+=1100vh",  // 👈 Inicia donde la otra termina
-                end: "+=10vh",    // Ajusta cuánto dura el fadeOut
+                start: isMobile ? "+=900vh" : "+=1100vh",
+                end: "+=10vh",
                 scrub: true,
                 markers: false,
             },
