@@ -32,7 +32,7 @@ export default function MainPage() {
   }, []);
 
   return (
-    <div className="app-container" style={{minHeight: '885vh', maxWidth:'100vw'}}>
+    <div className="app-container" style={{minHeight: isMobile ? '480vh' : '885vh', maxWidth:'100vw'}}>
 
     <LoadingScreen isLoading={loading} />
 
@@ -106,8 +106,8 @@ export default function MainPage() {
               />
 
               <SocialNetworksCard
-                name="demian.calleros0"
-                url="https://www.instagram.com/demian.calleros0/"
+                name="calleros.dev"
+                url="https://www.instagram.com/calleros.dev/#"
                 isGithub={false}
                 isInstagram={true}
                 isWhatsapp={false}
