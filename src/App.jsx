@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 
-// import ReactGA from "react-ga4";
+import ReactGA from "react-ga4";
 
-// ReactGA.initialize("G-QG8Q65P4T6");
-// ReactGA.send("pageview");
+ReactGA.initialize("G-M31EY2XW4J");
+ReactGA.send("pageview");
 
 // Pages
 import MainPage from "./Pages/MainPage";
