@@ -20,7 +20,7 @@ function Model({ url }) {
 }
 
 export default function Ilustration({ children }) {
-    const modelPath = `public/lost_programmer/scene.gltf`
+    const modelPath = `lost_programmer/scene.gltf`
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>

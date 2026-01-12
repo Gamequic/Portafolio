@@ -106,19 +106,9 @@ export default function MainPage() {
               />
 
               <SocialNetworksCard
-                name="calleros.dev"
-                url="https://www.instagram.com/calleros.dev/#"
-                isGithub={false}
-                isInstagram={true}
-                isWhatsapp={false}
-              />
-
-              <SocialNetworksCard
-                name="Demian Calleros"
-                url="https://wa.me/526567779087"
-                isGithub={false}
-                isInstagram={false}
-                isWhatsapp={true}
+                name="Calleros dev"
+                url="https://www.facebook.com/people/Calleros-Dev/61586630033982/"
+                isFacebook={true}
               />
             </div>
           </div>

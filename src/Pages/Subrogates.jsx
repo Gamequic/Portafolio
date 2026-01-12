@@ -49,7 +49,7 @@ export default function Subrogates() {
                 Secure Authentication
                 </motion.h2>
                 <motion.img
-                    src="/public/Subrogates/SecureAuthentication.png"
+                    src="/Subrogates/SecureAuthentication.png"
                     className="rounded-lg"
                     variants={fadeInAnimation}
                     initial="hidden"
@@ -86,7 +86,7 @@ export default function Subrogates() {
                 Easy Navigation
                 </motion.h2>
                 <motion.img
-                    src="/public/Subrogates/EasyNavigation.png"
+                    src="/Subrogates/EasyNavigation.png"
                     className="rounded-lg"
                     variants={fadeInAnimation}
                     initial="hidden"
@@ -123,7 +123,7 @@ export default function Subrogates() {
                 Attractive User Interface
                 </motion.h2>
                 <motion.img
-                    src="/public/Subrogates/AtractiveUserInterface.png"
+                    src="/Subrogates/AtractiveUserInterface.png"
                     className="rounded-lg"
                     variants={fadeInAnimation}
                     initial="hidden"
@@ -160,7 +160,7 @@ export default function Subrogates() {
                 Customizable Settings
                 </motion.h2>
                 <motion.img
-                    src="/public/Subrogates/CustomizableSettings.png"
+                    src="/Subrogates/CustomizableSettings.png"
                     className="rounded-lg"
                     variants={fadeInAnimation}
                     initial="hidden"

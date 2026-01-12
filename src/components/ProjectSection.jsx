@@ -75,17 +75,17 @@ export default function ProjectsSection({ sectionRef, isMobile }) {
         >
           {[
             {
-              image: "/public/Proyects/IMSS.svg",
+              image: "/Proyects/IMSS.svg",
               name: "Subrogates",
               url: "https://github.com/Gamequic/LivePreview",
             },
             {
-              image: "/public/Proyects/LideresDelCambio.png",
+              image: "/Proyects/LideresDelCambio.png",
               name: "Líderes del cambio",
               url: "https://LideresDelCambio.org",
             },
             {
-              image: "/public/Proyects/ArenasCRM.png",
+              image: "/Proyects/ArenasCRM.png",
               name: "ArenasCRM",
               url: "https://github.com/Gamequic/ArenasCRM_Front",
             },
