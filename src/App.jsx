@@ -1,23 +1,19 @@
-import { Routes, Route } from 'react-router-dom';
+/**
+ * App.jsx — Root React component.
+ * Sets up the router and renders the main page.
+ */
 
-import ReactGA from "react-ga4";
-
-ReactGA.initialize("G-M31EY2XW4J");
-ReactGA.send("pageview");
-
-// Pages
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./Pages/MainPage";
+import "./index.css";
 
-import "./App.css";
-import Subrogates from './Pages/Subrogates';
-
-function App() {
+export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/Subrogates" element={<Subrogates />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        {/* Add additional routes here as needed */}
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

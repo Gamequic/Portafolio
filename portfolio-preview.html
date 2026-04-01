@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Demian Calleros — Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:#0A0A0F;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(100,255,218,.2) transparent}
+body::-webkit-scrollbar{width:4px}
+body::-webkit-scrollbar-thumb{background:rgba(100,255,218,.2);border-radius:10px}
+::selection{background:rgba(100,255,218,.2);color:#64FFDA}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s,border .4s}
+.nav.scrolled{background:rgba(10,10,15,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(100,255,218,.08)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#fff;letter-spacing:-.5px}
+.nav-logo span{color:#64FFDA}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-link{font-size:14px;font-weight:500;color:rgba(255,255,255,.6);cursor:pointer;transition:color .2s;letter-spacing:.5px}
+.nav-link:hover{color:#64FFDA}
+.nav-cta{font-size:14px;font-weight:700;color:#0A0A0F;background:#64FFDA;padding:8px 20px;border-radius:8px;cursor:pointer;transition:all .2s}
+.nav-cta:hover{background:#4DFFCE;transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 28px 80px;overflow:hidden;text-align:center}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(100,255,218,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(100,255,218,.04) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(100,255,218,.07) 0%,transparent 70%);pointer-events:none}
+.hero-orb{position:absolute;border-radius:50%;pointer-events:none}
+.hero-orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(100,255,218,.12) 0%,transparent 70%);top:5%;left:5%}
+.hero-orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(189,52,254,.1) 0%,transparent 70%);bottom:10%;right:0}
+.hero-content{position:relative;z-index:10;max-width:920px;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.2);border-radius:100px;padding:6px 16px;margin-bottom:28px}
+.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:#64FFDA;animation:pulse 2s infinite}
+.hero-badge-text{font-size:12px;font-weight:600;color:#64FFDA;letter-spacing:.8px;text-transform:uppercase}
+.hero-h1{font-family:'Syne',sans-serif;font-size:clamp(44px,7vw,88px);font-weight:800;line-height:1.04;color:#fff;letter-spacing:-2px;margin-bottom:24px}
+.hero-h1 .grad{background:linear-gradient(135deg,#64FFDA 0%,#BD34FE 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(16px,2.5vw,20px);color:rgba(255,255,255,.5);margin-bottom:44px;min-height:32px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.hero-sub .typed{color:#64FFDA;font-weight:700}
+.cursor{display:inline-block;width:2px;height:1em;background:#64FFDA;margin-left:2px;vertical-align:text-bottom;animation:blink 1s step-end infinite}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:64px}
+.btn-primary{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#0A0A0F;background:#64FFDA;border:none;padding:14px 32px;border-radius:12px;cursor:pointer;transition:all .25s;letter-spacing:.2px}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(100,255,218,.35)}
+.btn-ghost{font-size:16px;font-weight:600;color:rgba(255,255,255,.8);background:transparent;border:1px solid rgba(255,255,255,.18);padding:14px 32px;border-radius:12px;cursor:pointer;transition:all .25s;letter-spacing:.2px}
+.btn-ghost:hover{border-color:rgba(100,255,218,.4);color:#64FFDA;transform:translateY(-3px)}
+.hero-stats{display:flex;justify-content:center;gap:48px;padding-top:40px;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap}
+.stat-val{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:#64FFDA;line-height:1;margin-bottom:6px}
+.stat-label{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.5px}
+.scroll-ind{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;opacity:.6}
+.scroll-ind-label{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1.5px;text-transform:uppercase}
+.scroll-mouse{width:24px;height:40px;border:1.5px solid rgba(255,255,255,.2);border-radius:12px;display:flex;justify-content:center;padding-top:6px}
+.scroll-dot{width:4px;height:8px;background:#64FFDA;border-radius:2px;animation:scrollDot 1.6s ease-in-out infinite}
+
+/* ── SECTION SHARED ── */
+.section{padding:120px 40px}
+.section-label{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:12px}
+.section-h2{font-family:'Syne',sans-serif;font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}
+.section-desc{font-size:17px;color:rgba(255,255,255,.45);max-width:520px;line-height:1.7}
+.grad-text{background:linear-gradient(135deg,#64FFDA 0%,#BD34FE 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── PROJECTS ── */
+#projects{background:#0A0A0F}
+.projects-header{margin-bottom:72px}
+.featured-card{background:linear-gradient(135deg,rgba(100,255,218,.05) 0%,rgba(189,52,254,.05) 100%);border:1px solid rgba(100,255,218,.2);border-radius:24px;padding:48px 56px;margin-bottom:32px;position:relative;overflow:hidden}
+.featured-badge{position:absolute;top:24px;right:24px;background:rgba(100,255,218,.12);border:1px solid rgba(100,255,218,.3);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:700;color:#64FFDA;letter-spacing:1px;text-transform:uppercase}
+.featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.featured-accent{width:40px;height:4px;background:linear-gradient(90deg,#64FFDA,#BD34FE);border-radius:2px;margin-bottom:20px}
+.featured-h3{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:800;color:#fff;margin-bottom:10px;letter-spacing:-1px;line-height:1.1}
+.featured-tagline{font-size:15px;font-weight:600;color:#64FFDA;margin-bottom:20px}
+.featured-desc{font-size:15px;line-height:1.7;color:rgba(255,255,255,.55);margin-bottom:24px}
+.feature-list{list-style:none;padding:0;margin:0 0 24px}
+.feature-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:14px;color:rgba(255,255,255,.6)}
+.feature-check{color:#64FFDA;flex-shrink:0}
+.featured-img-box{background:#0D0D14;border-radius:16px;border:1px solid rgba(100,255,218,.1);min-height:280px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:24px;text-align:center;position:relative}
+.featured-img-box .private-badge{position:absolute;bottom:16px;right:16px;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 12px;font-size:12px;color:rgba(255,255,255,.5)}
+.proj-grid{display:flex;gap:24px}
+.proj-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;cursor:pointer;transition:all .3s;flex:1;min-width:280px}
+.proj-card:hover{transform:translateY(-8px)}
+.proj-img{width:100%;height:200px;object-fit:cover;opacity:.85;display:block}
+.proj-img-fallback{width:100%;height:200px;background:#0D0D14;display:flex;align-items:center;justify-content:center;font-size:40px}
+.proj-body{padding:24px}
+.proj-accent{width:32px;height:3px;border-radius:2px;margin-bottom:14px}
+.proj-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.3px}
+.proj-tagline{font-size:13px;font-weight:600;margin-bottom:12px;letter-spacing:.3px}
+.proj-desc{font-size:14px;line-height:1.65;color:rgba(255,255,255,.5);margin-bottom:20px}
+.tech-badges{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.tech-badge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;letter-spacing:.3px}
+.proj-link{font-size:13px;font-weight:600;display:flex;align-items:center;gap:4px}
+.github-cta{text-align:center;margin-top:56px}
+.github-link{font-size:15px;font-weight:600;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);padding:12px 28px;border-radius:100px;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
+.github-link:hover{border-color:rgba(100,255,218,.3);color:#64FFDA}
+
+/* ── ABOUT ── */
+#about{background:#0D0D16;border-top:1px solid rgba(255,255,255,.04)}
+.about-intro{margin-bottom:72px}
+.about-two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.about-left{padding-right:48px}
+.about-left-bar{width:4px;height:64px;background:linear-gradient(180deg,#BD34FE,#64FFDA);border-radius:2px;margin-bottom:24px}
+.about-h3{font-family:'Syne',sans-serif;font-size:clamp(24px,3.5vw,40px);font-weight:800;color:#fff;margin-bottom:20px;letter-spacing:-1px;line-height:1.1}
+.about-body{font-size:16px;line-height:1.7;color:rgba(255,255,255,.45);margin-bottom:28px}
+.about-meta{display:flex;flex-direction:column;gap:14px}
+.about-meta-row{display:flex;gap:12px;align-items:center}
+.about-meta-key{font-size:13px;color:rgba(255,255,255,.3);min-width:90px}
+.about-meta-val{font-size:13px;font-weight:600;color:rgba(255,255,255,.7)}
+.value-block{margin-bottom:80px;padding-left:24px;border-left:2px solid rgba(255,255,255,.07)}
+.value-emoji{font-size:36px;margin-bottom:14px;line-height:1}
+.value-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:12px;letter-spacing:-.5px}
+.value-body{font-size:16px;line-height:1.75;color:rgba(255,255,255,.5);max-width:420px}
+
+/* ── SKILLS ── */
+#skills{background:#0A0A0F;border-top:1px solid rgba(255,255,255,.04)}
+.skills-header{text-align:center;margin-bottom:64px}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.skill-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:28px;transition:border-color .3s}
+.skill-card:hover{border-color:rgba(100,255,218,.2)}
+.skill-cat-header{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.skill-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.skill-cat-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff}
+.skill-badges{display:flex;flex-wrap:wrap;gap:8px}
+.skill-badge{font-size:13px;font-weight:500;padding:6px 14px;border-radius:8px;transition:all .2s;cursor:default}
+.skill-badge:hover{transform:translateY(-2px)}
+
+/* ── CONTACT ── */
+#contact{background:#0D0D16;border-top:1px solid rgba(255,255,255,.04);position:relative;overflow:hidden}
+#contact .bg-glow{position:absolute;bottom:-200px;left:50%;transform:translateX(-50%);width:800px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(100,255,218,.05) 0%,transparent 70%);pointer-events:none}
+.contact-header{text-align:center;margin-bottom:72px}
+.contact-two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact-direct-label{font-size:12px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.contact-cards{display:flex;flex-direction:column;gap:12px}
+.contact-card{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:16px 20px;text-decoration:none;transition:all .25s;cursor:pointer}
+.contact-card:hover{background:rgba(255,255,255,.06);transform:translateX(6px)}
+.contact-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.contact-text{flex:1;min-width:0}
+.contact-card-label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.contact-card-value{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.contact-card-desc{font-size:12px;color:rgba(255,255,255,.35)}
+.contact-arrow{color:rgba(255,255,255,.2);font-size:16px;flex-shrink:0}
+.social-links{margin-top:28px;display:flex;gap:12px}
+.social-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;font-size:14px;font-weight:600;color:rgba(255,255,255,.6);transition:all .2s}
+.social-btn:hover{color:#64FFDA;border-color:rgba(100,255,218,.25)}
+.form-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:36px}
+.form-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;letter-spacing:-.5px}
+.form-subtitle{font-size:14px;color:rgba(255,255,255,.35);margin-bottom:28px}
+.field{margin-bottom:20px}
+.field-label{display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);margin-bottom:8px;letter-spacing:.3px}
+.field-input,.field-textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+.field-input:focus,.field-textarea:focus{border-color:rgba(100,255,218,.4);box-shadow:0 0 0 3px rgba(100,255,218,.08)}
+.field-textarea{resize:vertical;min-height:120px}
+.submit-btn{width:100%;padding:14px;background:#64FFDA;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#0A0A0F;cursor:pointer;transition:all .25s;letter-spacing:.2px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(100,255,218,.35)}
+.submit-btn:active{transform:translateY(0)}
+.success-box{background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.25);border-radius:14px;padding:32px;text-align:center;display:none}
+.success-box.show{display:block}
+.success-emoji{font-size:36px;margin-bottom:12px}
+.success-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#64FFDA;margin-bottom:8px}
+.success-body{font-size:14px;color:rgba(255,255,255,.5)}
+
+/* ── FOOTER ── */
+footer{background:#080810;border-top:1px solid rgba(255,255,255,.04);padding:48px 40px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:#fff}
+.footer-logo span{color:#64FFDA}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.3);margin-top:4px}
+.footer-links{display:flex;gap:24px}
+.footer-link{font-size:14px;color:rgba(255,255,255,.4);cursor:pointer;transition:color .2s}
+.footer-link:hover{color:#64FFDA}
+.footer-copy{font-size:13px;color:rgba(255,255,255,.25)}
+
+/* ── FLOATING CTA ── */
+.floating-cta{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.float-extras{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.float-extra{display:flex;align-items:center;gap:10px;background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:10px 18px;text-decoration:none;transition:all .2s;transform:translateY(20px);opacity:0;pointer-events:none}
+.float-extras.open .float-extra{transform:translateY(0);opacity:1;pointer-events:auto}
+.float-extra-icon{font-size:16px}
+.float-extra-label{font-size:13px;font-weight:700;white-space:nowrap}
+.float-row{display:flex;align-items:center;gap:8px}
+.float-toggle{width:40px;height:40px;border-radius:50%;background:rgba(15,15,25,.9);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:16px;transition:all .2s}
+.float-toggle:hover{background:rgba(30,30,45,.95)}
+.float-wa{display:flex;align-items:center;gap:10px;background:#25D366;padding:12px 22px;border-radius:100px;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,.35);transition:all .2s}
+.float-wa:hover{transform:scale(1.03);box-shadow:0 12px 40px rgba(37,211,102,.45)}
+.float-wa-text{font-size:14px;font-weight:700;color:#fff;white-space:nowrap}
+
+/* ── ANIMATIONS ── */
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes scrollDot{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fade-up{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-up-d1{transition-delay:.1s}.fade-up-d2{transition-delay:.2s}.fade-up-d3{transition-delay:.3s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .featured-grid,.about-two-col,.contact-two-col{grid-template-columns:1fr}
+  .featured-card{padding:32px 24px}
+  .proj-grid{flex-direction:column}
+  .about-left{padding-right:0}
+  .section{padding:80px 20px}
+  .nav-links{display:none}
+  .hero-stats{gap:24px}
+  .stat-val{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">Demian <span>Calleros</span></div>
+    <div class="nav-links">
+      <span class="nav-link" onclick="scrollTo('projects')">Projects</span>
+      <span class="nav-link" onclick="scrollTo('about')">About</span>
+      <span class="nav-link" onclick="scrollTo('skills')">Skills</span>
+      <span class="nav-link" onclick="scrollTo('contact')">Contact</span>
+      <span class="nav-cta" onclick="scrollTo('contact')">Start a Project</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span class="hero-badge-text">Available for new projects</span>
+    </div>
+
+    <h1 class="hero-h1">
+      I build software that<br>
+      drives real <span class="grad">business growth.</span>
+    </h1>
+
+    <div class="hero-sub">
+      <span>Specializing in</span>
+      <span class="typed" id="typed-text">Full-Stack Web Applications</span><span class="cursor"></span>
+    </div>
+
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollTo('contact')">Start a Project →</button>
+      <button class="btn-ghost" onclick="scrollTo('projects')">View My Work</button>
+    </div>
+
+    <div class="hero-stats">
+      <div><div class="stat-val">4+</div><div class="stat-label">Projects Delivered</div></div>
+      <div><div class="stat-val">100%</div><div class="stat-label">Client Satisfaction</div></div>
+      <div><div class="stat-val">2+</div><div class="stat-label">Years Experience</div></div>
+    </div>
+  </div>
+
+  <div class="scroll-ind" onclick="scrollTo('projects')">
+    <span class="scroll-ind-label">scroll</span>
+    <div class="scroll-mouse"><div class="scroll-dot"></div></div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section class="section" id="projects">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="projects-header fade-up">
+      <span class="section-label" style="color:#64FFDA">Selected Work</span>
+      <h2 class="section-h2">Projects That <span class="grad">Ship</span></h2>
+      <p class="section-desc">Real solutions for real businesses — from healthcare systems to CRM platforms. Some documentation is still in progress and will be available soon on GitHub.</p>
+    </div>
+
+    <!-- FEATURED: Anson General -->
+    <div class="featured-card fade-up fade-up-d1">
+      <div class="featured-badge">★ Featured</div>
+      <div style="position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(100,255,218,.07) 0%,transparent 70%);pointer-events:none"></div>
+
+      <div class="featured-grid">
+        <div>
+          <div class="featured-accent"></div>
+          <h3 class="featured-h3">Anson General</h3>
+          <p class="featured-tagline">Full-stack business management platform for a US general contractor</p>
+          <p class="featured-desc">Designed and built a comprehensive internal operations platform for Anson General, a US-based construction and contracting company. The system handles project tracking, subcontractor management, job costing, and real-time reporting — replacing manual spreadsheets with a unified digital workflow.</p>
+          <ul class="feature-list">
+            <li><span class="feature-check">✓</span>Real-time project & cost tracking dashboard</li>
+            <li><span class="feature-check">✓</span>Subcontractor onboarding & document management</li>
+            <li><span class="feature-check">✓</span>Custom reporting engine with PDF export</li>
+            <li><span class="feature-check">✓</span>Role-based access control (Admin / Manager / Field)</li>
+          </ul>
+          <div class="tech-badges">
+            <span class="tech-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.2)">React</span>
+            <span class="tech-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.2)">Node.js</span>
+            <span class="tech-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.2)">PostgreSQL</span>
+            <span class="tech-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.2)">Express</span>
+            <span class="tech-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.2)">Tailwind CSS</span>
+            <span class="tech-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.2)">REST API</span>
+          </div>
+        </div>
+        <div class="featured-img-box">
+          <div style="font-size:56px">🏗️</div>
+          <p style="font-size:14px;color:rgba(255,255,255,.35);line-height:1.6;margin:0">Replace with your<br>Anson General screenshot</p>
+          <div class="private-badge">🔒 Private Client Project</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT CARDS -->
+    <div class="proj-grid">
+      <!-- Subrogates -->
+      <div class="proj-card fade-up" style="border-color:rgba(189,52,254,.15)" onclick="window.open('https://github.com/Gamequic/LivePreview','_blank')" onmouseenter="this.style.borderColor='rgba(189,52,254,.35)';this.style.boxShadow='0 24px 48px rgba(0,0,0,.4)'" onmouseleave="this.style.borderColor='rgba(189,52,254,.15)';this.style.boxShadow='none'">
+        <div class="proj-img-fallback" style="background:linear-gradient(135deg,rgba(189,52,254,.1),#0D0D14)"><span>🏥</span></div>
+        <div class="proj-body">
+          <div class="proj-accent" style="background:#BD34FE"></div>
+          <div class="proj-name">Subrogates — IMSS</div>
+          <div class="proj-tagline" style="color:#BD34FE">Healthcare subrogation management system</div>
+          <div class="proj-desc">Internal platform for IMSS to manage medical service subrogation workflows, including secure auth, notifications, and performance dashboards.</div>
+          <div class="tech-badges">
+            <span class="tech-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.2)">React</span>
+            <span class="tech-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.2)">Node.js</span>
+            <span class="tech-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.2)">MongoDB</span>
+            <span class="tech-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.2)">Docker</span>
+          </div>
+          <span class="proj-link" style="color:#BD34FE">View on GitHub →</span>
+        </div>
+      </div>
+
+      <!-- Líderes del Cambio -->
+      <div class="proj-card fade-up fade-up-d1" style="border-color:rgba(255,190,0,.15)" onclick="window.open('https://LideresDelCambio.org','_blank')" onmouseenter="this.style.borderColor='rgba(255,190,0,.35)';this.style.boxShadow='0 24px 48px rgba(0,0,0,.4)'" onmouseleave="this.style.borderColor='rgba(255,190,0,.15)';this.style.boxShadow='none'">
+        <div class="proj-img-fallback" style="background:linear-gradient(135deg,rgba(255,190,0,.08),#0D0D14)"><span>🌟</span></div>
+        <div class="proj-body">
+          <div class="proj-accent" style="background:#FFBE00"></div>
+          <div class="proj-name">Líderes del Cambio</div>
+          <div class="proj-tagline" style="color:#FFBE00">NGO digital platform — community leadership</div>
+          <div class="proj-desc">Full website for a nonprofit running leadership programs across Mexico. Focused on accessibility, bilingual content, and donation conversion.</div>
+          <div class="tech-badges">
+            <span class="tech-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.2)">React</span>
+            <span class="tech-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.2)">Tailwind</span>
+            <span class="tech-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.2)">Vite</span>
+            <span class="tech-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.2)">Framer Motion</span>
+          </div>
+          <span class="proj-link" style="color:#FFBE00">Visit Live Site →</span>
+        </div>
+      </div>
+
+      <!-- ArenasCRM -->
+      <div class="proj-card fade-up fade-up-d2" style="border-color:rgba(255,107,107,.15)" onclick="window.open('https://github.com/Gamequic/ArenasCRM_Front','_blank')" onmouseenter="this.style.borderColor='rgba(255,107,107,.35)';this.style.boxShadow='0 24px 48px rgba(0,0,0,.4)'" onmouseleave="this.style.borderColor='rgba(255,107,107,.15)';this.style.boxShadow='none'">
+        <div class="proj-img-fallback" style="background:linear-gradient(135deg,rgba(255,107,107,.08),#0D0D14)"><span>📊</span></div>
+        <div class="proj-body">
+          <div class="proj-accent" style="background:#FF6B6B"></div>
+          <div class="proj-name">ArenasCRM</div>
+          <div class="proj-tagline" style="color:#FF6B6B">Custom CRM for service businesses</div>
+          <div class="proj-desc">A tailored CRM solution with client management, appointment scheduling, task tracking, and revenue reporting built for a service-based business.</div>
+          <div class="tech-badges">
+            <span class="tech-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2)">React</span>
+            <span class="tech-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2)">Node.js</span>
+            <span class="tech-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2)">MySQL</span>
+            <span class="tech-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2)">JWT Auth</span>
+          </div>
+          <span class="proj-link" style="color:#FF6B6B">View on GitHub →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="github-cta fade-up">
+      <a href="https://github.com/Gamequic" target="_blank" class="github-link">View all projects on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="section" id="about">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="about-intro fade-up">
+      <span class="section-label" style="color:#BD34FE">Why Demian?</span>
+      <h2 class="section-h2">I solve problems, <span style="background:linear-gradient(135deg,#BD34FE 0%,#64FFDA 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">not just tasks.</span></h2>
+      <p class="section-desc">As a computer science-trained full-stack developer based on the US–Mexico border, I bridge the gap between technical execution and business outcomes.</p>
+    </div>
+
+    <div class="about-two-col">
+      <div class="about-left fade-up">
+        <div class="about-left-bar"></div>
+        <h3 class="about-h3">Built to grow your business</h3>
+        <p class="about-body">Computer science background + client obsession = software that actually moves the needle. I bring both technical depth and real-world business intuition to every project.</p>
+        <div class="about-meta">
+          <div class="about-meta-row"><span class="about-meta-key">Based in</span><span class="about-meta-val">El Paso, TX / Cd. Juárez</span></div>
+          <div class="about-meta-row"><span class="about-meta-key">Languages</span><span class="about-meta-val">English & Spanish</span></div>
+          <div class="about-meta-row"><span class="about-meta-key">Availability</span><span class="about-meta-val" style="color:#64FFDA">Open to new projects ●</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="value-block fade-up"><div class="value-emoji">🎯</div><h4 class="value-title">Business-First Thinking</h4><p class="value-body">I don't just write code — I understand the business problem first. Every technical decision is driven by one question: will this help your business grow?</p></div>
+        <div class="value-block fade-up fade-up-d1"><div class="value-emoji">⚡</div><h4 class="value-title">Full-Stack, End-to-End</h4><p class="value-body">From database architecture to pixel-perfect UI, I handle the entire stack. No hand-offs, no gaps — one developer who owns the full product.</p></div>
+        <div class="value-block fade-up fade-up-d2"><div class="value-emoji">🚀</div><h4 class="value-title">Shipping is a Feature</h4><p class="value-body">I move fast, communicate proactively, and ship working software. Your MVP will be in production before competitors finish planning.</p></div>
+        <div class="value-block fade-up fade-up-d3"><div class="value-emoji">🔒</div><h4 class="value-title">Quality You Can Trust</h4><p class="value-body">Clean code, proper authentication, responsive design, and real error handling — not a "works on my machine" prototype. Built for real users, on every device.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section class="section" id="skills">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="skills-header fade-up">
+      <span class="section-label" style="color:#FFBE00">Tech Stack</span>
+      <h2 class="section-h2">Tools I Build With</h2>
+      <p class="section-desc" style="margin:0 auto">A modern, battle-tested stack for building fast, scalable, and maintainable products.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <div class="skill-cat-header"><div class="skill-dot" style="background:#64FFDA"></div><span class="skill-cat-name">Frontend</span></div>
+        <div class="skill-badges">
+          <span class="skill-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.15)">React</span>
+          <span class="skill-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.15)">Next.js</span>
+          <span class="skill-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.15)">Tailwind CSS</span>
+          <span class="skill-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.15)">Framer Motion</span>
+          <span class="skill-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.15)">GSAP</span>
+          <span class="skill-badge" style="color:#64FFDA;background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.15)">TypeScript</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up fade-up-d1">
+        <div class="skill-cat-header"><div class="skill-dot" style="background:#BD34FE"></div><span class="skill-cat-name">Backend</span></div>
+        <div class="skill-badges">
+          <span class="skill-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.15)">Node.js</span>
+          <span class="skill-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.15)">Express</span>
+          <span class="skill-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.15)">REST APIs</span>
+          <span class="skill-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.15)">JWT Auth</span>
+          <span class="skill-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.15)">WebSockets</span>
+          <span class="skill-badge" style="color:#BD34FE;background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.15)">GraphQL</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up fade-up-d2">
+        <div class="skill-cat-header"><div class="skill-dot" style="background:#FFBE00"></div><span class="skill-cat-name">Databases</span></div>
+        <div class="skill-badges">
+          <span class="skill-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.15)">PostgreSQL</span>
+          <span class="skill-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.15)">MySQL</span>
+          <span class="skill-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.15)">MongoDB</span>
+          <span class="skill-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.15)">Redis</span>
+          <span class="skill-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.15)">Supabase</span>
+          <span class="skill-badge" style="color:#FFBE00;background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.15)">Firebase</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up fade-up-d3">
+        <div class="skill-cat-header"><div class="skill-dot" style="background:#FF6B6B"></div><span class="skill-cat-name">DevOps & Tools</span></div>
+        <div class="skill-badges">
+          <span class="skill-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.15)">Docker</span>
+          <span class="skill-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.15)">GitHub Actions</span>
+          <span class="skill-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.15)">Linux / VPS</span>
+          <span class="skill-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.15)">Nginx</span>
+          <span class="skill-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.15)">Git</span>
+          <span class="skill-badge" style="color:#FF6B6B;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.15)">Vite</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="section" id="contact">
+  <div class="bg-glow"></div>
+  <div style="max-width:1200px;margin:0 auto;position:relative">
+    <div class="contact-header fade-up">
+      <span class="section-label" style="color:#64FFDA">Get In Touch</span>
+      <h2 class="section-h2">Let's Build <span class="grad">Something Great</span></h2>
+      <p class="section-desc" style="margin:0 auto">Whether you have a project ready to start or just want to explore what's possible — reach out. I respond fast.</p>
+    </div>
+
+    <div class="contact-two-col">
+      <!-- Direct contacts -->
+      <div class="fade-up">
+        <div class="contact-direct-label">Reach me directly</div>
+        <div class="contact-cards">
+          <a href="https://wa.me/19153046304?text=Hi%20Demian%2C%20I%27d%20like%20to%20start%20a%20project." target="_blank" class="contact-card" style="border-color:rgba(37,211,102,.15)" onmouseenter="this.style.borderColor='rgba(37,211,102,.35)'" onmouseleave="this.style.borderColor='rgba(37,211,102,.15)'">
+            <div class="contact-icon" style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2)">💬</div>
+            <div class="contact-text">
+              <div class="contact-card-label" style="color:#25D366">WhatsApp</div>
+              <div class="contact-card-value">Message me now</div>
+              <div class="contact-card-desc">Fastest response — usually within the hour</div>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+          <a href="tel:+19153046304" class="contact-card" style="border-color:rgba(100,255,218,.12)" onmouseenter="this.style.borderColor='rgba(100,255,218,.35)'" onmouseleave="this.style.borderColor='rgba(100,255,218,.12)'">
+            <div class="contact-icon" style="background:rgba(100,255,218,.08);border:1px solid rgba(100,255,218,.15)">📞</div>
+            <div class="contact-text">
+              <div class="contact-card-label" style="color:#64FFDA">Phone — US</div>
+              <div class="contact-card-value">+1 (915) 304-6304</div>
+              <div class="contact-card-desc">El Paso, TX · Calls & SMS welcome</div>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+          <a href="tel:+526567779087" class="contact-card" style="border-color:rgba(189,52,254,.12)" onmouseenter="this.style.borderColor='rgba(189,52,254,.35)'" onmouseleave="this.style.borderColor='rgba(189,52,254,.12)'">
+            <div class="contact-icon" style="background:rgba(189,52,254,.08);border:1px solid rgba(189,52,254,.15)">📱</div>
+            <div class="contact-text">
+              <div class="contact-card-label" style="color:#BD34FE">Phone — Mexico</div>
+              <div class="contact-card-value">+52 656 777 9087</div>
+              <div class="contact-card-desc">Cd. Juárez · Calls only</div>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+          <a href="mailto:demiancalleros1@gmail.com?subject=New%20Project%20Inquiry" class="contact-card" style="border-color:rgba(255,190,0,.12)" onmouseenter="this.style.borderColor='rgba(255,190,0,.35)'" onmouseleave="this.style.borderColor='rgba(255,190,0,.12)'">
+            <div class="contact-icon" style="background:rgba(255,190,0,.08);border:1px solid rgba(255,190,0,.15)">✉️</div>
+            <div class="contact-text">
+              <div class="contact-card-label" style="color:#FFBE00">Email</div>
+              <div class="contact-card-value">demiancalleros1@gmail.com</div>
+              <div class="contact-card-desc">For detailed briefs and proposals</div>
+            </div>
+            <span class="contact-arrow">→</span>
+          </a>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/Gamequic" target="_blank" class="social-btn">⌨️ GitHub</a>
+          <a href="https://www.facebook.com/people/Calleros-Dev/61586630033982/" target="_blank" class="social-btn">📘 Facebook</a>
+        </div>
+      </div>
+
+      <!-- Contact form -->
+      <div class="form-card fade-up fade-up-d1">
+        <div class="form-title">Send a Message</div>
+        <div class="form-subtitle">Describe your project and I'll get back to you within 24 hours.</div>
+
+        <div class="success-box" id="successBox">
+          <div class="success-emoji">🎉</div>
+          <div class="success-title">Message sent!</div>
+          <div class="success-body">I'll respond within 24 hours. Looking forward to working together!</div>
+        </div>
+
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="field">
+            <label class="field-label">Your Name</label>
+            <input type="text" class="field-input" id="fname" placeholder="Jane Smith">
+            <div id="nameErr" style="font-size:12px;color:#FF6B6B;margin-top:6px;display:none">Name is required</div>
+          </div>
+          <div class="field">
+            <label class="field-label">Email Address</label>
+            <input type="email" class="field-input" id="femail" placeholder="jane@company.com">
+            <div id="emailErr" style="font-size:12px;color:#FF6B6B;margin-top:6px;display:none">Please enter a valid email</div>
+          </div>
+          <div class="field">
+            <label class="field-label">Project Description</label>
+            <textarea class="field-textarea" id="fmessage" rows="5" placeholder="Describe what you want to build, your timeline, and any key requirements..."></textarea>
+            <div id="msgErr" style="font-size:12px;color:#FF6B6B;margin-top:6px;display:none">Please add more detail (at least 20 characters)</div>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Demian <span>Calleros</span></div>
+      <div class="footer-tagline">Full-Stack Developer · El Paso, TX</div>
+    </div>
+    <div class="footer-links">
+      <span class="footer-link" onclick="scrollTo('projects')">Projects</span>
+      <span class="footer-link" onclick="scrollTo('about')">About</span>
+      <span class="footer-link" onclick="scrollTo('contact')">Contact</span>
+    </div>
+    <div class="footer-copy" id="footerYear"></div>
+  </div>
+</footer>
+
+<!-- ══ FLOATING CTA ══ -->
+<div class="floating-cta">
+  <div class="float-extras" id="floatExtras">
+    <a href="tel:+19153046304" class="float-extra" style="border-color:rgba(100,255,218,.25)">
+      <span class="float-extra-icon">📞</span>
+      <span class="float-extra-label" style="color:#64FFDA">Call US</span>
+    </a>
+    <a href="mailto:demiancalleros1@gmail.com" class="float-extra" style="border-color:rgba(255,190,0,.25)">
+      <span class="float-extra-icon">✉️</span>
+      <span class="float-extra-label" style="color:#FFBE00">Email</span>
+    </a>
+  </div>
+  <div class="float-row">
+    <button class="float-toggle" id="floatToggle" onclick="toggleFloat()">⋯</button>
+    <a href="https://wa.me/19153046304?text=Hi%20Demian%2C%20I%20saw%20your%20portfolio%20and%20I%27d%20like%20to%20start%20a%20project." target="_blank" class="float-wa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <span class="float-wa-text">Let's create something</span>
+    </a>
+  </div>
+</div>
+
+<script>
+// ── Footer year ──
+document.getElementById('footerYear').textContent = '© ' + new Date().getFullYear() + ' Demian Calleros. All rights reserved.';
+
+// ── Smooth scroll ──
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Navbar scroll behavior ──
+const navbar = document.getElementById('navbar');
+let lastY = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  navbar.classList.toggle('scrolled', y > 20);
+  lastY = y;
+}, { passive: true });
+
+// ── Intersection Observer for fade-up animations ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── Typewriter effect ──
+const phrases = [
+  'Full-Stack Web Applications',
+  'Scalable Backend Systems',
+  'Modern CRM & ERP Platforms',
+  'High-Converting Landing Pages',
+];
+let phraseIdx = 0, charIdx = 0, deleting = false;
+const typedEl = document.getElementById('typed-text');
+
+function typeLoop() {
+  const phrase = phrases[phraseIdx];
+  if (!deleting && charIdx < phrase.length) {
+    typedEl.textContent = phrase.slice(0, ++charIdx);
+    setTimeout(typeLoop, 60);
+  } else if (!deleting && charIdx === phrase.length) {
+    setTimeout(() => { deleting = true; typeLoop(); }, 2200);
+  } else if (deleting && charIdx > 0) {
+    typedEl.textContent = phrase.slice(0, --charIdx);
+    setTimeout(typeLoop, 35);
+  } else {
+    deleting = false;
+    phraseIdx = (phraseIdx + 1) % phrases.length;
+    setTimeout(typeLoop, 120);
+  }
+}
+typeLoop();
+
+// ── Floating CTA toggle ──
+let floatOpen = false;
+function toggleFloat() {
+  floatOpen = !floatOpen;
+  const extras = document.getElementById('floatExtras');
+  const toggle = document.getElementById('floatToggle');
+  extras.classList.toggle('open', floatOpen);
+  toggle.textContent = floatOpen ? '✕' : '⋯';
+  // Transition each extra
+  document.querySelectorAll('.float-extra').forEach((el, i) => {
+    el.style.transitionDelay = floatOpen ? (i * 0.07) + 's' : '0s';
+  });
+}
+
+// ── Contact form ──
+function handleSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const msg = document.getElementById('fmessage').value.trim();
+  let valid = true;
+
+  document.getElementById('nameErr').style.display = name ? 'none' : 'block';
+  document.getElementById('emailErr').style.display = (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) ? 'none' : 'block';
+  document.getElementById('msgErr').style.display = (msg.length >= 20) ? 'none' : 'block';
+
+  if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || msg.length < 20) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  // TODO: Replace with real API call: fetch('/api/contact', { method: 'POST', ... })
+  setTimeout(() => {
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('successBox').classList.add('show');
+  }, 1000);
+}
+</script>
+</body>
+</html>

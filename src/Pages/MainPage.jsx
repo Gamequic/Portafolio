@@ -1,119 +1,70 @@
-import { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+/**
+ * MainPage.jsx — Root layout for the redesigned portfolio landing page.
+ * Orchestrates all sections in order and manages the loading state.
+ *
+ * Section order:
+ *   1. LoadingScreen  (existing, enhanced)
+ *   2. NavBar         (NEW — sticky navigation)
+ *   3. HeroSection    (NEW — headline + CTA)
+ *   4. ProjectsSection (REDESIGNED — all 4 projects, Anson General featured)
+ *   5. AboutSection   (REDESIGNED — value-first messaging)
+ *   6. SkillsSection  (NEW — tech stack grid)
+ *   7. ContactSection (NEW — clickable contacts + form)
+ *   8. Footer         (NEW)
+ */
+
+import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// proyect imports
-import LoadingScreen from "./../components/LoadingScreen";
-import Subtitle from "./../components/Subtitle";
-import Ilustration from "./../components/Ilustration";
-import SocialNetworksCard from './../components/SocialNetworkCard'
-import CenteredZoomingTitle from "../components/CenteredZoomingTitle";
-import AboutScrollSection from "../components/AboutScrollSection";
-import ProjectsSection from "../components/ProjectSection";
-
-gsap.registerPlugin(ScrollTrigger);
-
-const fadeInAnimation = {
-  hidden: { opacity: 0, y: -25 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-};
+// Sections
+import LoadingScreen from "../components/LoadingScreen";
+import NavBar from "../components/NavBar";
+import HeroSection from "../components/HeroSection";
+import ProjectsSection from "../components/ProjectsSection";
+import AboutSection from "../components/AboutSection";
+import SkillsSection from "../components/SkillsSection";
+import ContactSection from "../components/ContactSection";
+import Footer from "../components/Footer";
+import FloatingCTA from "../components/FloatingCTA";
 
 export default function MainPage() {
   const [loading, setLoading] = useState(true);
-
   const isMobile = useMediaQuery({ maxWidth: 1020 });
 
-  const h1SectionRef = useRef(null);
-
+  // Simulate asset load then reveal the page
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1500); // Simula carga
+    const timer = setTimeout(() => setLoading(false), 1800);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="app-container" style={{minHeight: isMobile ? '480vh' : '885vh', maxWidth:'100vw'}}>
+    <div className="portfolio-root" style={{ background: "#0A0A0F", minHeight: "100vh" }}>
+      {/* ── Loading screen (preserved from original) ── */}
+      <LoadingScreen isLoading={loading} />
 
-    <LoadingScreen isLoading={loading} />
+      {/* ── Sticky navigation ── */}
+      <NavBar />
 
-    <section
-      ref={h1SectionRef}
-      className="content-section flex h-screen relative"
-    >
-      <div className="absolute inset-0 z-0">
-        <Ilustration />
-      </div>
+      {/* ── 1. Hero ── */}
+      <HeroSection isMobile={isMobile} />
 
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center bg-black/85">
-        <CenteredZoomingTitle h1SectionRef={h1SectionRef} isMobile={isMobile} />
+      {/* ── 2. Projects ── */}
+      <ProjectsSection isMobile={isMobile} />
 
-        <motion.div
-          className="text-[18px] font-bold lg:text-lg mt-4"
-          variants={fadeInAnimation}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 1 }}
-        >
-          <Subtitle />
-        </motion.div>
-      </div>
-    </section>
+      {/* ── 3. About / Value prop ── */}
+      <AboutSection />
 
-    <section
-      className="content-section flex flex-col lg:flex-row items-center justify-center h-screen"
-    ></section>
+      {/* ── 4. Skills / Tech stack ── */}
+      <SkillsSection />
 
-    <section
-      className="content-section z-20 flex flex-col lg:flex-row items-center justify-center h-[125vh] bg-neutral-200"
-    >
-      <AboutScrollSection />
-    </section>
+      {/* ── 5. Contact (main conversion point) ── */}
+      <ContactSection />
 
-    <ProjectsSection
-      isMobile={isMobile}
-    />
+      {/* ── Footer ── */}
+      <Footer />
 
-    <section
-      className="items-center justify-center flex flex-col w-screen bg-slate-800"
-      style={{ height: '33vh' }}
-    >
-
-      <motion.h1
-        className="text-center text-3xl md:text-5xl lg:text-6xl font-bold text-slate-200"
-        style={{ fontFamily: "'Libertinus Math', system-ui" }}
-        variants={fadeInAnimation}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 1 }}
-      >
-        Optimize your business
-      </motion.h1>
-
-      <div className="relative w-full flex sm:justify-start lg:justify-center">
-          <div 
-            className="overflow-x-auto p-4 scrollbar-hide flex sm:justify-start lg:justify-center"
-            ref={(el) => {
-              if (el) el.scrollLeft = 0; // 📌 Asegura que el scroll empiece desde la izquierda
-            }}
-          >
-            <div className="flex items-center justify-center space-x-6 w-max sm:mx-0 lg:mx-auto">
-              <SocialNetworksCard
-                name="Gamequic"
-                url="https://github.com/Gamequic"
-                isGithub={true}
-                isInstagram={false}
-                isWhatsapp={false}
-              />
-
-              <SocialNetworksCard
-                name="Calleros dev"
-                url="https://www.facebook.com/people/Calleros-Dev/61586630033982/"
-                isFacebook={true}
-              />
-            </div>
-          </div>
-        </div>
-    </section>
+      {/* ── Persistent floating CTA (WhatsApp / Contact) ── */}
+      <FloatingCTA />
     </div>
   );
 }
