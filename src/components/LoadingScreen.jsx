@@ -1,53 +1,96 @@
-import React, { useState, useEffect } from "react";
+/*
+ * LoadingScreen.jsx
+ *
+ * Full-screen loading overlay shown while the page loads (1.8 s).
+ * On exit: blue layer slides left, dark layer slides right, spinner fades out.
+ *
+ * Z-INDEX NOTE:
+ *   This component uses zIndex: 1000 so it always sits above the NavBar (100)
+ *   and every other fixed element. Children use position: "absolute" (not fixed)
+ *   so they remain inside this stacking context and share its z-index correctly.
+ */
+
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import "./LoaderScreen.css";
 
-const LoadingScreen = ({ isLoading }) => {
-  const [isVisible, setIsVisible] = useState(true);
+export default function LoadingScreen({ isLoading }) {
+  const [visible, setVisible] = useState(true);
 
-  // Cuando isLoading pase a false, esperar la animación y ocultar el componente
+  // Remove from DOM ~800 ms after the exit animation finishes
   useEffect(() => {
     if (!isLoading) {
-      setTimeout(() => setIsVisible(false), 1000); // Ajustar tiempo según duración total de animaciones
+      const t = setTimeout(() => setVisible(false), 800);
+      return () => clearTimeout(t);
     }
   }, [isLoading]);
 
-  if (!isVisible) return null; // Remueve el componente del DOM después de la animación
+  if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden">
-      {/* Fondo azul (se desliza primero) */}
+    // Wrapper: covers full viewport, z-index 1000 beats NavBar (100) and everything else
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 1000,
+      }}
+    >
+      {/* Blue layer — slides off to the LEFT on exit */}
       <motion.div
-        className="slide-bg fixed inset-0"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "oklch(0.398 0.195 277.366)",
+          zIndex: 2,
+        }}
         initial={{ x: 0 }}
         animate={isLoading ? { x: 0 } : { x: "-100%" }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
       />
 
-      {/* Fondo negro (se desliza después) */}
+      {/* Dark layer — slides off to the RIGHT on exit */}
       <motion.div
-        className="slide-black fixed inset-0"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "#1a202c",
+          zIndex: 1,
+        }}
         initial={{ x: 0 }}
         animate={isLoading ? { x: 0 } : { x: "100%" }}
-        transition={{ duration: 0.6, ease: "easeInOut"}}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
       />
 
-      {/* Loader (siempre visible hasta el final) */}
+      {/* Spinner — centered, fades out on exit */}
       <motion.div
-        className="loader-container fixed inset-0 flex items-center justify-center"
-        initial={{ opacity: 1 }}
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 3,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          pointerEvents: "none",
+        }}
         animate={isLoading ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.5, ease: "easeInOut", delay: 0.3 }}
-        onAnimationComplete={() => !isLoading && setIsVisible(false)} // Oculta al final
-        style={{ pointerEvents: isLoading ? "auto" : "none" }}
+        transition={{ duration: 0.3 }}
       >
-        <div className="flex flex-col items-center">
-          <div className="loader"></div>
-          <p className="mt-4 text-lg font-semibold">Loading...</p>
-        </div>
+        {/* .loader is defined in index.css — spinning ring animation */}
+        <div className="loader" />
+        <p
+          style={{
+            marginTop: 20,
+            fontFamily: "var(--font-body)",
+            fontSize: 14,
+            fontWeight: 600,
+            color: "rgba(255,255,255,0.7)",
+            letterSpacing: "1px",
+          }}
+        >
+          Loading...
+        </p>
       </motion.div>
     </div>
   );
-};
-
-export default LoadingScreen;
+}

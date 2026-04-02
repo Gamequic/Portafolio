@@ -1,95 +1,39 @@
-/**
- * ContactSection.jsx — PRIMARY CONVERSION SECTION.
+/*
+ * ContactSection.jsx — Primary conversion section.
  *
  * Contains:
- *  1. Prominent clickable contact cards (WhatsApp, Phone US, Phone MX, Email)
- *  2. Functional contact form with validation + success/error states
- *     (form submits to a placeholder API endpoint — easy to connect to a backend)
+ *  1. Clickable contact cards (WhatsApp, Phone US, Phone MX, Email)
+ *  2. Contact form with validation + success/error states
+ *     (submits to /api/contact — swap API_ENDPOINT when backend is ready)
+ *
+ * Full EN / ES translation support.
  */
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
+import { T } from "../i18n/translations";
 
-// ── Contact methods — clickable with proper tel:/mailto:/wa links ──
-const CONTACTS = [
-  {
-    icon: "💬",
-    label: "WhatsApp",
-    value: "Message me now",
-    href: "https://wa.me/19153046304?text=Hi%20Demian%2C%20I%27d%20like%20to%20start%20a%20project%20with%20you.",
-    color: "#25D366",
-    description: "Fastest response — usually within the hour",
-  },
-  {
-    icon: "📞",
-    label: "Phone — US",
-    value: "+1 (915) 304-6304",
-    href: "tel:+19153046304",
-    color: "#64FFDA",
-    description: "El Paso, TX · Calls & SMS welcome",
-  },
-  {
-    icon: "📱",
-    label: "Phone — Mexico",
-    value: "+52 656 777 9087",
-    href: "tel:+526567779087",
-    color: "#BD34FE",
-    description: "Cd. Juárez · Calls only",
-  },
-  {
-    icon: "✉️",
-    label: "Email",
-    value: "demiancalleros1@gmail.com",
-    href: "mailto:demiancalleros1@gmail.com?subject=New%20Project%20Inquiry",
-    color: "#FFBE00",
-    description: "For detailed briefs and proposals",
-  },
+// Fixed data — hrefs, icons, colors, phone numbers never change
+const CONTACT_CARDS = [
+  { key: "whatsapp", icon: "💬", value: "Message me now", href: "https://wa.me/19153046304?text=Hi%20Demian%2C%20I%27d%20like%20to%20start%20a%20project%20with%20you.", color: "#25D366" },
+  { key: "phoneUS",  icon: "📞", value: "+1 (915) 304-6304", href: "tel:+19153046304",     color: "#64FFDA" },
+  { key: "phoneMX",  icon: "📱", value: "+52 656 777 9087",  href: "tel:+526567779087",     color: "#BD34FE" },
+  { key: "email",    icon: "✉️", value: "demiancalleros1@gmail.com", href: "mailto:demiancalleros1@gmail.com?subject=New%20Project%20Inquiry", color: "#FFBE00" },
 ];
 
-// ── Form validation ──
-function validate(fields) {
-  const errors = {};
-  if (!fields.name.trim()) errors.name = "Name is required";
-  if (!fields.email.trim()) errors.email = "Email is required";
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email))
-    errors.email = "Please enter a valid email";
-  if (!fields.message.trim()) errors.message = "Tell me about your project";
-  else if (fields.message.trim().length < 20)
-    errors.message = "Please add a bit more detail (at least 20 characters)";
-  return errors;
-}
-
-// ── Input field component ──
+// Inline Field wrapper
 function Field({ label, error, children }) {
   return (
     <div style={{ marginBottom: 20 }}>
-      <label
-        style={{
-          display: "block",
-          fontFamily: "'DM Sans', sans-serif",
-          fontSize: 13,
-          fontWeight: 600,
-          color: error ? "#FF6B6B" : "rgba(255,255,255,0.6)",
-          marginBottom: 8,
-          letterSpacing: "0.3px",
-        }}
-      >
+      <label style={{ display: "block", fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600, color: error ? "#FF6B6B" : "rgba(255,255,255,0.6)", marginBottom: 8, letterSpacing: "0.3px" }}>
         {label}
       </label>
       {children}
       <AnimatePresence>
         {error && (
-          <motion.p
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: 12,
-              color: "#FF6B6B",
-              margin: "6px 0 0",
-            }}
-          >
+          <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
+            style={{ fontFamily: "var(--font-body)", fontSize: 12, color: "#FF6B6B", margin: "6px 0 0" }}>
             {error}
           </motion.p>
         )}
@@ -99,471 +43,171 @@ function Field({ label, error, children }) {
 }
 
 const INPUT_BASE = {
-  width: "100%",
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(255,255,255,0.1)",
-  borderRadius: 10,
-  padding: "12px 16px",
-  fontFamily: "'DM Sans', sans-serif",
-  fontSize: 15,
-  color: "#FFFFFF",
-  outline: "none",
-  boxSizing: "border-box",
-  transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+  width: "100%", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
+  borderRadius: 10, padding: "12px 16px", fontFamily: "var(--font-body)", fontSize: 15,
+  color: "#FFF", outline: "none", boxSizing: "border-box", transition: "border-color 0.2s ease, box-shadow 0.2s ease",
 };
 
 export default function ContactSection() {
+  const { lang }  = useLanguage();
+  const tc        = T.contact;
+  const tf        = tc.form;
+
   const [fields, setFields] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
 
+  function validate(f) {
+    const e = {};
+    if (!f.name.trim())                                    e.name    = tf.nameRequired[lang];
+    if (!f.email.trim())                                   e.email   = tf.emailRequired[lang];
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email   = tf.emailInvalid[lang];
+    if (!f.message.trim())                                 e.message = tf.msgRequired[lang];
+    else if (f.message.trim().length < 20)                 e.message = tf.msgTooShort[lang];
+    return e;
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFields((f) => ({ ...f, [name]: value }));
-    // Clear error on type
     if (errors[name]) setErrors((err) => ({ ...err, [name]: undefined }));
   };
 
-  const handleFocus = (e) => {
-    e.target.style.borderColor = "rgba(100, 255, 218, 0.4)";
-    e.target.style.boxShadow = "0 0 0 3px rgba(100, 255, 218, 0.08)";
-  };
-  const handleBlur = (e) => {
-    e.target.style.borderColor = "rgba(255,255,255,0.1)";
-    e.target.style.boxShadow = "none";
-  };
+  const onFocus = (e) => { e.target.style.borderColor = "rgba(100,255,218,0.4)"; e.target.style.boxShadow = "0 0 0 3px rgba(100,255,218,0.08)"; };
+  const onBlur  = (e) => { e.target.style.borderColor = "rgba(255,255,255,0.1)"; e.target.style.boxShadow = "none"; };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = validate(fields);
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
-
+    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setStatus("loading");
-
-    // ── Replace this URL with your real backend or form service ──
-    // Options: EmailJS, Formspree, your own Express /api/contact endpoint
-    const API_ENDPOINT = "/api/contact"; // ← TODO: update this
-
     try {
-      // Try real endpoint; gracefully fall back in dev
-      const res = await fetch(API_ENDPOINT, {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(fields),
-      }).catch(() => null); // network error (dev, no backend)
-
-      if (res && res.ok) {
-        setStatus("success");
-        setFields({ name: "", email: "", message: "" });
-      } else {
-        // For demo/dev purposes — treat 404 / missing backend as "success"
-        // Remove this block when you connect a real backend
-        console.warn("ContactSection: no backend connected. Showing success state for demo.");
-        setStatus("success");
-        setFields({ name: "", email: "", message: "" });
-      }
+      }).catch(() => null);
+      // Treat any response (or network failure) as success for demo — replace when backend is live
+      if (res && !res.ok) console.warn("ContactSection: /api/contact returned non-200.");
+      setStatus("success");
+      setFields({ name: "", email: "", message: "" });
     } catch {
       setStatus("error");
     }
   };
 
-  const handleContactClick = (contact) => {
-    if (window.gtag) {
-      window.gtag("event", "contact_click_" + contact.label, {
-        event_category: "engagement",
-        value: 1,
-      });
-    }
+  const trackClick = (key) => {
+    if (window.gtag) window.gtag("event", "contact_click_" + key, { event_category: "engagement", value: 1 });
   };
 
   return (
-    <section
-      id="contact"
-      style={{
-        background: "#0D0D16",
-        padding: "120px 40px",
-        borderTop: "1px solid rgba(255,255,255,0.04)",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <section id="contact" style={{ background: "var(--surface)", padding: "120px 40px", borderTop: "1px solid rgba(255,255,255,0.04)", position: "relative", overflow: "hidden" }}>
+
       {/* Background glow */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: -200,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 800,
-          height: 500,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(100, 255, 218, 0.05) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
+      <div style={{ position: "absolute", bottom: -200, left: "50%", transform: "translateX(-50%)", width: 800, height: 500, borderRadius: "50%", background: "radial-gradient(circle,rgba(100,255,218,0.05) 0%,transparent 70%)", pointerEvents: "none" }} />
 
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          style={{ textAlign: "center", marginBottom: 72 }}
-        >
-          <span
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: 12,
-              fontWeight: 600,
-              color: "#64FFDA",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              display: "block",
-              marginBottom: 12,
-            }}
-          >
-            Get In Touch
-          </span>
-          <h2
-            style={{
-              fontFamily: "'Syne', sans-serif",
-              fontSize: "clamp(32px, 5vw, 60px)",
-              fontWeight: 800,
-              color: "#FFFFFF",
-              margin: "0 0 20px",
-              letterSpacing: "-2px",
-              lineHeight: 1.05,
-            }}
-          >
-            Let's Build{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg, #64FFDA 0%, #BD34FE 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              Something Great
+
+        {/* Section header */}
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ textAlign: "center", marginBottom: 72 }}>
+          <span style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: "var(--accent)", letterSpacing: "2px", textTransform: "uppercase", display: "block", marginBottom: 12 }}>{tc.eyebrow[lang]}</span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px,5vw,60px)", fontWeight: 800, color: "#FFF", margin: "0 0 20px", letterSpacing: "-2px", lineHeight: 1.05 }}>
+            {tc.headline[lang]}{" "}
+            <span style={{ background: "linear-gradient(135deg,#64FFDA 0%,#BD34FE 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              {tc.headlineAccent[lang]}
             </span>
           </h2>
-          <p
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: 17,
-              color: "rgba(255,255,255,0.4)",
-              maxWidth: 480,
-              lineHeight: 1.7,
-              margin: "0 auto",
-            }}
-          >
-            Whether you have a project ready to start or just want to explore what's possible — reach out. I respond fast.
-          </p>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: 17, color: "rgba(255,255,255,0.4)", maxWidth: 480, lineHeight: 1.7, margin: "0 auto" }}>{tc.subtitle[lang]}</p>
         </motion.div>
 
-        {/* Two-column layout: contacts + form */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: 48,
-            alignItems: "start",
-          }}
-        >
+        {/* Two-column: cards + form */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 48, alignItems: "start" }}>
+
           {/* ── Contact cards ── */}
           <div>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 13,
-                fontWeight: 600,
-                color: "rgba(255,255,255,0.3)",
-                letterSpacing: "1px",
-                textTransform: "uppercase",
-                marginBottom: 20,
-              }}
-            >
-              Reach me directly
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.3)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 20 }}>
+              {tc.reachDirectly[lang]}
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {CONTACTS.map((contact, i) => (
-                <motion.a
-                  key={contact.label}
-                  href={contact.href}
-                  target={contact.href.startsWith("http") ? "_blank" : undefined}
-                  rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  onClick={() => handleContactClick(contact)}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 16,
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.07)",
-                    borderRadius: 16,
-                    padding: "16px 20px",
-                    textDecoration: "none",
-                    transition: "all 0.25s ease",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-                    e.currentTarget.style.borderColor = contact.color + "40";
-                    e.currentTarget.style.transform = "translateX(6px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)";
-                    e.currentTarget.style.transform = "translateX(0)";
-                  }}
-                >
-                  {/* Icon circle */}
-                  <div
-                    style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: 12,
-                      background: contact.color + "15",
-                      border: `1px solid ${contact.color}25`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: 20,
-                      flexShrink: 0,
-                    }}
+              {CONTACT_CARDS.map((card, i) => {
+                const tCard = tc.cards[card.key];
+                const displayValue = card.key === "whatsapp" ? tCard.value[lang] : card.value;
+                return (
+                  <motion.a
+                    key={card.key}
+                    href={card.href}
+                    target={card.href.startsWith("http") ? "_blank" : undefined}
+                    rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    onClick={() => trackClick(card.key)}
+                    initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                    style={{ display: "flex", alignItems: "center", gap: 16, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: "16px 20px", textDecoration: "none", transition: "all 0.25s ease", cursor: "pointer" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = card.color + "40"; e.currentTarget.style.transform = "translateX(6px)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; e.currentTarget.style.transform = "translateX(0)"; }}
                   >
-                    {contact.icon}
-                  </div>
-
-                  {/* Text */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div
-                      style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: 12,
-                        fontWeight: 600,
-                        color: contact.color,
-                        letterSpacing: "0.5px",
-                        textTransform: "uppercase",
-                        marginBottom: 2,
-                      }}
-                    >
-                      {contact.label}
+                    <div style={{ width: 44, height: 44, borderRadius: 12, background: card.color + "15", border: `1px solid ${card.color}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>
+                      {card.icon}
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "'Syne', sans-serif",
-                        fontSize: 14,
-                        fontWeight: 700,
-                        color: "#FFFFFF",
-                        marginBottom: 2,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {contact.value}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: card.color, letterSpacing: "0.5px", textTransform: "uppercase", marginBottom: 2 }}>{tCard.label[lang]}</div>
+                      <div style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, color: "#FFF", marginBottom: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{displayValue}</div>
+                      <div style={{ fontFamily: "var(--font-body)", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{tCard.desc[lang]}</div>
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: 12,
-                        color: "rgba(255,255,255,0.35)",
-                      }}
-                    >
-                      {contact.description}
-                    </div>
-                  </div>
-
-                  {/* Arrow */}
-                  <span
-                    style={{
-                      color: "rgba(255,255,255,0.2)",
-                      fontSize: 16,
-                      flexShrink: 0,
-                    }}
-                  >
-                    →
-                  </span>
-                </motion.a>
-              ))}
+                    <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 16, flexShrink: 0 }}>→</span>
+                  </motion.a>
+                );
+              })}
             </div>
 
             {/* Social links */}
             <div style={{ marginTop: 32, display: "flex", gap: 12 }}>
               {[
-                { label: "GitHub", href: "https://github.com/Gamequic", icon: "⌨️" },
-                {
-                  label: "Facebook",
-                  href: "https://www.facebook.com/people/Calleros-Dev/61586630033982/",
-                  icon: "📘",
-                },
+                { key: "github",   label: tc.github[lang],   href: "https://github.com/Gamequic", icon: "⌨️" },
               ].map((s) => (
                 <a
-                  key={s.label}
+                  key={s.key}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "10px 18px",
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: 10,
-                    textDecoration: "none",
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: 14,
-                    fontWeight: 600,
-                    color: "rgba(255,255,255,0.6)",
-                    transition: "all 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "#64FFDA";
-                    e.currentTarget.style.borderColor = "rgba(100, 255, 218, 0.25)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "rgba(255,255,255,0.6)";
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-                  }}
+                  style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.6)", transition: "all 0.2s ease" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.borderColor = "rgba(100,255,218,0.25)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.6)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
                 >
-                  <span>{s.icon}</span>
-                  {s.label}
+                  <span>{s.icon}</span>{s.label}
                 </a>
               ))}
             </div>
           </div>
 
           {/* ── Contact Form ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{
-              background: "rgba(255,255,255,0.02)",
-              border: "1px solid rgba(255,255,255,0.07)",
-              borderRadius: 24,
-              padding: "36px",
-            }}
-          >
-            <h3
-              style={{
-                fontFamily: "'Syne', sans-serif",
-                fontSize: 22,
-                fontWeight: 700,
-                color: "#FFFFFF",
-                margin: "0 0 8px",
-                letterSpacing: "-0.5px",
-              }}
-            >
-              Send a Message
-            </h3>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 14,
-                color: "rgba(255,255,255,0.35)",
-                margin: "0 0 28px",
-              }}
-            >
-              Describe your project and I'll get back to you within 24 hours.
-            </p>
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
+            style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 24, padding: 36 }}>
 
-            {/* Success state */}
+            <h3 style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700, color: "#FFF", margin: "0 0 8px", letterSpacing: "-0.5px" }}>{tf.title[lang]}</h3>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 14, color: "rgba(255,255,255,0.35)", margin: "0 0 28px" }}>{tf.subtitle[lang]}</p>
+
+            {/* Success */}
             <AnimatePresence>
               {status === "success" && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  style={{
-                    background: "rgba(100, 255, 218, 0.08)",
-                    border: "1px solid rgba(100, 255, 218, 0.25)",
-                    borderRadius: 14,
-                    padding: "24px",
-                    textAlign: "center",
-                    marginBottom: 24,
-                  }}
-                >
+                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
+                  style={{ background: "rgba(100,255,218,0.08)", border: "1px solid rgba(100,255,218,0.25)", borderRadius: 14, padding: 24, textAlign: "center", marginBottom: 24 }}>
                   <div style={{ fontSize: 32, marginBottom: 12 }}>🎉</div>
-                  <p
-                    style={{
-                      fontFamily: "'Syne', sans-serif",
-                      fontSize: 18,
-                      fontWeight: 700,
-                      color: "#64FFDA",
-                      margin: "0 0 8px",
-                    }}
-                  >
-                    Message sent!
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontSize: 14,
-                      color: "rgba(255,255,255,0.5)",
-                      margin: 0,
-                    }}
-                  >
-                    I'll respond within 24 hours. Looking forward to working together!
-                  </p>
-                  <button
-                    onClick={() => setStatus("idle")}
-                    style={{
-                      marginTop: 16,
-                      background: "none",
-                      border: "1px solid rgba(100, 255, 218, 0.3)",
-                      borderRadius: 8,
-                      padding: "8px 20px",
-                      color: "#64FFDA",
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      cursor: "pointer",
-                    }}
-                  >
-                    Send another message
+                  <p style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 700, color: "var(--accent)", margin: "0 0 8px" }}>{tf.successTitle[lang]}</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: 14, color: "rgba(255,255,255,0.5)", margin: 0 }}>{tf.successBody[lang]}</p>
+                  <button onClick={() => setStatus("idle")} style={{ marginTop: 16, background: "none", border: "1px solid rgba(100,255,218,0.3)", borderRadius: 8, padding: "8px 20px", color: "var(--accent)", fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                    {tf.sendAnother[lang]}
                   </button>
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Error state */}
+            {/* Error */}
             <AnimatePresence>
               {status === "error" && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  style={{
-                    background: "rgba(255, 107, 107, 0.08)",
-                    border: "1px solid rgba(255, 107, 107, 0.25)",
-                    borderRadius: 12,
-                    padding: "14px 18px",
-                    marginBottom: 20,
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: 14,
-                    color: "#FF6B6B",
-                  }}
-                >
-                  Something went wrong. Please try emailing me directly at{" "}
-                  <a
-                    href="mailto:demiancalleros1@gmail.com"
-                    style={{ color: "#FF6B6B", fontWeight: 700 }}
-                  >
-                    demiancalleros1@gmail.com
-                  </a>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  style={{ background: "rgba(255,107,107,0.08)", border: "1px solid rgba(255,107,107,0.25)", borderRadius: 12, padding: "14px 18px", marginBottom: 20, fontFamily: "var(--font-body)", fontSize: 14, color: "#FF6B6B" }}>
+                  {tf.errorMsg[lang]}{" "}
+                  <a href="mailto:demiancalleros1@gmail.com" style={{ color: "#FF6B6B", fontWeight: 700 }}>demiancalleros1@gmail.com</a>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -571,123 +215,33 @@ export default function ContactSection() {
             {/* Form */}
             {status !== "success" && (
               <form onSubmit={handleSubmit} noValidate>
-                <Field label="Your Name" error={errors.name}>
-                  <input
-                    type="text"
-                    name="name"
-                    value={fields.name}
-                    onChange={handleChange}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    placeholder="Jane Smith"
-                    style={{
-                      ...INPUT_BASE,
-                      borderColor: errors.name ? "#FF6B6B" : undefined,
-                    }}
-                  />
+                <Field label={tf.nameLbl[lang]} error={errors.name}>
+                  <input type="text" name="name" value={fields.name} onChange={handleChange} onFocus={onFocus} onBlur={onBlur} placeholder={tf.namePh[lang]} style={{ ...INPUT_BASE, borderColor: errors.name ? "#FF6B6B" : undefined }} />
+                </Field>
+                <Field label={tf.emailLbl[lang]} error={errors.email}>
+                  <input type="email" name="email" value={fields.email} onChange={handleChange} onFocus={onFocus} onBlur={onBlur} placeholder={tf.emailPh[lang]} style={{ ...INPUT_BASE, borderColor: errors.email ? "#FF6B6B" : undefined }} />
+                </Field>
+                <Field label={tf.msgLbl[lang]} error={errors.message}>
+                  <textarea name="message" value={fields.message} onChange={handleChange} onFocus={onFocus} onBlur={onBlur} placeholder={tf.msgPh[lang]} rows={5} style={{ ...INPUT_BASE, resize: "vertical", minHeight: 120, borderColor: errors.message ? "#FF6B6B" : undefined }} />
                 </Field>
 
-                <Field label="Email Address" error={errors.email}>
-                  <input
-                    type="email"
-                    name="email"
-                    value={fields.email}
-                    onChange={handleChange}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    placeholder="jane@company.com"
-                    style={{
-                      ...INPUT_BASE,
-                      borderColor: errors.email ? "#FF6B6B" : undefined,
-                    }}
-                  />
-                </Field>
-
-                <Field label="Project Description" error={errors.message}>
-                  <textarea
-                    name="message"
-                    value={fields.message}
-                    onChange={handleChange}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    placeholder="Describe what you want to build, your timeline, and any key requirements..."
-                    rows={5}
-                    style={{
-                      ...INPUT_BASE,
-                      resize: "vertical",
-                      minHeight: 120,
-                      borderColor: errors.message ? "#FF6B6B" : undefined,
-                    }}
-                  />
-                </Field>
-
-                {/* Submit button */}
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  style={{
-                    width: "100%",
-                    padding: "14px",
-                    background: status === "loading" ? "rgba(100,255,218,0.5)" : "#64FFDA",
-                    border: "none",
-                    borderRadius: 12,
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: 16,
-                    fontWeight: 700,
-                    color: "#0A0A0F",
-                    cursor: status === "loading" ? "not-allowed" : "pointer",
-                    transition: "all 0.25s ease",
-                    letterSpacing: "0.2px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 8,
-                  }}
-                  onMouseEnter={(e) => {
-                    if (status !== "loading") {
-                      e.currentTarget.style.transform = "translateY(-2px)";
-                      e.currentTarget.style.boxShadow =
-                        "0 8px 30px rgba(100, 255, 218, 0.35)";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
+                  style={{ width: "100%", padding: 14, background: status === "loading" ? "rgba(100,255,218,0.5)" : "var(--accent)", border: "none", borderRadius: 12, fontFamily: "var(--font-body)", fontSize: 16, fontWeight: 700, color: "#0A0A0F", cursor: status === "loading" ? "not-allowed" : "pointer", transition: "all 0.25s ease", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+                  onMouseEnter={(e) => { if (status !== "loading") { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 30px rgba(100,255,218,0.35)"; } }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
                 >
-                  {status === "loading" ? (
-                    <>
-                      <span
-                        style={{
-                          display: "inline-block",
-                          width: 16,
-                          height: 16,
-                          border: "2px solid #0A0A0F",
-                          borderTopColor: "transparent",
-                          borderRadius: "50%",
-                          animation: "spin 0.7s linear infinite",
-                        }}
-                      />
-                      Sending...
-                    </>
-                  ) : (
-                    "Send Message →"
-                  )}
+                  {status === "loading"
+                    ? <><span style={{ display: "inline-block", width: 16, height: 16, border: "2px solid #0A0A0F", borderTopColor: "transparent", borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />{tf.sending[lang]}</>
+                    : tf.submit[lang]
+                  }
                 </button>
               </form>
             )}
           </motion.div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-        @media (max-width: 768px) {
-          #contact { padding: 80px 20px !important; }
-        }
-      `}</style>
     </section>
   );
 }
