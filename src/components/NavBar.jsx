@@ -17,7 +17,13 @@ import { T } from "../i18n/translations";
 
 function scrollTo(e, href) {
   e.preventDefault();
-  document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const el = document.querySelector(href);
+  if (!el) return;
+  if (window.__lenis) {
+    window.__lenis.scrollTo(el);
+  } else {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 // Small EN / ES pill toggle
