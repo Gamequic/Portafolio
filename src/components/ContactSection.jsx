@@ -3,8 +3,7 @@
  *
  * Contains:
  *  1. Clickable contact cards (WhatsApp, Phone US, Phone MX, Email)
- *  2. Contact form with validation + success/error states
- *     (submits to /api/contact — swap API_ENDPOINT when backend is ready)
+ *  2. Contact form with validation + success/error states (EmailJS)
  *
  * Full EN / ES translation support.
  */
@@ -13,6 +12,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import { T } from "../i18n/translations";
+
+// ── Web3Forms config ────────────────────────────────────────────────────────
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
 // Fixed data — hrefs, icons, colors, phone numbers never change
 const CONTACT_CARDS = [
@@ -48,7 +50,7 @@ const INPUT_BASE = {
   color: "#FFF", outline: "none", boxSizing: "border-box", transition: "border-color 0.2s ease, box-shadow 0.2s ease",
 };
 
-export default function ContactSection() {
+export default function ContactSection({ isMobile }) {
   const { lang }  = useLanguage();
   const tc        = T.contact;
   const tf        = tc.form;
@@ -82,15 +84,21 @@ export default function ContactSection() {
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setStatus("loading");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(fields),
-      }).catch(() => null);
-      // Treat any response (or network failure) as success for demo — replace when backend is live
-      if (res && !res.ok) console.warn("ContactSection: /api/contact returned non-200.");
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          name: fields.name,
+          email: fields.email,
+          message: fields.message,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message);
       setStatus("success");
       setFields({ name: "", email: "", message: "" });
+      if (window.gtag) window.gtag("event", "contact_form_sent", { event_category: "engagement" });
     } catch {
       setStatus("error");
     }
@@ -101,7 +109,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" style={{ background: "var(--surface)", padding: "120px 40px", borderTop: "1px solid rgba(255,255,255,0.04)", position: "relative", overflow: "hidden" }}>
+    <section id="contact" style={{ background: "var(--surface)", padding: isMobile ? "72px 20px" : "120px 40px", borderTop: "1px solid rgba(255,255,255,0.04)", position: "relative", overflow: "hidden" }}>
 
       {/* Background glow */}
       <div style={{ position: "absolute", bottom: -200, left: "50%", transform: "translateX(-50%)", width: 800, height: 500, borderRadius: "50%", background: "radial-gradient(circle,rgba(100,255,218,0.05) 0%,transparent 70%)", pointerEvents: "none" }} />
@@ -109,19 +117,19 @@ export default function ContactSection() {
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
 
         {/* Section header */}
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ textAlign: "center", marginBottom: 72 }}>
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ textAlign: "center", marginBottom: isMobile ? 40 : 72 }}>
           <span style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: "var(--accent)", letterSpacing: "2px", textTransform: "uppercase", display: "block", marginBottom: 12 }}>{tc.eyebrow[lang]}</span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px,5vw,60px)", fontWeight: 800, color: "#FFF", margin: "0 0 20px", letterSpacing: "-2px", lineHeight: 1.05 }}>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: isMobile ? "clamp(28px,8vw,44px)" : "clamp(32px,5vw,60px)", fontWeight: 800, color: "#FFF", margin: "0 0 20px", letterSpacing: isMobile ? "-1px" : "-2px", lineHeight: 1.05 }}>
             {tc.headline[lang]}{" "}
             <span style={{ background: "linear-gradient(135deg,#64FFDA 0%,#BD34FE 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               {tc.headlineAccent[lang]}
             </span>
           </h2>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: 17, color: "rgba(255,255,255,0.4)", maxWidth: 480, lineHeight: 1.7, margin: "0 auto" }}>{tc.subtitle[lang]}</p>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: isMobile ? 15 : 17, color: "rgba(255,255,255,0.4)", maxWidth: 480, lineHeight: 1.7, margin: "0 auto" }}>{tc.subtitle[lang]}</p>
         </motion.div>
 
         {/* Two-column: cards + form */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 48, alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit,minmax(300px,1fr))", gap: isMobile ? 32 : 48, alignItems: "start" }}>
 
           {/* ── Contact cards ── */}
           <div>
@@ -181,7 +189,7 @@ export default function ContactSection() {
 
           {/* ── Contact Form ── */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 24, padding: 36 }}>
+            style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 24, padding: isMobile ? 24 : 36 }}>
 
             <h3 style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700, color: "#FFF", margin: "0 0 8px", letterSpacing: "-0.5px" }}>{tf.title[lang]}</h3>
             <p style={{ fontFamily: "var(--font-body)", fontSize: 14, color: "rgba(255,255,255,0.35)", margin: "0 0 28px" }}>{tf.subtitle[lang]}</p>

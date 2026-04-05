@@ -52,16 +52,16 @@ export default function MainPage() {
       <ProjectsSection isMobile={isMobile} />
 
       {/* ── 3. About / Value prop ── */}
-      <AboutSection />
+      <AboutSection isMobile={isMobile} />
 
       {/* ── 4. Skills / Tech stack ── */}
-      <SkillsSection />
+      <SkillsSection isMobile={isMobile} />
 
       {/* ── 5. Contact (main conversion point) ── */}
-      <ContactSection />
+      <ContactSection isMobile={isMobile} />
 
       {/* ── Footer ── */}
-      <Footer />
+      <Footer isMobile={isMobile} />
 
       {/* ── Persistent floating CTA (WhatsApp / Contact) ── */}
       <FloatingCTA />

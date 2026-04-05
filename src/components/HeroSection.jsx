@@ -56,14 +56,20 @@ export default function HeroSection({ isMobile }) {
 
   // ── Lenis smooth scroll + GSAP ──
   useEffect(() => {
-    const lenis = new Lenis({ smooth: true });
+    const lenis = new Lenis({ smoothWheel: true });
     lenisRef.current = lenis;
     window.__lenis = lenis;
-    let rafId;
-    const raf = (time) => { lenis.raf(time); ScrollTrigger.update(); rafId = requestAnimationFrame(raf); };
-    rafId = requestAnimationFrame(raf);
+
+    // Sync Lenis with GSAP's ticker so both run on the same RAF cycle.
+    // This prevents scrub animations from reading a stale scroll position.
+    lenis.on("scroll", ScrollTrigger.update);
+    const ticker = (time) => { lenis.raf(time * 1000); };
+    gsap.ticker.add(ticker);
+    gsap.ticker.lagSmoothing(0);
+
     return () => {
-      cancelAnimationFrame(rafId);
+      lenis.off("scroll", ScrollTrigger.update);
+      gsap.ticker.remove(ticker);
       lenis.destroy();
       lenisRef.current = null;
       window.__lenis = null;
@@ -72,8 +78,11 @@ export default function HeroSection({ isMobile }) {
 
   // ── Parallax orbs ──
   useEffect(() => {
-    gsap.to(".hero-orb-1", { y: -120, scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: 1.5 } });
-    gsap.to(".hero-orb-2", { y: -60,  scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: 2 } });
+    const ctx = gsap.context(() => {
+      gsap.to(".hero-orb-1", { y: -120, scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: 1.5 } });
+      gsap.to(".hero-orb-2", { y: -60,  scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: 2 } });
+    });
+    return () => ctx.revert();
   }, []);
 
   const scrollToSection = (id) => {
@@ -165,7 +174,7 @@ export default function HeroSection({ isMobile }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9 }}
-          style={{ fontFamily: "var(--font-body)", fontSize: isMobile ? 17 : 20, fontWeight: 400, color: "rgba(255,255,255,0.55)", marginBottom: 44, minHeight: 32, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+          style={{ fontFamily: "var(--font-body)", fontSize: isMobile ? 16 : 20, fontWeight: 400, color: "rgba(255,255,255,0.55)", marginBottom: 44, minHeight: 32, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap", textAlign: "center" }}
         >
           <span>{T.hero.specializing[lang]}</span>
           <span style={{ color: "var(--accent)", fontWeight: 600 }}>
@@ -179,11 +188,11 @@ export default function HeroSection({ isMobile }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.6 }}
-          style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}
+          style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", width: "100%" }}
         >
           <button
             onClick={() => scrollToSection("contact")}
-            style={{ fontFamily: "var(--font-body)", fontSize: 16, fontWeight: 700, color: "#0A0A0F", background: "var(--accent)", border: "none", padding: "14px 32px", borderRadius: 12, cursor: "pointer", transition: "all 0.25s ease" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: 16, fontWeight: 700, color: "#0A0A0F", background: "var(--accent)", border: "none", padding: isMobile ? "14px 28px" : "14px 32px", borderRadius: 12, cursor: "pointer", transition: "all 0.25s ease", flex: isMobile ? "1 1 140px" : "0 0 auto" }}
             onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(100,255,218,0.35)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
           >
@@ -191,7 +200,7 @@ export default function HeroSection({ isMobile }) {
           </button>
           <button
             onClick={() => scrollToSection("projects")}
-            style={{ fontFamily: "var(--font-body)", fontSize: 16, fontWeight: 600, color: "rgba(255,255,255,0.8)", background: "transparent", border: "1px solid rgba(255,255,255,0.18)", padding: "14px 32px", borderRadius: 12, cursor: "pointer", transition: "all 0.25s ease" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: 16, fontWeight: 600, color: "rgba(255,255,255,0.8)", background: "transparent", border: "1px solid rgba(255,255,255,0.18)", padding: isMobile ? "14px 28px" : "14px 32px", borderRadius: 12, cursor: "pointer", transition: "all 0.25s ease", flex: isMobile ? "1 1 140px" : "0 0 auto" }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(100,255,218,0.4)"; e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; e.currentTarget.style.color = "rgba(255,255,255,0.8)"; e.currentTarget.style.transform = "translateY(0)"; }}
           >
