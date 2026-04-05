@@ -69,23 +69,23 @@ export const T = {
     githubCTA:    { en: "View all projects on GitHub →", es: "Ver todos los proyectos en GitHub →" },
     // Anson General (featured project) text
     ansonTagline: {
-      en: "Cross-platform enterprise app — built with Flutter & FastAPI, learned from scratch",
-      es: "App empresarial multiplataforma — construida con Flutter y FastAPI, aprendidos desde cero",
+      en: "Internal enterprise app — Flutter & FastAPI, built from scratch for a US contractor",
+      es: "App interna empresarial — Flutter y FastAPI, construida desde cero para una contratista en EE.UU.",
     },
     ansonDesc: {
-      en: "Stepped outside my usual stack to build a cross-platform enterprise management app for Anson General, a US-based general contractor. Learning Flutter/Dart and Python/FastAPI from scratch, I delivered a secure, multi-platform system with role-based access, JWT + Redis authentication, email verification, and a full admin panel — running on iOS, Android, Web, and Desktop from a single codebase.",
-      es: "Salí de mi stack habitual para construir una app empresarial multiplataforma para Anson General. Aprendiendo Flutter/Dart y Python/FastAPI desde cero, entregué un sistema seguro con control de acceso por roles, autenticación JWT + Redis, verificación de correo y panel de administración completo — funcionando en iOS, Android, Web y Escritorio desde un solo código.",
+      en: "Internal management app for Anson General Contracting LLC, a general contractor and home improvement company based in El Paso, TX. Built from scratch learning Flutter/Dart and Python/FastAPI, the system handles secure authentication with email verification, JWT + Redis session management, 4-tier role-based access control, and a full admin panel for user and session management — currently running on Web and Desktop, with the Flutter codebase ready for iOS and Android when needed.",
+      es: "App interna para Anson General Contracting LLC, empresa de contratismo general y mejoras del hogar con sede en El Paso, TX. Construida desde cero aprendiendo Flutter/Dart y Python/FastAPI, el sistema incluye autenticación segura con verificación de correo, gestión de sesiones JWT + Redis, control de acceso por roles de 4 niveles y un panel de administración completo — actualmente disponible en Web y Escritorio, con arquitectura Flutter lista para iOS y Android cuando se requiera.",
     },
     ansonHighlights: {
       en: [
-        "Cross-platform app (iOS, Android, Web, Desktop) — single Flutter codebase",
-        "JWT + Redis hybrid auth with instant session revocation across all devices",
+        "Web & Desktop app (iOS & Android-ready) — single Flutter codebase for Anson General Contracting LLC",
+        "JWT + Redis hybrid auth with email verification and instant session revocation",
         "4-tier RBAC: Root / Admin / Contractor / Salesperson",
         "Full admin panel: user management, role assignment & live session control",
       ],
       es: [
-        "App multiplataforma (iOS, Android, Web, Escritorio) — un solo código Flutter",
-        "Auth JWT + Redis con revocación instantánea de sesiones en todos los dispositivos",
+        "App Web y Escritorio (lista para iOS y Android) — un solo código Flutter para Anson General Contracting LLC",
+        "Auth JWT + Redis con verificación de correo y revocación instantánea de sesiones",
         "Sistema RBAC de 4 niveles: Root / Admin / Contratista / Vendedor",
         "Panel de admin completo: gestión de usuarios, roles y sesiones activas en tiempo real",
       ],
