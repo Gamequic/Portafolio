@@ -20,14 +20,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Static metadata (non-text) for the 3 grid cards — text comes from T.projects.cardText
 const PROJECTS_META = [
-  { tech: ["React", "Node.js", "MongoDB", "Docker", "GSAP"],               image: "/Proyects/IMSS.svg",            url: "https://github.com/Gamequic/LivePreview",             color: "#BD34FE" },
+  { tech: ["React", "Golang", "MySQL", "Docker", "Redis"],               image: "/Proyects/IMSS.svg",            url: "https://github.com/Gamequic/LivePreview",             color: "#BD34FE" },
   { tech: ["React", "Tailwind CSS", "Vite", "Framer Motion"],              image: "/Proyects/LideresDelCambio.png", url: "https://LideresDelCambio.org",                        color: "#FFBE00" },
-  { tech: ["React", "Node.js", "MySQL", "Express", "JWT Auth"],            image: "/Proyects/ArenasCRM.png",        url: "https://github.com/Gamequic/ArenasCRM_Front",         color: "#FF6B6B" },
+  { tech: ["React", "Node.js", "MySQL", "Golang", "JWT Auth"],            image: "/Proyects/ArenasCRM.png",        url: "https://github.com/Gamequic/ArenasCRM_Front",         color: "#FF6B6B" },
 ];
 
 const FEATURED_META = {
   tech:      ["Flutter", "Dart", "Python", "FastAPI", "PostgreSQL", "Redis", "Docker", "JWT Auth"],
-  image:     "/assets/preview.png",
+  image:     "/assets/AnsonGeneral.png",
   url:       null,
   isPrivate: true,
   color:     "#64FFDA",
