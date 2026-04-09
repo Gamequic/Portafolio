@@ -24,11 +24,11 @@ export const T = {
     available:      { en: "Available for new projects",  es: "Disponible para nuevos proyectos" },
     // Staggered headline — 3 lines, last line has a gradient accent word appended
     headlineLines:  {
-      en: ["I build software", "that",    "drives real"    ],
-      es: ["Construyo software","que",    "impulsa el"     ],
+      en: ["We create software that brings new"    ],
+      es: ["Creamos software que da vida a"     ],
     },
-    headlineAccent: { en: "business growth.",             es: "crecimiento real."   },
-    specializing:   { en: "Specializing in",              es: "Especializado en"    },
+    headlineAccent: { en: "businesses to life.",          es: "nuevos negocios."   },
+    specializing:   { en: "Specializing in",              es: ""                  },
     valueProps: {
       en: [
         "Full-Stack Web Applications",
@@ -37,10 +37,8 @@ export const T = {
         "High-Converting Landing Pages",
       ],
       es: [
-        "Aplicaciones Web Full-Stack",
-        "Sistemas Backend Escalables",
-        "Plataformas CRM y ERP Modernas",
-        "Landing Pages de Alta Conversión",
+        "El primer paso para construir algo real.",
+        "Construimos lo que necesitas para empezar y crecer.",
       ],
     },
     ctaPrimary:   { en: "Start a Project →",  es: "Iniciar Proyecto →"  },
@@ -98,11 +96,13 @@ export const T = {
           tagline: "Healthcare subrogation management system",
           description: "Internal platform for IMSS (Mexico's Social Security Institute) to manage medical service subrogation workflows, including secure authentication, notifications, and performance dashboards.",
         },
-        {
-          name: "Líderes del Cambio",
-          tagline: "NGO digital platform — community leadership programs",
-          description: "Full website and digital presence for a nonprofit running leadership programs across Mexico. Focused on accessibility, bilingual content, and donation conversion.",
-        },
+        // ── TEMPORARILY HIDDEN — add back when ready ──────────────────────
+        // {
+        //   name: "Líderes del Cambio",
+        //   tagline: "NGO digital platform — community leadership programs",
+        //   description: "Full website and digital presence for a nonprofit running leadership programs across Mexico. Focused on accessibility, bilingual content, and donation conversion.",
+        // },
+        // ─────────────────────────────────────────────────────────────────
         {
           name: "ArenasCRM",
           tagline: "Custom CRM system for service businesses",
@@ -115,11 +115,13 @@ export const T = {
           tagline: "Sistema de gestión de subrogación médica",
           description: "Plataforma interna para el IMSS para gestionar flujos de trabajo de subrogación de servicios médicos, incluyendo autenticación segura, notificaciones y dashboards de rendimiento.",
         },
-        {
-          name: "Líderes del Cambio",
-          tagline: "Plataforma digital para ONG — programas de liderazgo",
-          description: "Sitio web completo y presencia digital para una ONG con programas de liderazgo en México. Enfocado en accesibilidad, contenido bilingüe y conversión de donaciones.",
-        },
+        // ── TEMPORALMENTE OCULTO — agregar de vuelta cuando esté listo ────
+        // {
+        //   name: "Líderes del Cambio",
+        //   tagline: "Plataforma digital para ONG — programas de liderazgo",
+        //   description: "Sitio web completo y presencia digital para una ONG con programas de liderazgo en México. Enfocado en accesibilidad, contenido bilingüe y conversión de donaciones.",
+        // },
+        // ─────────────────────────────────────────────────────────────────
         {
           name: "ArenasCRM",
           tagline: "Sistema CRM personalizado para negocios de servicios",
@@ -127,6 +129,9 @@ export const T = {
         },
       ],
     },
+    // Tech toggle labels — used in project cards and skills section
+    showTech:  { en: "View technologies used →", es: "Ver tecnologías usadas →" },
+    hideTech:  { en: "Hide technologies ↑",       es: "Ocultar tecnologías ↑"   },
   },
 
   // ── AboutSection ───────────────────────────────────────────────────────────
@@ -209,6 +214,8 @@ export const T = {
       en: "A modern, battle-tested stack for building fast, scalable, and maintainable products.",
       es: "Un stack moderno y probado en batalla para construir productos rápidos, escalables y mantenibles.",
     },
+    showStack: { en: "View full tech stack — for recruiters ↓", es: "Ver stack técnico completo — para reclutadores ↓" },
+    hideStack: { en: "Hide tech stack ↑",                        es: "Ocultar stack técnico ↑"                         },
   },
 
   // ── ContactSection ─────────────────────────────────────────────────────────

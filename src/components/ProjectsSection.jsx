@@ -3,14 +3,18 @@
  *
  * Layout:
  *  - Featured card (Anson General) — full-width hero card
- *  - 3 standard project cards in a responsive flex row
+ *  - 2 standard project cards in a responsive flex row
+ *    (Líderes del Cambio hidden — see PROJECTS_META comment below)
+ *
+ * Tech badges are hidden by default (B2B audience).
+ * A small toggle lets recruiters expand the full stack per project.
  *
  * Animations: GSAP scroll-triggered slide-in (desktop only).
  * Translations: all user-facing text from T.projects via useLanguage().
  */
 
-import { useRef, useLayoutEffect } from "react";
-import { motion } from "framer-motion";
+import { useRef, useLayoutEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "../context/LanguageContext";
@@ -18,10 +22,13 @@ import { T } from "../i18n/translations";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Static metadata (non-text) for the 3 grid cards — text comes from T.projects.cardText
+// Static metadata (non-text) for the grid cards — text comes from T.projects.cardText
+// NOTE: indices must stay in sync with cardText arrays in translations.js
 const PROJECTS_META = [
   { tech: ["React", "Golang", "MySQL", "Docker", "Redis"],               image: "/Proyects/IMSS.svg",            url: "https://github.com/Gamequic/LivePreview",             color: "#BD34FE" },
-  { tech: ["React", "Tailwind CSS", "Vite", "Framer Motion"],              image: "/Proyects/LideresDelCambio.png", url: "https://LideresDelCambio.org",                        color: "#FFBE00" },
+  // ── TEMPORARILY HIDDEN — Líderes del Cambio ───────────────────────────────
+  // { tech: ["React", "Tailwind CSS", "Vite", "Framer Motion"],              image: "/Proyects/LideresDelCambio.png", url: "https://LideresDelCambio.org",                        color: "#FFBE00" },
+  // ─────────────────────────────────────────────────────────────────────────
   { tech: ["React", "Node.js", "MySQL", "Golang", "JWT Auth"],            image: "/Proyects/ArenasCRM.png",        url: "https://github.com/Gamequic/ArenasCRM_Front",         color: "#FF6B6B" },
 ];
 
@@ -33,15 +40,48 @@ const FEATURED_META = {
   color:     "#64FFDA",
 };
 
+// ── Tech toggle button ────────────────────────────────────────────────────────
+function TechToggle({ show, onToggle, color, lang }) {
+  return (
+    <button
+      onClick={(e) => { e.stopPropagation(); onToggle(); }}
+      style={{
+        fontFamily: "var(--font-body)",
+        fontSize: 12,
+        fontWeight: 600,
+        color: show ? color : "rgba(255,255,255,0.3)",
+        background: "transparent",
+        border: `1px solid ${show ? color + "40" : "rgba(255,255,255,0.1)"}`,
+        padding: "5px 12px",
+        borderRadius: 6,
+        cursor: "pointer",
+        transition: "all 0.2s ease",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 6,
+        marginBottom: show ? 0 : 20,
+      }}
+      onMouseEnter={(e) => { e.currentTarget.style.borderColor = color + "60"; e.currentTarget.style.color = color; }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = show ? color + "40" : "rgba(255,255,255,0.1)";
+        e.currentTarget.style.color = show ? color : "rgba(255,255,255,0.3)";
+      }}
+    >
+      {show ? T.projects.hideTech[lang] : T.projects.showTech[lang]}
+    </button>
+  );
+}
+
 // ── Single grid card ──────────────────────────────────────────────────────────
 function ProjectCard({ project, meta, cardRef }) {
+  const { lang } = useLanguage();
+  const [showTech, setShowTech] = useState(false);
+
   const handleClick = () => {
     if (!meta.url) return;
     if (window.gtag) window.gtag("event", "project_click_" + project.name, { event_category: "engagement", value: 1 });
     setTimeout(() => window.open(meta.url, "_blank", "noopener,noreferrer"), 150);
   };
-
-  const { lang } = useLanguage();
 
   return (
     <div
@@ -73,12 +113,26 @@ function ProjectCard({ project, meta, cardRef }) {
         <p style={{ fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 500, color: meta.color, margin: "0 0 12px", letterSpacing: "0.3px" }}>{project.tagline}</p>
         <p style={{ fontFamily: "var(--font-body)", fontSize: 14, lineHeight: 1.65, color: "rgba(255,255,255,0.5)", margin: "0 0 20px" }}>{project.description}</p>
 
-        {/* Tech badges */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
-          {meta.tech.map((t) => (
-            <span key={t} style={{ fontFamily: "var(--font-body)", fontSize: 11, fontWeight: 600, color: meta.color, background: meta.color + "12", border: `1px solid ${meta.color}25`, padding: "4px 10px", borderRadius: 6 }}>{t}</span>
-          ))}
-        </div>
+        {/* Tech toggle — hidden by default for B2B, expandable for recruiters */}
+        <TechToggle show={showTech} onToggle={() => setShowTech(v => !v)} color={meta.color} lang={lang} />
+
+        <AnimatePresence>
+          {showTech && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25 }}
+              style={{ overflow: "hidden" }}
+            >
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 12, marginBottom: 20 }}>
+                {meta.tech.map((t) => (
+                  <span key={t} style={{ fontFamily: "var(--font-body)", fontSize: 11, fontWeight: 600, color: meta.color, background: meta.color + "12", border: `1px solid ${meta.color}25`, padding: "4px 10px", borderRadius: 6 }}>{t}</span>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Link or private label */}
         {meta.url
@@ -87,6 +141,87 @@ function ProjectCard({ project, meta, cardRef }) {
         }
       </div>
     </div>
+  );
+}
+
+// ── Featured card (Anson General) ─────────────────────────────────────────────
+function FeaturedCard({ isMobile, lang }) {
+  const [showTech, setShowTech] = useState(false);
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} style={{ marginBottom: 32 }}>
+      <div style={{ position: "relative", background: "linear-gradient(135deg,rgba(100,255,218,0.06) 0%,rgba(189,52,254,0.06) 100%)", border: "1px solid rgba(100,255,218,0.2)", borderRadius: 24, overflow: "hidden", padding: isMobile ? "28px 20px" : "48px 56px" }}>
+
+        {/* Featured badge */}
+        {isMobile ? (
+          <div style={{ display: "inline-flex", marginBottom: 20, background: "rgba(100,255,218,0.12)", border: "1px solid rgba(100,255,218,0.3)", borderRadius: 100, padding: "5px 14px", fontFamily: "var(--font-body)", fontSize: 11, fontWeight: 700, color: "var(--accent)", letterSpacing: "1px", textTransform: "uppercase" }}>
+            {T.projects.featured[lang]}
+          </div>
+        ) : (
+          <div style={{ position: "absolute", top: 24, right: 24, background: "rgba(100,255,218,0.12)", border: "1px solid rgba(100,255,218,0.3)", borderRadius: 100, padding: "6px 16px", fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 700, color: "var(--accent)", letterSpacing: "1px", textTransform: "uppercase" }}>
+            {T.projects.featured[lang]}
+          </div>
+        )}
+
+        {/* Decorative glow */}
+        <div style={{ position: "absolute", top: -80, right: -80, width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle,rgba(100,255,218,0.08) 0%,transparent 70%)", pointerEvents: "none" }} />
+
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 48, alignItems: "center" }}>
+
+          {/* Left: content */}
+          <div>
+            <div style={{ width: 40, height: 4, background: "linear-gradient(90deg,#64FFDA,#BD34FE)", borderRadius: 2, marginBottom: 20 }} />
+            <h3 style={{ fontFamily: "var(--font-display)", fontSize: isMobile ? 28 : 40, fontWeight: 800, color: "#FFF", margin: "0 0 8px", letterSpacing: "-1px", lineHeight: 1.1 }}>Anson General</h3>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 15, fontWeight: 600, color: "var(--accent)", margin: "0 0 20px" }}>{T.projects.ansonTagline[lang]}</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 15, lineHeight: 1.7, color: "rgba(255,255,255,0.6)", margin: "0 0 28px" }}>{T.projects.ansonDesc[lang]}</p>
+
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px" }}>
+              {T.projects.ansonHighlights[lang].map((h) => (
+                <li key={h} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10, fontFamily: "var(--font-body)", fontSize: 14, color: "rgba(255,255,255,0.65)" }}>
+                  <span style={{ color: "var(--accent)", flexShrink: 0, marginTop: 1 }}>✓</span>{h}
+                </li>
+              ))}
+            </ul>
+
+            {/* Tech toggle — collapsed by default */}
+            <TechToggle show={showTech} onToggle={() => setShowTech(v => !v)} color="var(--accent)" lang={lang} />
+
+            <AnimatePresence>
+              {showTech && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.25 }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 12 }}>
+                    {FEATURED_META.tech.map((t) => (
+                      <span key={t} style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: "var(--accent)", background: "rgba(100,255,218,0.08)", border: "1px solid rgba(100,255,218,0.2)", padding: "5px 12px", borderRadius: 6 }}>{t}</span>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Right: preview image */}
+          <div style={{ background: "#0D0D14", borderRadius: 16, overflow: "hidden", border: "1px solid rgba(100,255,218,0.1)", minHeight: 280, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+            <img
+              src={FEATURED_META.image}
+              alt="Anson General Platform"
+              style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.9 }}
+              onError={(e) => {
+                e.target.parentNode.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;gap:16px;padding:24px;text-align:center;"><div style="font-size:48px">🏗️</div><p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,255,255,0.4);line-height:1.5;margin:0">Screenshot goes here<br/>/public/assets/preview.png</p></div>`;
+              }}
+            />
+            <div style={{ position: "absolute", bottom: 16, right: 16, background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, padding: "6px 12px", fontFamily: "var(--font-body)", fontSize: 12, color: "rgba(255,255,255,0.5)" }}>
+              {T.projects.privateBadge[lang]}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -129,64 +264,7 @@ export default function ProjectsSection({ isMobile }) {
         </motion.div>
 
         {/* ── Featured: Anson General ── */}
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} style={{ marginBottom: 32 }}>
-          <div style={{ position: "relative", background: "linear-gradient(135deg,rgba(100,255,218,0.06) 0%,rgba(189,52,254,0.06) 100%)", border: "1px solid rgba(100,255,218,0.2)", borderRadius: 24, overflow: "hidden", padding: isMobile ? "28px 20px" : "48px 56px" }}>
-
-            {/* Featured badge — inline on mobile to avoid overlapping the title */}
-            {isMobile ? (
-              <div style={{ display: "inline-flex", marginBottom: 20, background: "rgba(100,255,218,0.12)", border: "1px solid rgba(100,255,218,0.3)", borderRadius: 100, padding: "5px 14px", fontFamily: "var(--font-body)", fontSize: 11, fontWeight: 700, color: "var(--accent)", letterSpacing: "1px", textTransform: "uppercase" }}>
-                {T.projects.featured[lang]}
-              </div>
-            ) : (
-              <div style={{ position: "absolute", top: 24, right: 24, background: "rgba(100,255,218,0.12)", border: "1px solid rgba(100,255,218,0.3)", borderRadius: 100, padding: "6px 16px", fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 700, color: "var(--accent)", letterSpacing: "1px", textTransform: "uppercase" }}>
-                {T.projects.featured[lang]}
-              </div>
-            )}
-
-            {/* Decorative glow */}
-            <div style={{ position: "absolute", top: -80, right: -80, width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle,rgba(100,255,218,0.08) 0%,transparent 70%)", pointerEvents: "none" }} />
-
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 48, alignItems: "center" }}>
-
-              {/* Left: content */}
-              <div>
-                <div style={{ width: 40, height: 4, background: "linear-gradient(90deg,#64FFDA,#BD34FE)", borderRadius: 2, marginBottom: 20 }} />
-                <h3 style={{ fontFamily: "var(--font-display)", fontSize: isMobile ? 28 : 40, fontWeight: 800, color: "#FFF", margin: "0 0 8px", letterSpacing: "-1px", lineHeight: 1.1 }}>Anson General</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: 15, fontWeight: 600, color: "var(--accent)", margin: "0 0 20px" }}>{T.projects.ansonTagline[lang]}</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: 15, lineHeight: 1.7, color: "rgba(255,255,255,0.6)", margin: "0 0 28px" }}>{T.projects.ansonDesc[lang]}</p>
-
-                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px" }}>
-                  {T.projects.ansonHighlights[lang].map((h) => (
-                    <li key={h} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10, fontFamily: "var(--font-body)", fontSize: 14, color: "rgba(255,255,255,0.65)" }}>
-                      <span style={{ color: "var(--accent)", flexShrink: 0, marginTop: 1 }}>✓</span>{h}
-                    </li>
-                  ))}
-                </ul>
-
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {FEATURED_META.tech.map((t) => (
-                    <span key={t} style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: "var(--accent)", background: "rgba(100,255,218,0.08)", border: "1px solid rgba(100,255,218,0.2)", padding: "5px 12px", borderRadius: 6 }}>{t}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right: preview image */}
-              <div style={{ background: "#0D0D14", borderRadius: 16, overflow: "hidden", border: "1px solid rgba(100,255,218,0.1)", minHeight: 280, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
-                <img
-                  src={FEATURED_META.image}
-                  alt="Anson General Platform"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.9 }}
-                  onError={(e) => {
-                    e.target.parentNode.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;gap:16px;padding:24px;text-align:center;"><div style="font-size:48px">🏗️</div><p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,255,255,0.4);line-height:1.5;margin:0">Screenshot goes here<br/>/public/assets/preview.png</p></div>`;
-                  }}
-                />
-                <div style={{ position: "absolute", bottom: 16, right: 16, background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, padding: "6px 12px", fontFamily: "var(--font-body)", fontSize: 12, color: "rgba(255,255,255,0.5)" }}>
-                  {T.projects.privateBadge[lang]}
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        <FeaturedCard isMobile={isMobile} lang={lang} />
 
         {/* ── Grid cards ── */}
         <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 24, flexWrap: isMobile ? "wrap" : "nowrap" }}>
