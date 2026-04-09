@@ -28,13 +28,11 @@ export const T = {
       es: ["Creamos software que da vida a"     ],
     },
     headlineAccent: { en: "businesses to life.",          es: "nuevos negocios."   },
-    specializing:   { en: "Specializing in",              es: ""                  },
+    specializing:   { en: "",  es: ""  },
     valueProps: {
       en: [
-        "Full-Stack Web Applications",
-        "Scalable Backend Systems",
-        "Modern CRM & ERP Platforms",
-        "High-Converting Landing Pages",
+        "The first step to building something real.",
+        "We build what you need to start and grow.",
       ],
       es: [
         "El primer paso para construir algo real.",
@@ -55,10 +53,10 @@ export const T = {
   projects: {
     eyebrow:        { en: "Selected Work",  es: "Trabajo Seleccionado" },
     headline:       { en: "Projects That",  es: "Proyectos que"        },
-    headlineAccent: { en: "Ship",           es: "se Entregan"          },
+    headlineAccent: { en: "Deliver",        es: "se Entregan"          },
     subtitle: {
-      en: "Real solutions for real businesses — from healthcare systems to CRM platforms. Some documentation is still in progress and will be available soon on GitHub.",
-      es: "Soluciones reales para negocios reales — desde sistemas de salud hasta plataformas CRM. Alguna documentación aún está en proceso y estará disponible en GitHub.",
+      en: "Real software for real businesses — built to solve actual problems and help operations run smoother.",
+      es: "Software real para negocios reales — construido para resolver problemas concretos y hacer las operaciones más eficientes.",
     },
     featured:     { en: "★ Featured",                es: "★ Destacado"              },
     privateBadge: { en: "🔒 Private Client Project",  es: "🔒 Proyecto Privado"      },
@@ -67,25 +65,25 @@ export const T = {
     githubCTA:    { en: "View all projects on GitHub →", es: "Ver todos los proyectos en GitHub →" },
     // Anson General (featured project) text
     ansonTagline: {
-      en: "Internal enterprise app — Flutter & FastAPI, built from scratch for a US contractor",
-      es: "App interna empresarial — Flutter y FastAPI, construida desde cero para una contratista en EE.UU.",
+      en: "Internal operations platform for a US general contractor",
+      es: "Plataforma de operaciones interna para una contratista en EE.UU.",
     },
     ansonDesc: {
-      en: "Internal management app for Anson General Contracting LLC, a general contractor and home improvement company based in El Paso, TX. Built from scratch learning Flutter/Dart and Python/FastAPI, the system handles secure authentication with email verification, JWT + Redis session management, 4-tier role-based access control, and a full admin panel for user and session management — currently running on Web and Desktop, with the Flutter codebase ready for iOS and Android when needed.",
-      es: "App interna para Anson General Contracting LLC, empresa de contratismo general y mejoras del hogar con sede en El Paso, TX. Construida desde cero aprendiendo Flutter/Dart y Python/FastAPI, el sistema incluye autenticación segura con verificación de correo, gestión de sesiones JWT + Redis, control de acceso por roles de 4 niveles y un panel de administración completo — actualmente disponible en Web y Escritorio, con arquitectura Flutter lista para iOS y Android cuando se requiera.",
+      en: "A custom internal platform built for Anson General Contracting LLC in El Paso, TX — giving the company full control over their team, access levels, and day-to-day operations from any device. Available on web and desktop, with the flexibility to expand to mobile whenever the business needs it.",
+      es: "Plataforma interna personalizada para Anson General Contracting LLC en El Paso, TX — que da a la empresa control total sobre su equipo, permisos y operaciones del día a día desde cualquier dispositivo. Disponible en web y escritorio, con capacidad de expandirse a móvil cuando el negocio lo requiera.",
     },
     ansonHighlights: {
       en: [
-        "Web & Desktop app (iOS & Android-ready) — single Flutter codebase for Anson General Contracting LLC",
-        "JWT + Redis hybrid auth with email verification and instant session revocation",
-        "4-tier RBAC: Root / Admin / Contractor / Salesperson",
-        "Full admin panel: user management, role assignment & live session control",
+        "Works on web, desktop, and ready for mobile — one app for the whole team",
+        "Secure login with email verification and automatic session control",
+        "4 access levels so each person only sees what they need",
+        "Admin panel to manage users, permissions, and team activity in real time",
       ],
       es: [
-        "App Web y Escritorio (lista para iOS y Android) — un solo código Flutter para Anson General Contracting LLC",
-        "Auth JWT + Redis con verificación de correo y revocación instantánea de sesiones",
-        "Sistema RBAC de 4 niveles: Root / Admin / Contratista / Vendedor",
-        "Panel de admin completo: gestión de usuarios, roles y sesiones activas en tiempo real",
+        "Funciona en web, escritorio y lista para móvil — una sola app para todo el equipo",
+        "Acceso seguro con verificación de correo y control automático de sesiones",
+        "4 niveles de acceso para que cada persona vea solo lo que le corresponde",
+        "Panel de administración para gestionar usuarios, permisos y actividad en tiempo real",
       ],
     },
     // The 3 grid cards — only text fields, tech/colors/URLs stay in component
@@ -93,8 +91,8 @@ export const T = {
       en: [
         {
           name: "Subrogates — IMSS",
-          tagline: "Healthcare subrogation management system",
-          description: "Internal platform for IMSS (Mexico's Social Security Institute) to manage medical service subrogation workflows, including secure authentication, notifications, and performance dashboards.",
+          tagline: "Operations platform for IMSS healthcare coordination",
+          description: "A platform built for IMSS (Mexico's Social Security Institute) to coordinate and track medical service processes — replacing manual work with a centralized system that keeps teams aligned, sends automated alerts, and gives management a real-time view of operations.",
         },
         // ── TEMPORARILY HIDDEN — add back when ready ──────────────────────
         // {
@@ -105,15 +103,15 @@ export const T = {
         // ─────────────────────────────────────────────────────────────────
         {
           name: "ArenasCRM",
-          tagline: "Custom CRM system for service businesses",
-          description: "A tailored CRM for a service-based business, featuring client management, appointment scheduling, task tracking, and revenue reporting.",
+          tagline: "CRM built for a service business — not a generic tool",
+          description: "A custom business management tool that centralizes everything in one place: client profiles, appointment scheduling, team tasks, and revenue tracking. Built for a service business that needed more than an off-the-shelf solution.",
         },
       ],
       es: [
         {
           name: "Subrogados — IMSS",
-          tagline: "Sistema de gestión de subrogación médica",
-          description: "Plataforma interna para el IMSS para gestionar flujos de trabajo de subrogación de servicios médicos, incluyendo autenticación segura, notificaciones y dashboards de rendimiento.",
+          tagline: "Plataforma de coordinación para servicios del IMSS",
+          description: "Plataforma para el IMSS que centraliza y da seguimiento a los procesos de servicios médicos — reemplazando el trabajo manual con un sistema que mantiene a los equipos alineados, envía alertas automáticas y da a la dirección una vista en tiempo real de las operaciones.",
         },
         // ── TEMPORALMENTE OCULTO — agregar de vuelta cuando esté listo ────
         // {
@@ -124,8 +122,8 @@ export const T = {
         // ─────────────────────────────────────────────────────────────────
         {
           name: "ArenasCRM",
-          tagline: "Sistema CRM personalizado para negocios de servicios",
-          description: "Solución CRM a medida con gestión de clientes, programación de citas, seguimiento de tareas e informes de ingresos.",
+          tagline: "CRM hecho a medida — no una solución genérica",
+          description: "Herramienta de gestión que centraliza todo en un solo lugar: clientes, citas, tareas del equipo e ingresos. Desarrollada para un negocio de servicios que necesitaba una solución que se adaptara a su forma de trabajar, no al revés.",
         },
       ],
     },
@@ -140,13 +138,13 @@ export const T = {
     headline:       { en: "I solve problems,", es: "Resuelvo problemas,"       },
     headlineAccent: { en: "not just tasks.",   es: "no solo tareas."           },
     subtitle: {
-      en: "As a computer science-trained full-stack developer based on the US–Mexico border, I bridge the gap between technical execution and business outcomes.",
-      es: "Como desarrollador full-stack con formación en ciencias de la computación en la frontera EE.UU.–México, conecto la ejecución técnica con los resultados de negocio.",
+      en: "Based on the US–Mexico border, I build software that solves real business problems — and I speak both English and Spanish.",
+      es: "En la frontera EE.UU.–México, construyo software que resuelve problemas reales de negocio — y hablo tanto inglés como español.",
     },
     railHeadline: { en: "Built to grow your business", es: "Construido para hacer crecer tu negocio" },
     railBody: {
-      en: "Computer science background + client obsession = software that actually moves the needle. I bring both technical depth and real-world business intuition to every project.",
-      es: "Formación en ciencias de la computación + obsesión por el cliente = software que realmente mueve la aguja. Aporto profundidad técnica e intuición de negocio real a cada proyecto.",
+      en: "I combine strong technical knowledge with real business sense. You get software that actually works for your business — not just a technically impressive project.",
+      es: "Combino conocimiento técnico sólido con sentido de negocio real. Obtienes software que realmente funciona para tu empresa — no solo un proyecto técnicamente impresionante.",
     },
     statLabels: {
       basedIn:      { en: "Based in",      es: "Ubicado en"     },
@@ -162,45 +160,45 @@ export const T = {
       en: [
         {
           emoji: "🎯",
-          title: "Business-First Thinking",
-          body: "I don't just write code — I understand the business problem first. Every technical decision is driven by the question: will this help your business grow, operate faster, or convert more clients?",
+          title: "I Put Your Business First",
+          body: "I don't just build what you ask — I understand why you need it first. Every decision is guided by one question: will this help your business grow, move faster, or win more clients?",
         },
         {
           emoji: "⚡",
-          title: "Full-Stack, End-to-End",
-          body: "From database architecture to pixel-perfect UI, I handle the entire stack. No hand-offs, no gaps — you get one developer who owns the full product and communicates clearly at every step.",
+          title: "One Person, Full Responsibility",
+          body: "I handle everything from start to finish — design, functionality, and everything in between. No hand-offs, no gaps. One person who owns the whole product and keeps you informed at every step.",
         },
         {
           emoji: "🚀",
-          title: "Shipping is a Feature",
-          body: "Ideas are worthless without execution. I move fast, communicate proactively, and ship working software — not endless WIP tickets. Your MVP will be in production before competitors finish planning.",
+          title: "I Deliver, Not Just Plan",
+          body: "Ideas are worthless without execution. I move fast, communicate openly, and deliver working software — not endless back-and-forth. You'll have something real before your competitors finish planning.",
         },
         {
           emoji: "🔒",
           title: "Quality You Can Trust",
-          body: "Clean code, proper authentication, responsive design, and real error handling — not a \"works on my machine\" prototype. I build things that work in production, on every device, for real users.",
+          body: "I build things that actually work — on every device, for real users. Not just a demo that looks good in a presentation but breaks the moment a real customer tries to use it.",
         },
       ],
       es: [
         {
           emoji: "🎯",
-          title: "Pensamiento Orientado al Negocio",
-          body: "No solo escribo código — entiendo primero el problema de negocio. Cada decisión técnica está guiada por la pregunta: ¿esto ayudará a que tu negocio crezca, opere más rápido o convierta más clientes?",
+          title: "Tu Negocio Primero",
+          body: "No solo construyo lo que pides — entiendo primero por qué lo necesitas. Cada decisión está guiada por una pregunta: ¿esto ayudará a que tu negocio crezca, opere más rápido o gane más clientes?",
         },
         {
           emoji: "⚡",
-          title: "Full-Stack, de Principio a Fin",
-          body: "Desde la arquitectura de base de datos hasta la UI perfecta, manejo todo el stack. Sin traspasos, sin brechas — obtienes un desarrollador que es dueño del producto completo y comunica claramente en cada paso.",
+          title: "Una Persona, Responsabilidad Total",
+          body: "Me encargo de todo, de principio a fin — diseño, funcionalidad y todo lo que hay en medio. Sin traspasos, sin brechas. Una sola persona responsable del producto completo que te mantiene informado en cada paso.",
         },
         {
           emoji: "🚀",
-          title: "Lanzar es una Característica",
-          body: "Las ideas no valen nada sin ejecución. Me muevo rápido, comunico proactivamente y entrego software funcional — no tickets interminables. Tu MVP estará en producción antes de que la competencia termine de planear.",
+          title: "Entrego, No Solo Planeo",
+          body: "Las ideas no valen nada sin ejecución. Me muevo rápido, comunico de forma abierta y entrego software funcional — no ida y vuelta interminable. Tendrás algo real antes de que la competencia termine de planear.",
         },
         {
           emoji: "🔒",
           title: "Calidad en la que Puedes Confiar",
-          body: "Código limpio, autenticación correcta, diseño responsivo y manejo real de errores — no un prototipo de \"funciona en mi máquina\". Construyo cosas que funcionan en producción, en cada dispositivo, para usuarios reales.",
+          body: "Construyo cosas que realmente funcionan — en cada dispositivo, para usuarios reales. No solo una demo que se ve bien en una presentación pero falla en el momento en que un cliente real intenta usarla.",
         },
       ],
     },
@@ -208,11 +206,11 @@ export const T = {
 
   // ── SkillsSection ──────────────────────────────────────────────────────────
   skills: {
-    eyebrow:  { en: "Tech Stack",          es: "Stack Tecnológico"              },
-    headline: { en: "Tools I Build With",  es: "Herramientas con las que trabajo" },
+    eyebrow:  { en: "Tools & Technologies",  es: "Herramientas y Tecnologías"      },
+    headline: { en: "What I Build With",     es: "Con qué construyo"               },
     subtitle: {
-      en: "A modern, battle-tested stack for building fast, scalable, and maintainable products.",
-      es: "Un stack moderno y probado en batalla para construir productos rápidos, escalables y mantenibles.",
+      en: "Proven tools to build reliable software that grows with your business.",
+      es: "Herramientas probadas para construir software confiable que crece con tu negocio.",
     },
     showStack: { en: "View full tech stack — for recruiters ↓", es: "Ver stack técnico completo — para reclutadores ↓" },
     hideStack: { en: "Hide tech stack ↑",                        es: "Ocultar stack técnico ↑"                         },
@@ -278,7 +276,7 @@ export const T = {
 
   // ── Footer ─────────────────────────────────────────────────────────────────
   footer: {
-    tagline:  { en: "Full-Stack Developer · El Paso, TX", es: "Desarrollador Full-Stack · El Paso, TX" },
+    tagline:  { en: "Software Development · El Paso, TX", es: "Desarrollo de Software · El Paso, TX" },
     projects: { en: "Projects",  es: "Proyectos" },
     about:    { en: "About",     es: "Sobre mí"  },
     contact:  { en: "Contact",   es: "Contacto"  },
