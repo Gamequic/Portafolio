@@ -16,6 +16,11 @@ export default function Footer({ isMobile }) {
     { label: tf.contact[lang],  href: "#contact"  },
   ];
 
+  const socials = [
+    { label: "GitHub",    href: "https://github.com/Gamequic",        icon: "⌨️" },
+    { label: "Instagram", href: "https://instagram.com/calleros.dev", icon: "📷" },
+  ];
+
   return (
     <footer style={{ background: "#080810", borderTop: "1px solid rgba(255,255,255,0.04)", padding: isMobile ? "40px 20px" : "48px 40px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: isMobile ? 20 : 24, alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between" }}>
@@ -29,7 +34,7 @@ export default function Footer({ isMobile }) {
         </div>
 
         {/* Quick links */}
-        <div style={{ display: "flex", gap: 24 }}>
+        <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
           {links.map((link) => (
             <a
               key={link.href}
@@ -40,6 +45,23 @@ export default function Footer({ isMobile }) {
               onMouseLeave={(e) => (e.target.style.color = "rgba(255,255,255,0.4)")}
             >
               {link.label}
+            </a>
+          ))}
+        </div>
+
+        {/* Social links */}
+        <div style={{ display: "flex", gap: 12 }}>
+          {socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.35)", textDecoration: "none", transition: "color 0.2s ease" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.35)")}
+            >
+              <span>{s.icon}</span>{s.label}
             </a>
           ))}
         </div>

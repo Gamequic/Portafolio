@@ -117,7 +117,7 @@ export default function HeroSection({ isMobile }) {
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
-        padding: isMobile ? "100px 24px 60px" : "120px 24px 60px",
+        padding: isMobile ? "144px 24px 60px" : "164px 24px 60px",
       }}
     >
       {/* Animated grid background */}

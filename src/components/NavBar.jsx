@@ -109,7 +109,7 @@ export default function NavBar() {
           transition={{ duration: 0.35, ease: "easeInOut" }}
           style={{
             position:   "fixed",
-            top: 0, left: 0, right: 0,
+            top: 44, left: 0, right: 0,
             zIndex:     100,
             background: scrolled ? "rgba(10,10,15,0.85)" : "transparent",
             backdropFilter: scrolled ? "blur(20px)" : "none",

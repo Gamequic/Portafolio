@@ -18,6 +18,7 @@ import { useMediaQuery } from "react-responsive";
 
 // Sections
 import LoadingScreen from "../components/LoadingScreen";
+import AnnouncementBar from "../components/AnnouncementBar";
 import NavBar from "../components/NavBar";
 import HeroSection from "../components/HeroSection";
 import ProjectsSection from "../components/ProjectsSection";
@@ -41,6 +42,9 @@ export default function MainPage() {
     <div className="portfolio-root" style={{ background: "#0A0A0F", minHeight: "100vh" }}>
       {/* ── Loading screen (preserved from original) ── */}
       <LoadingScreen isLoading={loading} />
+
+      {/* ── Announcement bar (above navbar) ── */}
+      <AnnouncementBar />
 
       {/* ── Sticky navigation ── */}
       <NavBar />

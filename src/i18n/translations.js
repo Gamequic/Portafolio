@@ -10,6 +10,12 @@
 
 export const T = {
 
+  // ── AnnouncementBar ────────────────────────────────────────────────────────
+  announcement: {
+    text: { en: "Ready to start your project?", es: "¿Listo para empezar tu proyecto?" },
+    cta:  { en: "Talk to our team",             es: "Habla con nuestro equipo"          },
+  },
+
   // ── NavBar ─────────────────────────────────────────────────────────────────
   nav: {
     projects:     { en: "Projects",          es: "Proyectos"          },
@@ -225,9 +231,23 @@ export const T = {
       en: "Whether you have a project ready to start or just want to explore what's possible — reach out. I respond fast.",
       es: "Ya sea que tengas un proyecto listo para iniciar o solo quieras explorar posibilidades — escríbeme. Respondo rápido.",
     },
-    reachDirectly: { en: "Reach me directly", es: "Contáctame directamente" },
-    // Contact card labels & descriptions (values like phone numbers stay in component)
+    salesSection:     { en: "Our Sales Team",                    es: "Nuestro Equipo de Ventas"                },
+    salesSectionDesc: { en: "For quotes, questions, and general inquiries.", es: "Para cotizaciones, preguntas y consultas en general." },
+    devToggleShow:    { en: "Reach the developer directly →",   es: "Contactar directamente al desarrollador →" },
+    devToggleHide:    { en: "Hide developer contacts ↑",        es: "Ocultar contactos del desarrollador ↑"    },
+    devSectionDesc:   { en: "For technical questions and direct collaboration.", es: "Para consultas técnicas y colaboración directa." },
+    // Contact card labels & descriptions
     cards: {
+      salesEmail: {
+        label: { en: "Sales Email",       es: "Email de Ventas"         },
+        value: { en: "camilacor0504@gmail.com", es: "camilacor0504@gmail.com" },
+        desc:  { en: "Quotes and general inquiries", es: "Cotizaciones y consultas generales" },
+      },
+      salesPhone: {
+        label: { en: "Sales Phone",       es: "Teléfono de Ventas"      },
+        value: { en: "Coming soon",       es: "Próximamente"            },
+        desc:  { en: "A dedicated line is on its way", es: "Pronto tendremos una línea dedicada" },
+      },
       whatsapp: {
         label: { en: "WhatsApp",       es: "WhatsApp"           },
         value: { en: "Message me now", es: "Escríbeme ahora"    },
@@ -239,13 +259,14 @@ export const T = {
       },
       phoneMX: {
         label: { en: "Phone — Mexico", es: "Teléfono — México"  },
-        desc:  { en: "Cd. Juárez · Calls only",                  es: "Cd. Juárez · Solo llamadas" },
+        desc:  { en: "Cd. Juárez · International calls",         es: "Cd. Juárez · Llamadas internacionales"   },
       },
       email: {
         label: { en: "Email",          es: "Correo"             },
         desc:  { en: "For detailed briefs and proposals",        es: "Para propuestas y detalles del proyecto" },
       },
     },
+    instagram: { en: "Instagram", es: "Instagram" },
     form: {
       title:         { en: "Send a Message",       es: "Enviar un Mensaje"           },
       subtitle:      { en: "Describe your project and I'll get back to you within 24 hours.", es: "Describe tu proyecto y te responderé en menos de 24 horas." },

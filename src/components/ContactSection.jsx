@@ -1,9 +1,11 @@
 /*
  * ContactSection.jsx — Primary conversion section.
  *
- * Contains:
- *  1. Clickable contact cards (WhatsApp, Phone US, Phone MX, Email)
- *  2. Contact form with validation + success/error states (EmailJS)
+ * Layout:
+ *  LEFT — Sales team contacts (primary, always visible)
+ *        + Developer contacts (collapsible, for technical inquiries)
+ *        + Social links (GitHub, Instagram)
+ *  RIGHT — Contact form
  *
  * Full EN / ES translation support.
  */
@@ -16,15 +18,34 @@ import { T } from "../i18n/translations";
 // ── Web3Forms config ────────────────────────────────────────────────────────
 const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
-// Fixed data — hrefs, icons, colors, phone numbers never change
-const CONTACT_CARDS = [
-  { key: "whatsapp", icon: "💬", value: "Message me now", href: "https://wa.me/19153046304?text=Hi%20Demian%2C%20I%27d%20like%20to%20start%20a%20project%20with%20you.", color: "#25D366" },
-  { key: "phoneUS",  icon: "📞", value: "+1 (915) 304-6304", href: "tel:+19153046304",     color: "#64FFDA" },
-  { key: "phoneMX",  icon: "📱", value: "+52 656 777 9087",  href: "tel:+526567779087",     color: "#BD34FE" },
-  { key: "email",    icon: "✉️", value: "demiancalleros1@gmail.com", href: "mailto:demiancalleros1@gmail.com?subject=New%20Project%20Inquiry", color: "#FFBE00" },
+// ── Sales team contacts (primary) ───────────────────────────────────────────
+const SALES_CARDS = [
+  {
+    key:   "salesEmail",
+    icon:  "✉️",
+    value: "camilacor0504@gmail.com",
+    href:  "mailto:camilacor0504@gmail.com?subject=Project%20Inquiry",
+    color: "#64FFDA",
+  },
+  {
+    key:      "salesPhone",
+    icon:     "📞",
+    value:    null,   // placeholder — number coming soon
+    href:     null,
+    color:    "#BD34FE",
+    disabled: true,
+  },
 ];
 
-// Inline Field wrapper
+// ── Developer contacts (secondary / collapsible) ─────────────────────────────
+const DEV_CARDS = [
+  { key: "whatsapp", icon: "💬", value: null,                     href: "https://wa.me/19153046304?text=Hi%20Demian%2C%20I%27d%20like%20to%20discuss%20a%20project.", color: "#25D366" },
+  { key: "phoneUS",  icon: "📞", value: "+1 (915) 304-6304",      href: "tel:+19153046304",   color: "#64FFDA" },
+  { key: "phoneMX",  icon: "📱", value: "+52 656 777 9087",       href: "tel:+526567779087",  color: "#BD34FE" },
+  { key: "email",    icon: "✉️", value: "demiancalleros1@gmail.com", href: "mailto:demiancalleros1@gmail.com?subject=Project%20Inquiry", color: "#FFBE00" },
+];
+
+// ── Field wrapper ────────────────────────────────────────────────────────────
 function Field({ label, error, children }) {
   return (
     <div style={{ marginBottom: 20 }}>
@@ -50,14 +71,64 @@ const INPUT_BASE = {
   color: "#FFF", outline: "none", boxSizing: "border-box", transition: "border-color 0.2s ease, box-shadow 0.2s ease",
 };
 
+// ── Single contact card ──────────────────────────────────────────────────────
+function ContactCard({ card, tCard, displayValue, onTrack, delay = 0 }) {
+  const content = (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay }}
+      style={{
+        display: "flex", alignItems: "center", gap: 16,
+        background: card.disabled ? "rgba(255,255,255,0.015)" : "rgba(255,255,255,0.03)",
+        border: "1px solid rgba(255,255,255,0.07)",
+        borderRadius: 16, padding: "16px 20px",
+        textDecoration: "none",
+        transition: "all 0.25s ease",
+        cursor: card.disabled ? "default" : "pointer",
+        opacity: card.disabled ? 0.55 : 1,
+      }}
+      onMouseEnter={card.disabled ? undefined : (e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = card.color + "40"; e.currentTarget.style.transform = "translateX(6px)"; }}
+      onMouseLeave={card.disabled ? undefined : (e) => { e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; e.currentTarget.style.transform = "translateX(0)"; }}
+    >
+      <div style={{ width: 44, height: 44, borderRadius: 12, background: card.color + "15", border: `1px solid ${card.color}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>
+        {card.icon}
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: card.color, letterSpacing: "0.5px", textTransform: "uppercase", marginBottom: 2 }}>{tCard.label}</div>
+        <div style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, color: "#FFF", marginBottom: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{displayValue}</div>
+        <div style={{ fontFamily: "var(--font-body)", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{tCard.desc}</div>
+      </div>
+      {!card.disabled && <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 16, flexShrink: 0 }}>→</span>}
+    </motion.div>
+  );
+
+  if (card.disabled || !card.href) return content;
+
+  return (
+    <a
+      href={card.href}
+      target={card.href.startsWith("http") ? "_blank" : undefined}
+      rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
+      onClick={() => onTrack(card.key)}
+      style={{ display: "block", textDecoration: "none" }}
+    >
+      {content}
+    </a>
+  );
+}
+
+// ── Main section ─────────────────────────────────────────────────────────────
 export default function ContactSection({ isMobile }) {
   const { lang }  = useLanguage();
   const tc        = T.contact;
   const tf        = tc.form;
 
-  const [fields, setFields] = useState({ name: "", email: "", message: "" });
-  const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [fields,   setFields]   = useState({ name: "", email: "", message: "" });
+  const [errors,   setErrors]   = useState({});
+  const [status,   setStatus]   = useState("idle"); // idle | loading | success | error
+  const [showDev,  setShowDev]  = useState(false);
 
   function validate(f) {
     const e = {};
@@ -87,12 +158,7 @@ export default function ContactSection({ isMobile }) {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          name: fields.name,
-          email: fields.email,
-          message: fields.message,
-        }),
+        body: JSON.stringify({ access_key: WEB3FORMS_ACCESS_KEY, name: fields.name, email: fields.email, message: fields.message }),
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.message);
@@ -107,6 +173,25 @@ export default function ContactSection({ isMobile }) {
   const trackClick = (key) => {
     if (window.gtag) window.gtag("event", "contact_click_" + key, { event_category: "engagement", value: 1 });
   };
+
+  // Build localized card data for each card key
+  const salesCardData = SALES_CARDS.map((card) => ({
+    ...card,
+    tCard: {
+      label: tc.cards[card.key].label[lang],
+      desc:  tc.cards[card.key].desc[lang],
+    },
+    displayValue: tc.cards[card.key].value[lang],
+  }));
+
+  const devCardData = DEV_CARDS.map((card) => ({
+    ...card,
+    tCard: {
+      label: tc.cards[card.key].label[lang],
+      desc:  tc.cards[card.key].desc ? tc.cards[card.key].desc[lang] : "",
+    },
+    displayValue: card.value ?? (card.key === "whatsapp" ? tc.cards.whatsapp.value[lang] : card.value),
+  }));
 
   return (
     <section id="contact" style={{ background: "var(--surface)", padding: isMobile ? "72px 20px" : "120px 40px", borderTop: "1px solid rgba(255,255,255,0.04)", position: "relative", overflow: "hidden" }}>
@@ -128,56 +213,82 @@ export default function ContactSection({ isMobile }) {
           <p style={{ fontFamily: "var(--font-body)", fontSize: isMobile ? 15 : 17, color: "rgba(255,255,255,0.4)", maxWidth: 480, lineHeight: 1.7, margin: "0 auto" }}>{tc.subtitle[lang]}</p>
         </motion.div>
 
-        {/* Two-column: cards + form */}
+        {/* Two-column layout */}
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit,minmax(300px,1fr))", gap: isMobile ? 32 : 48, alignItems: "start" }}>
 
-          {/* ── Contact cards ── */}
+          {/* ── LEFT: contacts ── */}
           <div>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.3)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 20 }}>
-              {tc.reachDirectly[lang]}
-            </p>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {CONTACT_CARDS.map((card, i) => {
-                const tCard = tc.cards[card.key];
-                const displayValue = card.key === "whatsapp" ? tCard.value[lang] : card.value;
-                return (
-                  <motion.a
-                    key={card.key}
-                    href={card.href}
-                    target={card.href.startsWith("http") ? "_blank" : undefined}
-                    rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    onClick={() => trackClick(card.key)}
-                    initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                    style={{ display: "flex", alignItems: "center", gap: 16, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: "16px 20px", textDecoration: "none", transition: "all 0.25s ease", cursor: "pointer" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = card.color + "40"; e.currentTarget.style.transform = "translateX(6px)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; e.currentTarget.style.transform = "translateX(0)"; }}
-                  >
-                    <div style={{ width: 44, height: 44, borderRadius: 12, background: card.color + "15", border: `1px solid ${card.color}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>
-                      {card.icon}
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: card.color, letterSpacing: "0.5px", textTransform: "uppercase", marginBottom: 2 }}>{tCard.label[lang]}</div>
-                      <div style={{ fontFamily: "var(--font-display)", fontSize: 14, fontWeight: 700, color: "#FFF", marginBottom: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{displayValue}</div>
-                      <div style={{ fontFamily: "var(--font-body)", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{tCard.desc[lang]}</div>
-                    </div>
-                    <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 16, flexShrink: 0 }}>→</span>
-                  </motion.a>
-                );
-              })}
+            {/* ─ Sales team (primary) ─ */}
+            <div style={{ marginBottom: 8 }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 700, color: "var(--accent)", letterSpacing: "1px", textTransform: "uppercase", margin: "0 0 4px" }}>
+                {tc.salesSection[lang]}
+              </p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.3)", margin: "0 0 16px" }}>
+                {tc.salesSectionDesc[lang]}
+              </p>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+                {salesCardData.map((card, i) => (
+                  <ContactCard key={card.key} card={card} tCard={card.tCard} displayValue={card.displayValue} onTrack={trackClick} delay={i * 0.1} />
+                ))}
+              </div>
             </div>
 
+            {/* ─ Developer contacts toggle ─ */}
+            <button
+              onClick={() => setShowDev(v => !v)}
+              style={{
+                fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600,
+                color: showDev ? "var(--accent)" : "rgba(255,255,255,0.35)",
+                background: "transparent",
+                border: `1px solid ${showDev ? "rgba(100,255,218,0.25)" : "rgba(255,255,255,0.1)"}`,
+                borderRadius: 8, padding: "8px 16px", cursor: "pointer",
+                transition: "all 0.2s ease", marginBottom: showDev ? 16 : 0,
+                display: "inline-flex", alignItems: "center", gap: 6,
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(100,255,218,0.35)"; e.currentTarget.style.color = "var(--accent)"; }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = showDev ? "rgba(100,255,218,0.25)" : "rgba(255,255,255,0.1)";
+                e.currentTarget.style.color = showDev ? "var(--accent)" : "rgba(255,255,255,0.35)";
+              }}
+            >
+              {showDev ? tc.devToggleHide[lang] : tc.devToggleShow[lang]}
+            </button>
+
+            <AnimatePresence>
+              {showDev && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "rgba(255,255,255,0.3)", margin: "0 0 12px" }}>
+                    {tc.devSectionDesc[lang]}
+                  </p>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+                    {devCardData.map((card, i) => (
+                      <ContactCard key={card.key} card={card} tCard={card.tCard} displayValue={card.displayValue} onTrack={trackClick} delay={i * 0.07} />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Social links */}
-            <div style={{ marginTop: 32, display: "flex", gap: 12 }}>
+            <div style={{ marginTop: 28, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {[
-                { key: "github",   label: tc.github[lang],   href: "https://github.com/Gamequic", icon: "⌨️" },
+                { key: "github",    label: tc.github[lang],    href: "https://github.com/Gamequic",          icon: "⌨️" },
+                { key: "instagram", label: tc.instagram[lang], href: "https://instagram.com/calleros.dev",   icon: "📷" },
               ].map((s) => (
                 <a
                   key={s.key}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.6)", transition: "all 0.2s ease" }}
+                  style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.6)", textDecoration: "none", transition: "all 0.2s ease" }}
                   onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.borderColor = "rgba(100,255,218,0.25)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.6)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
                 >
@@ -187,7 +298,7 @@ export default function ContactSection({ isMobile }) {
             </div>
           </div>
 
-          {/* ── Contact Form ── */}
+          {/* ── RIGHT: Contact Form ── */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
             style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 24, padding: isMobile ? 24 : 36 }}>
 
@@ -215,12 +326,11 @@ export default function ContactSection({ isMobile }) {
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   style={{ background: "rgba(255,107,107,0.08)", border: "1px solid rgba(255,107,107,0.25)", borderRadius: 12, padding: "14px 18px", marginBottom: 20, fontFamily: "var(--font-body)", fontSize: 14, color: "#FF6B6B" }}>
                   {tf.errorMsg[lang]}{" "}
-                  <a href="mailto:demiancalleros1@gmail.com" style={{ color: "#FF6B6B", fontWeight: 700 }}>demiancalleros1@gmail.com</a>
+                  <a href="mailto:camilacor0504@gmail.com" style={{ color: "#FF6B6B", fontWeight: 700 }}>camilacor0504@gmail.com</a>
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Form */}
             {status !== "success" && (
               <form onSubmit={handleSubmit} noValidate>
                 <Field label={tf.nameLbl[lang]} error={errors.name}>
