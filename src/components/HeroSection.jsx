@@ -133,7 +133,7 @@ export default function HeroSection({ isMobile }) {
       <div className="hero-orb-2" style={{ position: "absolute", width: isMobile ? 250 : 400, height: isMobile ? 250 : 400, borderRadius: "50%", background: "radial-gradient(circle,rgba(189,52,254,0.10) 0%,transparent 70%)", bottom: "15%", right: "5%", pointerEvents: "none" }} />
 
       {/* ── Main content ── */}
-      <div style={{ position: "relative", zIndex: 10, textAlign: "center", maxWidth: 900, width: "100%" }}>
+      <div style={{ position: "relative", zIndex: 10, textAlign: "center", maxWidth: "min(1300px, 92vw)", width: "100%" }}>
 
         {/* Eyebrow badge */}
         <motion.div
@@ -153,7 +153,7 @@ export default function HeroSection({ isMobile }) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          style={{ fontFamily: "var(--font-display)", fontSize: isMobile ? "clamp(36px,10vw,52px)" : "clamp(52px,7vw,88px)", fontWeight: 800, lineHeight: 1.05, color: "#FFFFFF", margin: "0 0 24px", letterSpacing: "-2px" }}
+          style={{ fontFamily: "var(--font-display)", fontSize: isMobile ? "clamp(32px,9.5vw,52px)" : "clamp(44px,6.8vw,100px)", fontWeight: 800, lineHeight: 1.05, color: "#FFFFFF", margin: "0 0 24px", letterSpacing: isMobile ? "-1px" : "-3px" }}
         >
           {headlineLines.map((line, i) => (
             <motion.span key={i} variants={wordVariants} style={{ display: "block" }}>
