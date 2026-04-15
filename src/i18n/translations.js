@@ -245,8 +245,8 @@ export const T = {
       },
       salesPhone: {
         label: { en: "Sales Phone",       es: "Teléfono de Ventas"      },
-        value: { en: "Coming soon",       es: "Próximamente"            },
-        desc:  { en: "A dedicated line is on its way", es: "Pronto tendremos una línea dedicada" },
+        value: { en: "+52 33 3979 3129",  es: "+52 33 3979 3129"        },
+        desc:  { en: "Calls & WhatsApp",  es: "Llamadas y WhatsApp"     },
       },
       whatsapp: {
         label: { en: "WhatsApp",       es: "WhatsApp"           },
@@ -254,8 +254,8 @@ export const T = {
         desc:  { en: "Fastest response — usually within the hour", es: "Respuesta más rápida — generalmente en una hora" },
       },
       phoneUS: {
-        label: { en: "Phone — US",     es: "Teléfono — EE.UU."  },
-        desc:  { en: "El Paso, TX · Calls & SMS welcome",        es: "El Paso, TX · Llamadas y SMS bienvenidos" },
+        label: { en: "Phone",          es: "Teléfono"            },
+        desc:  { en: "Calls, SMS & WhatsApp",                    es: "Llamadas, SMS y WhatsApp" },
       },
       phoneMX: {
         label: { en: "Phone — Mexico", es: "Teléfono — México"  },

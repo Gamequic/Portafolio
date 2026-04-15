@@ -12,7 +12,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { T } from "../i18n/translations";
 
 const WHATSAPP_URL =
-  "https://wa.me/19153046304?text=Hi%20Demian%2C%20I%20saw%20your%20portfolio%20and%20I%27d%20like%20to%20start%20a%20project.";
+  "https://wa.me/19159794788?text=Hi%20Demian%2C%20I%20saw%20your%20portfolio%20and%20I%27d%20like%20to%20start%20a%20project.";
 
 function trackClick(label) {
   if (window.gtag) window.gtag("event", "floating_cta_" + label.toLowerCase(), { event_category: "engagement", value: 1 });
@@ -24,7 +24,7 @@ export default function FloatingCTA() {
   const [expanded, setExpanded] = useState(false);
 
   const secondaryOptions = [
-    { icon: "📞", labelKey: "callUS", href: "tel:+19153046304",               color: "#64FFDA" },
+    { icon: "📞", labelKey: "callUS", href: "tel:+19159794788",               color: "#64FFDA" },
     { icon: "✉️", labelKey: "email",  href: "mailto:demiancalleros1@gmail.com", color: "#FFBE00" },
   ];
 

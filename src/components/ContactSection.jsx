@@ -28,20 +28,18 @@ const SALES_CARDS = [
     color: "#64FFDA",
   },
   {
-    key:      "salesPhone",
-    icon:     "📞",
-    value:    null,   // placeholder — number coming soon
-    href:     null,
-    color:    "#BD34FE",
-    disabled: true,
+    key:   "salesPhone",
+    icon:  "📞",
+    value: "+52 33 3979 3129",
+    href:  "tel:+523339793129",
+    color: "#BD34FE",
   },
 ];
 
 // ── Developer contacts (secondary / collapsible) ─────────────────────────────
 const DEV_CARDS = [
-  { key: "whatsapp", icon: "💬", value: null,                     href: "https://wa.me/19153046304?text=Hi%20Demian%2C%20I%27d%20like%20to%20discuss%20a%20project.", color: "#25D366" },
-  { key: "phoneUS",  icon: "📞", value: "+1 (915) 304-6304",      href: "tel:+19153046304",   color: "#64FFDA" },
-  { key: "phoneMX",  icon: "📱", value: "+52 656 777 9087",       href: "tel:+526567779087",  color: "#BD34FE" },
+  { key: "whatsapp", icon: "💬", value: null,                        href: "https://wa.me/19159794788?text=Hi%20Demian%2C%20I%27d%20like%20to%20discuss%20a%20project.", color: "#25D366" },
+  { key: "phoneUS",  icon: "📞", value: "+1 (915) 979-4788",         href: "tel:+19159794788",   color: "#64FFDA" },
   { key: "email",    icon: "✉️", value: "demiancalleros1@gmail.com", href: "mailto:demiancalleros1@gmail.com?subject=Project%20Inquiry", color: "#FFBE00" },
 ];
 
