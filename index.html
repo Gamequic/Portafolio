@@ -2,50 +2,145 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/public/assets/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Demian Calleros | Code & Innovation</title>
 
-    <!-- 🔹 Title and Description for Search Engines (SEO) -->
-    <meta name="description" content="I am a full-stack developer passionate about creating innovative and efficient solutions. Specialized in React, Vite, and modern web development. 🚀" />
-    <meta name="keywords" content="full-stack developer, web programmer, React, Vite, JavaScript, Node.js, software development, portfolio, web technologies" />
-    <meta name="author" content="CallerOS" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/favicon.ico" />
+    <link rel="apple-touch-icon" href="/assets/Logo.png" />
+    <meta name="theme-color" content="#0A0A0F" />
 
-    <!-- 🔹 Open Graph (for WhatsApp, Facebook, LinkedIn) -->
-    <meta property="og:title" content="CallerOS | Full-Stack Developer" />
-    <meta property="og:description" content="Explore my projects and skills in modern web development. Specialized in technologies like React, Node.js, and more." />
-    <meta property="og:image" content="https://calleros.dev/assets/preview.png" />
+    <!-- Primary SEO -->
+    <title>CallerOS | Custom Software Development — El Paso, TX</title>
+    <meta name="description" content="Custom web apps, CRMs, and internal platforms for businesses in El Paso, TX and Ciudad Juárez. Available in English and Spanish. Get a quote today." />
+    <meta name="author" content="Demian Calleros" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://calleros.me/" />
+
+    <!-- Geo targeting for local SEO -->
+    <meta name="geo.region" content="US-TX" />
+    <meta name="geo.placename" content="El Paso, Texas" />
+    <meta name="geo.position" content="31.7619;-106.4850" />
+    <meta name="ICBM" content="31.7619, -106.4850" />
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calleros.me/" />
+    <meta property="og:site_name" content="CallerOS" />
+    <meta property="og:title" content="CallerOS | Custom Software Development — El Paso, TX" />
+    <meta property="og:description" content="Custom web apps, CRMs, and internal platforms for businesses in El Paso, TX and Ciudad Juárez. Available in English and Spanish." />
+    <meta property="og:image" content="https://calleros.me/assets/preview.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:url" content="https://calleros.dev/" />
-    <meta property="og:type" content="website" />
-
-    <!-- 🔹 Twitter Cards (for Twitter/X) -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CallerOS | Full-Stack Developer" />
-    <meta name="twitter:description" content="I build modern and efficient web solutions using technologies like React, Vite, and Node.js. 🚀" />
-    <meta name="twitter:image" content="https://calleros.dev/assets/preview.png" />
-    <meta name="twitter:site" content="@YourTwitterHandle" />
-
-    <!-- 🔹 WhatsApp Configuration -->
-    <meta property="og:site_name" content="CallerOS | Full-Stack Developer" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_MX" />
 
-    <!-- 🔹 Meta Tags for Better Indexing -->
-    <link rel="canonical" href="https://calleros.dev/" />
-    <meta name="robots" content="index, follow" />
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CallerOS | Custom Software Development — El Paso, TX" />
+    <meta name="twitter:description" content="Custom web apps, CRMs, and internal platforms for businesses in El Paso, TX and Ciudad Juárez." />
+    <meta name="twitter:image" content="https://calleros.me/assets/preview.png" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Math&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Irene+Florentina&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Google Fonts preconnect (required for CSS @import to load fast) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Structured Data — Organization + Person + WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "ProfessionalService"],
+          "@id": "https://calleros.me/#organization",
+          "name": "CallerOS",
+          "alternateName": "Calleros Software Development",
+          "url": "https://calleros.me",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://calleros.me/assets/Logo.png"
+          },
+          "image": "https://calleros.me/assets/preview.png",
+          "description": "Custom software development studio based in El Paso, TX and Ciudad Juárez. We build internal platforms, CRMs, web apps, and mobile applications for businesses.",
+          "telephone": "+19159794788",
+          "email": "demiancalleros1@gmail.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "El Paso",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          },
+          "areaServed": [
+            { "@type": "City", "name": "El Paso" },
+            { "@type": "City", "name": "Ciudad Juárez" },
+            { "@type": "Country", "name": "United States" },
+            { "@type": "Country", "name": "Mexico" }
+          ],
+          "knowsLanguage": ["en", "es"],
+          "priceRange": "$$",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Software Development Services",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Web Development" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Internal Business Platforms" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "CRM Development" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile App Development" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "API Development" } }
+            ]
+          },
+          "sameAs": [
+            "https://github.com/Gamequic",
+            "https://www.instagram.com/calleros.me"
+          ],
+          "founder": { "@id": "https://calleros.me/#person" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://calleros.me/#person",
+          "name": "Demian Calleros",
+          "jobTitle": "Full-Stack Software Developer",
+          "url": "https://calleros.me",
+          "email": "demiancalleros1@gmail.com",
+          "telephone": "+19159794788",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "El Paso",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          },
+          "knowsLanguage": ["en", "es"],
+          "knowsAbout": [
+            "Web Development", "React", "Node.js", "Golang",
+            "Flutter", "PostgreSQL", "Software Architecture", "CRM Development"
+          ],
+          "worksFor": { "@id": "https://calleros.me/#organization" },
+          "sameAs": [
+            "https://github.com/Gamequic",
+            "https://www.instagram.com/calleros.me"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://calleros.me/#website",
+          "url": "https://calleros.me",
+          "name": "CallerOS | Custom Software Development",
+          "description": "Custom web and software development for businesses in El Paso, TX and Ciudad Juárez.",
+          "publisher": { "@id": "https://calleros.me/#organization" },
+          "inLanguage": ["en", "es"]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Static fallback for crawlers that do not render JavaScript -->
+      <noscript>
+        <h1>CallerOS — Custom Software Development</h1>
+        <p>We build custom web apps, CRMs, and internal platforms for businesses in El Paso, TX and Ciudad Juárez. Available in English and Spanish.</p>
+        <p>Contact: <a href="mailto:demiancalleros1@gmail.com">demiancalleros1@gmail.com</a> · <a href="tel:+19159794788">+1 (915) 979-4788</a></p>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
