@@ -1,0 +1,50 @@
+# CallerOS — Custom Software Development
+
+> Custom web apps, CRMs, and internal platforms for businesses in El Paso, TX and Ciudad Juárez. Available in English and Spanish.
+
+## About
+
+Demian Calleros is a full-stack developer and founder of CallerOS, a software development studio based on the US–Mexico border (El Paso, TX / Ciudad Juárez, Chihuahua). We specialize in building custom software that helps businesses operate more efficiently — replacing manual work with centralized platforms, automating processes, and giving teams real-time visibility into their operations.
+
+We work primarily with small and mid-sized businesses in the US and Mexico, and we communicate fluently in both English and Spanish.
+
+## Services
+
+- Custom web application development
+- Internal business platforms and operations tools
+- CRM and client management systems
+- Mobile applications (web, desktop, and mobile — single codebase)
+- API development and backend systems
+- Database architecture and performance optimization
+
+## Technology Stack
+
+Frontend: React, Flutter, Vite, Tailwind CSS, Framer Motion
+Backend: Node.js, Golang, FastAPI (Python)
+Databases: PostgreSQL, MySQL, Redis
+Infrastructure: Docker, JWT authentication, REST APIs
+Mobile: Flutter/Dart (iOS, Android, desktop)
+
+## Selected Projects
+
+**Anson General** — Internal operations platform for Anson General Contracting LLC, a US general contractor based in El Paso, TX. Built with Flutter, FastAPI, PostgreSQL, Docker, and Redis. Available on web, desktop, and ready for mobile. Features 4 role-based access levels, email verification, admin panel, and real-time team management.
+
+**Subrogates – IMSS** — Operations coordination platform for IMSS (Mexico's Social Security Institute) to centralize and track medical service subrogation processes. Replaced manual spreadsheet workflows with automated alerts and real-time management dashboards. Built with React and Golang.
+
+**ArenasCRM** — Custom CRM for a service business. Centralizes client profiles, appointment scheduling, team task management, and revenue tracking. Built with React, Node.js, MySQL, and Golang.
+
+## Location & Contact
+
+- **Studio:** CallerOS (calleros.dev)
+- **Founder:** Demian Calleros
+- **Based in:** El Paso, TX / Ciudad Juárez, Chihuahua (US–Mexico border)
+- **Languages:** English and Spanish
+- **Phone:** +1 (915) 979-4788
+- **Email:** demiancalleros1@gmail.com
+- **GitHub:** https://github.com/Gamequic
+- **Instagram:** https://www.instagram.com/calleros.dev
+- **Website:** https://calleros.dev
+
+## Availability
+
+Currently open to new projects. We typically respond within the same business day.
