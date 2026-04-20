@@ -15,8 +15,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import { T } from "../i18n/translations";
 
-function scrollTo(e, href) {
+function scrollTo(e, href, label) {
   e.preventDefault();
+  if (window.gtag) window.gtag("event", "nav_click_" + (label || href.replace("#", "")), { event_category: "navigation", value: 1 });
   const el = document.querySelector(href);
   if (!el) return;
   if (window.__lenis) {
@@ -130,7 +131,7 @@ export default function NavBar() {
             }}
           >
             {/* Logo */}
-            <a href="#hero" onClick={(e) => scrollTo(e, "#hero")}>
+            <a href="#hero" onClick={(e) => scrollTo(e, "#hero", "logo")}>
               <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "#fff", letterSpacing: "-0.5px" }}>
                 Demian <span style={{ color: "var(--accent)" }}>Calleros</span>
               </span>
@@ -157,7 +158,7 @@ export default function NavBar() {
               {/* CTA */}
               <a
                 href="#contact"
-                onClick={(e) => scrollTo(e, "#contact")}
+                onClick={(e) => scrollTo(e, "#contact", "nav_cta_start_project")}
                 style={{ fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "#0A0A0F", background: "var(--accent)", padding: "8px 20px", borderRadius: 8, transition: "all 0.2s ease" }}
                 onMouseEnter={(e) => { e.target.style.background = "#4DFFCE"; e.target.style.transform = "translateY(-1px)"; }}
                 onMouseLeave={(e) => { e.target.style.background = "var(--accent)"; e.target.style.transform = "translateY(0)"; }}
@@ -217,7 +218,7 @@ export default function NavBar() {
                   </div>
                   <a
                     href="#contact"
-                    onClick={(e) => { scrollTo(e, "#contact"); setMenuOpen(false); }}
+                    onClick={(e) => { scrollTo(e, "#contact", "nav_cta_start_project"); setMenuOpen(false); }}
                     style={{ fontFamily: "var(--font-body)", fontSize: 16, fontWeight: 600, color: "#0A0A0F", background: "var(--accent)", padding: "12px 20px", borderRadius: 8, textAlign: "center", marginTop: 8 }}
                   >
                     {T.nav.startProject[lang]}

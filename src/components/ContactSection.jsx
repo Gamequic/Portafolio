@@ -286,6 +286,7 @@ export default function ContactSection({ isMobile }) {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackClick(s.key)}
                   style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, fontFamily: "var(--font-body)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.6)", textDecoration: "none", transition: "all 0.2s ease" }}
                   onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.borderColor = "rgba(100,255,218,0.25)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.6)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}

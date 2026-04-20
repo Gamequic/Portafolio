@@ -284,6 +284,7 @@ export default function ProjectsSection({ isMobile }) {
             href="https://github.com/Gamequic"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => { if (window.gtag) window.gtag("event", "projects_github_cta", { event_category: "engagement", value: 1 }); }}
             style={{ fontFamily: "var(--font-body)", fontSize: 15, fontWeight: 600, color: "rgba(255,255,255,0.5)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid rgba(255,255,255,0.1)", padding: "12px 28px", borderRadius: 100, transition: "all 0.25s ease" }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(100,255,218,0.3)"; e.currentTarget.style.color = "var(--accent)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "rgba(255,255,255,0.5)"; }}

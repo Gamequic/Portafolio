@@ -85,7 +85,8 @@ export default function HeroSection({ isMobile }) {
     return () => ctx.revert();
   }, []);
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id, label) => {
+    if (window.gtag) window.gtag("event", "hero_cta_" + label, { event_category: "engagement", value: 1 });
     const el = document.getElementById(id);
     if (!el) return;
     if (lenisRef.current) {
@@ -191,7 +192,7 @@ export default function HeroSection({ isMobile }) {
           style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", width: "100%" }}
         >
           <button
-            onClick={() => scrollToSection("contact")}
+            onClick={() => scrollToSection("contact", "primary")}
             style={{ fontFamily: "var(--font-body)", fontSize: 16, fontWeight: 700, color: "#0A0A0F", background: "var(--accent)", border: "none", padding: isMobile ? "14px 28px" : "14px 32px", borderRadius: 12, cursor: "pointer", transition: "all 0.25s ease", flex: isMobile ? "1 1 140px" : "0 0 auto" }}
             onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(100,255,218,0.35)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
@@ -199,7 +200,7 @@ export default function HeroSection({ isMobile }) {
             {T.hero.ctaPrimary[lang]}
           </button>
           <button
-            onClick={() => scrollToSection("projects")}
+            onClick={() => scrollToSection("projects", "secondary")}
             style={{ fontFamily: "var(--font-body)", fontSize: 16, fontWeight: 600, color: "rgba(255,255,255,0.8)", background: "transparent", border: "1px solid rgba(255,255,255,0.18)", padding: isMobile ? "14px 28px" : "14px 32px", borderRadius: 12, cursor: "pointer", transition: "all 0.25s ease", flex: isMobile ? "1 1 140px" : "0 0 auto" }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(100,255,218,0.4)"; e.currentTarget.style.color = "var(--accent)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; e.currentTarget.style.color = "rgba(255,255,255,0.8)"; e.currentTarget.style.transform = "translateY(0)"; }}
@@ -234,7 +235,7 @@ export default function HeroSection({ isMobile }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8 }}
         style={{ position: "absolute", bottom: 32, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, cursor: "pointer" }}
-        onClick={() => scrollToSection("projects")}
+        onClick={() => scrollToSection("projects", "scroll_indicator")}
       >
         <span style={{ fontFamily: "var(--font-body)", fontSize: 11, color: "rgba(255,255,255,0.3)", letterSpacing: "1.5px", textTransform: "uppercase" }}>
           {T.hero.scroll[lang]}
