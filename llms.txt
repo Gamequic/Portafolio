@@ -35,15 +35,15 @@ Mobile: Flutter/Dart (iOS, Android, desktop)
 
 ## Location & Contact
 
-- **Studio:** CallerOS (calleros.dev)
+- **Studio:** CallerOS (calleros.me)
 - **Founder:** Demian Calleros
 - **Based in:** El Paso, TX / Ciudad Juárez, Chihuahua (US–Mexico border)
 - **Languages:** English and Spanish
 - **Phone:** +1 (915) 979-4788
 - **Email:** demiancalleros1@gmail.com
 - **GitHub:** https://github.com/Gamequic
-- **Instagram:** https://www.instagram.com/calleros.dev
-- **Website:** https://calleros.dev
+- **Instagram:** https://www.instagram.com/calleros.me
+- **Website:** https://calleros.me
 
 ## Availability
 
