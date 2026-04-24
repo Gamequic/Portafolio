@@ -27,7 +27,7 @@ export const T = {
 
   // ── HeroSection ────────────────────────────────────────────────────────────
   hero: {
-    available:      { en: "Available for new projects",  es: "Disponible para nuevos proyectos" },
+    available:      { en: "Web design · El Paso TX & Ciudad Juárez",  es: "Diseño web · El Paso TX & Ciudad Juárez" },
     // Staggered headline — 3 lines, last line has a gradient accent word appended
     headlineLines:  {
       en: ["We create software that brings new"    ],
@@ -37,12 +37,14 @@ export const T = {
     specializing:   { en: "",  es: ""  },
     valueProps: {
       en: [
-        "The first step to building something real.",
+        "Custom websites for local businesses in El Paso & Juárez.",
         "We build what you need to start and grow.",
+        "The first step to building something real.",
       ],
       es: [
-        "El primer paso para construir algo real.",
+        "Páginas web para negocios en El Paso TX y Ciudad Juárez.",
         "Construimos lo que necesitas para empezar y crecer.",
+        "El primer paso para construir algo real.",
       ],
     },
     ctaPrimary:   { en: "Start a Project →",  es: "Iniciar Proyecto →"  },
@@ -297,7 +299,7 @@ export const T = {
 
   // ── Footer ─────────────────────────────────────────────────────────────────
   footer: {
-    tagline:  { en: "Software Development · El Paso, TX", es: "Desarrollo de Software · El Paso, TX" },
+    tagline:  { en: "Web Design & Software · El Paso TX · Ciudad Juárez", es: "Páginas Web & Software · El Paso TX · Ciudad Juárez" },
     projects: { en: "Projects",  es: "Proyectos" },
     about:    { en: "About",     es: "Sobre mí"  },
     contact:  { en: "Contact",   es: "Contacto"  },
