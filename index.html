@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,15 +10,22 @@
     <meta name="theme-color" content="#0A0A0F" />
 
     <!-- Primary SEO -->
-    <title>CallerOS | Custom Software Development — El Paso, TX</title>
-    <meta name="description" content="Custom web apps, CRMs, and internal platforms for businesses in El Paso, TX and Ciudad Juárez. Available in English and Spanish. Get a quote today." />
+    <title>Páginas Web para Negocios | El Paso TX & Ciudad Juárez | CallerOS</title>
+    <meta name="description" content="Creamos páginas web profesionales y software a medida para negocios en El Paso TX y Ciudad Juárez. Atención bilingüe (inglés y español). Cotización gratis — respuesta en 24 hrs. Custom websites for local businesses." />
+    <meta name="keywords" content="páginas web El Paso, diseño web Ciudad Juárez, páginas web para negocios, páginas web Juárez, diseño web El Paso TX, web design El Paso TX, web developer El Paso, páginas web para negocios locales, crear página web Juárez, software development El Paso, diseño web para negocios pequeños, agencia web El Paso, desarrollador web Juárez, bilingual web developer" />
     <meta name="author" content="Demian Calleros" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://calleros.me/" />
 
-    <!-- Geo targeting for local SEO -->
+    <!-- hreflang — same URL serves EN and ES -->
+    <link rel="alternate" hreflang="en" href="https://calleros.me/" />
+    <link rel="alternate" hreflang="es" href="https://calleros.me/" />
+    <link rel="alternate" hreflang="es-MX" href="https://calleros.me/" />
+    <link rel="alternate" hreflang="x-default" href="https://calleros.me/" />
+
+    <!-- Geo targeting — El Paso (primary business address) -->
     <meta name="geo.region" content="US-TX" />
-    <meta name="geo.placename" content="El Paso, Texas" />
+    <meta name="geo.placename" content="El Paso, Texas / Ciudad Juárez, Chihuahua" />
     <meta name="geo.position" content="31.7619;-106.4850" />
     <meta name="ICBM" content="31.7619, -106.4850" />
 
@@ -26,66 +33,124 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://calleros.me/" />
     <meta property="og:site_name" content="CallerOS" />
-    <meta property="og:title" content="CallerOS | Custom Software Development — El Paso, TX" />
-    <meta property="og:description" content="Custom web apps, CRMs, and internal platforms for businesses in El Paso, TX and Ciudad Juárez. Available in English and Spanish." />
+    <meta property="og:title" content="Páginas Web para Negocios | El Paso TX & Ciudad Juárez | CallerOS" />
+    <meta property="og:description" content="Creamos páginas web profesionales y software a medida para negocios en El Paso TX y Ciudad Juárez. Atención bilingüe. Cotización gratis." />
     <meta property="og:image" content="https://calleros.me/assets/preview.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:locale:alternate" content="es_MX" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:locale:alternate" content="en_US" />
 
     <!-- Twitter / X Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CallerOS | Custom Software Development — El Paso, TX" />
-    <meta name="twitter:description" content="Custom web apps, CRMs, and internal platforms for businesses in El Paso, TX and Ciudad Juárez." />
+    <meta name="twitter:title" content="Páginas Web para Negocios | El Paso TX & Ciudad Juárez | CallerOS" />
+    <meta name="twitter:description" content="Páginas web y software para negocios en El Paso TX y Ciudad Juárez. Bilingüe · Cotización gratis." />
     <meta name="twitter:image" content="https://calleros.me/assets/preview.png" />
 
     <!-- Google Fonts preconnect (required for CSS @import to load fast) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Structured Data — Organization + Person + WebSite -->
+    <!-- Structured Data — Organization + LocalBusiness + Person + WebSite + FAQ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": ["Organization", "ProfessionalService"],
+          "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
           "@id": "https://calleros.me/#organization",
           "name": "CallerOS",
-          "alternateName": "Calleros Software Development",
+          "alternateName": ["Calleros Software Development", "Calleros Páginas Web"],
           "url": "https://calleros.me",
           "logo": {
             "@type": "ImageObject",
             "url": "https://calleros.me/assets/Logo.png"
           },
           "image": "https://calleros.me/assets/preview.png",
-          "description": "Custom software development studio based in El Paso, TX and Ciudad Juárez. We build internal platforms, CRMs, web apps, and mobile applications for businesses.",
+          "description": "Creamos páginas web profesionales y software personalizado para negocios en El Paso TX y Ciudad Juárez. Custom website design and software development for businesses in El Paso, TX and Ciudad Juárez.",
           "telephone": "+19159794788",
           "email": "demiancalleros1@gmail.com",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "El Paso",
             "addressRegion": "TX",
+            "postalCode": "79901",
             "addressCountry": "US"
           },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 31.7619,
+            "longitude": -106.4850
+          },
           "areaServed": [
-            { "@type": "City", "name": "El Paso" },
-            { "@type": "City", "name": "Ciudad Juárez" },
+            {
+              "@type": "City",
+              "name": "El Paso",
+              "sameAs": "https://www.wikidata.org/wiki/Q16571"
+            },
+            {
+              "@type": "City",
+              "name": "Ciudad Juárez",
+              "sameAs": "https://www.wikidata.org/wiki/Q79872"
+            },
+            { "@type": "State", "name": "Texas" },
+            { "@type": "State", "name": "Chihuahua" },
             { "@type": "Country", "name": "United States" },
             { "@type": "Country", "name": "Mexico" }
           ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-915-979-4788",
+            "contactType": "sales",
+            "availableLanguage": ["English", "Spanish"],
+            "areaServed": ["US", "MX"],
+            "contactOption": "TollFree"
+          },
           "knowsLanguage": ["en", "es"],
           "priceRange": "$$",
+          "currenciesAccepted": ["USD", "MXN"],
+          "paymentAccepted": "Cash, Credit Card, Bank Transfer",
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
-            "name": "Software Development Services",
+            "name": "Servicios de Desarrollo Web y Software",
             "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Web Development" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Internal Business Platforms" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "CRM Development" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile App Development" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "API Development" } }
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Páginas Web para Negocios",
+                  "description": "Diseño y desarrollo de páginas web profesionales para negocios locales en El Paso TX y Ciudad Juárez.",
+                  "areaServed": ["El Paso TX", "Ciudad Juárez"]
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom Web Design — El Paso TX",
+                  "description": "Professional website design and development for small and medium businesses in El Paso, Texas."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Software Empresarial Personalizado",
+                  "description": "Plataformas internas, CRM y aplicaciones a medida para negocios en El Paso y Ciudad Juárez."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": { "@type": "Service", "name": "CRM Development" }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": { "@type": "Service", "name": "Mobile App Development" }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": { "@type": "Service", "name": "API Development" }
+              }
             ]
           },
           "sameAs": [
@@ -98,7 +163,8 @@
           "@type": "Person",
           "@id": "https://calleros.me/#person",
           "name": "Demian Calleros",
-          "jobTitle": "Full-Stack Software Developer",
+          "jobTitle": "Full-Stack Web Developer & Software Engineer",
+          "description": "Desarrollador web bilingüe basado en El Paso TX / Ciudad Juárez. Especializado en páginas web y software para negocios locales.",
           "url": "https://calleros.me",
           "email": "demiancalleros1@gmail.com",
           "telephone": "+19159794788",
@@ -110,8 +176,9 @@
           },
           "knowsLanguage": ["en", "es"],
           "knowsAbout": [
-            "Web Development", "React", "Node.js", "Golang",
-            "Flutter", "PostgreSQL", "Software Architecture", "CRM Development"
+            "Web Development", "Web Design", "React", "Node.js", "Golang",
+            "Flutter", "PostgreSQL", "Software Architecture", "CRM Development",
+            "Páginas Web para Negocios", "Diseño Web El Paso", "Desarrollo Web Juárez"
           ],
           "worksFor": { "@id": "https://calleros.me/#organization" },
           "sameAs": [
@@ -123,14 +190,85 @@
           "@type": "WebSite",
           "@id": "https://calleros.me/#website",
           "url": "https://calleros.me",
-          "name": "CallerOS | Custom Software Development",
-          "description": "Custom web and software development for businesses in El Paso, TX and Ciudad Juárez.",
+          "name": "CallerOS | Páginas Web y Software para Negocios",
+          "description": "Diseño web y desarrollo de software para negocios en El Paso TX y Ciudad Juárez.",
           "publisher": { "@id": "https://calleros.me/#organization" },
           "inLanguage": ["en", "es"]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://calleros.me/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Hacen páginas web para negocios en El Paso TX?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí, creamos páginas web profesionales para todo tipo de negocios en El Paso, Texas. Diseño personalizado, responsive (funciona en celular y computadora), y con atención en español e inglés. Contáctanos para una cotización gratuita."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Hacen páginas web en Ciudad Juárez?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí, atendemos negocios en Ciudad Juárez, Chihuahua. Somos un equipo bilingüe basado en la frontera El Paso-Juárez y ofrecemos el mismo servicio de calidad en ambas ciudades. Llámanos al +1 (915) 979-4788 o escríbenos por WhatsApp."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cuánto cuesta una página web para un negocio?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El precio de una página web depende de las funciones que necesitas. Ofrecemos cotización gratuita y sin compromiso adaptada a tu negocio. Contáctanos por WhatsApp al +1 (915) 979-4788 o por correo a demiancalleros1@gmail.com para recibir tu presupuesto en 24 horas."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿En cuánto tiempo pueden hacer mi página web?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Una página web sencilla para negocio puede estar lista en 2 a 4 semanas. Proyectos más complejos como plataformas o CRMs pueden tomar más tiempo. Contáctanos para darte un cronograma específico para tu proyecto."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Hacen páginas web para negocios pequeños?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí, nos especializamos en páginas web para negocios locales de todos los tamaños en El Paso y Juárez — desde restaurantes y tiendas hasta despachos y empresas de servicios. Cada página web es diseñada a medida según las necesidades del negocio."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you build websites for small businesses in El Paso, TX?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, we specialize in custom website design and software development for small and medium businesses in El Paso, Texas and Ciudad Juárez. We offer free quotes and bilingual service in English and Spanish. Contact us at +1 (915) 979-4788 or via WhatsApp."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Las páginas web funcionan en celular?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí, todas nuestras páginas web son responsive — funcionan perfectamente en celulares, tablets y computadoras. El diseño mobile-first es estándar en todos nuestros proyectos sin costo adicional."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Hablan español? ¿Atienden en español?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí, somos 100% bilingües. Puedes comunicarte con nosotros en español o inglés, como prefieras. Estamos basados en la frontera El Paso / Ciudad Juárez y entendemos las necesidades de negocios en ambos lados de la frontera."
+              }
+            }
+          ]
         }
       ]
     }
     </script>
+
     <!-- Google Analytics GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-03GWBHZ6WY"></script>
     <script>
@@ -139,16 +277,53 @@
       gtag('js', new Date());
       gtag('config', 'G-03GWBHZ6WY');
     </script>
-    <script type="module" crossorigin src="/assets/index-DKc5nk_h.js"></script>
+    <script type="module" crossorigin src="/assets/index-DrUBBbS8.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-LoSwj2EF.css">
   </head>
   <body>
     <div id="root">
       <!-- Static fallback for crawlers that do not render JavaScript -->
       <noscript>
-        <h1>CallerOS — Custom Software Development</h1>
-        <p>We build custom web apps, CRMs, and internal platforms for businesses in El Paso, TX and Ciudad Juárez. Available in English and Spanish.</p>
-        <p>Contact: <a href="mailto:demiancalleros1@gmail.com">demiancalleros1@gmail.com</a> · <a href="tel:+19159794788">+1 (915) 979-4788</a></p>
+        <h1>CallerOS — Páginas Web y Software para Negocios en El Paso TX y Ciudad Juárez</h1>
+
+        <h2>Diseño Web Profesional para Negocios Locales | El Paso TX · Ciudad Juárez</h2>
+        <p>Creamos páginas web profesionales y software personalizado para negocios en El Paso, Texas y Ciudad Juárez, Chihuahua. Atención 100% bilingüe en inglés y español. Cotización gratis en 24 horas.</p>
+        <p>Custom website design and software development for local businesses in El Paso, TX and Ciudad Juárez. Bilingual service — English and Spanish. Free quote within 24 hours.</p>
+
+        <h3>Nuestros Servicios / Our Services</h3>
+        <ul>
+          <li>Páginas web profesionales para negocios en El Paso TX y Ciudad Juárez</li>
+          <li>Diseño web responsive — funciona en celular, tablet y computadora</li>
+          <li>Software personalizado: CRM, plataformas internas, sistemas de gestión</li>
+          <li>Aplicaciones móviles para iOS y Android</li>
+          <li>Páginas web para restaurantes, tiendas, despachos y empresas de servicios</li>
+          <li>Custom web design for small and medium businesses in El Paso, TX</li>
+          <li>Bilingual web development for US-Mexico border businesses</li>
+        </ul>
+
+        <h3>¿Por qué elegirnos para tu página web?</h3>
+        <ul>
+          <li>Atención bilingüe — inglés y español</li>
+          <li>Basados en El Paso TX / Ciudad Juárez — conocemos tu mercado</li>
+          <li>Cotización gratis y sin compromiso en 24 horas</li>
+          <li>Páginas web 100% personalizadas — no plantillas genéricas</li>
+          <li>Diseño responsive — tu sitio funciona perfecto en celulares</li>
+          <li>Experiencia real con negocios locales de ambos lados de la frontera</li>
+        </ul>
+
+        <h3>Preguntas Frecuentes sobre Páginas Web para Negocios</h3>
+        <p><strong>¿Hacen páginas web para negocios en El Paso TX?</strong> Sí, creamos páginas web profesionales para todo tipo de negocios en El Paso, Texas. Diseño personalizado, responsive, con atención en español e inglés.</p>
+        <p><strong>¿Hacen páginas web en Ciudad Juárez?</strong> Sí, atendemos negocios en Ciudad Juárez, Chihuahua con el mismo servicio de calidad. Somos un equipo bilingüe basado en la frontera.</p>
+        <p><strong>¿Cuánto cuesta una página web?</strong> Ofrecemos cotización gratis y sin compromiso. El precio depende de las funciones que necesitas. Contáctanos para tu presupuesto.</p>
+        <p><strong>¿Las páginas web funcionan en celular?</strong> Sí, todas son responsive y funcionan perfectamente en celulares, tablets y computadoras.</p>
+        <p><strong>Do you build websites for small businesses in El Paso?</strong> Yes, we specialize in custom website design for small and medium businesses in El Paso, TX. Free quote, bilingual service.</p>
+
+        <h3>Contacto / Contact</h3>
+        <p>WhatsApp &amp; Teléfono: <a href="tel:+19159794788">+1 (915) 979-4788</a></p>
+        <p>Email: <a href="mailto:demiancalleros1@gmail.com">demiancalleros1@gmail.com</a></p>
+        <p>Instagram: <a href="https://www.instagram.com/calleros.me">@calleros.me</a></p>
+        <p>GitHub: <a href="https://github.com/Gamequic">github.com/Gamequic</a></p>
+        <p>Ubicación: El Paso, TX 79901 — También atendemos Ciudad Juárez, Chihuahua</p>
       </noscript>
     </div>
   </body>
